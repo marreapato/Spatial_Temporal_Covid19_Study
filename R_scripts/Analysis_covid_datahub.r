@@ -423,6 +423,12 @@ for(i in 1:length(time_datasets)){
   time_series_countries[[paste(names(time_datasets[i]))]][["deaths"]] <- ggplot(time_datasets[[i]], aes(x=date, y=deaths)) +
     geom_line() + 
     xlab("Date")+ylab(paste("Cumulative number of deaths in",names(time_datasets[i]),sep = ' '))+scale_x_date(date_breaks = "1 month", date_labels = "%b")+theme_stata()
+  time_series_countries[[paste(names(time_datasets[i]))]][["tests"]] <- ggplot(time_datasets[[i]], aes(x=date, y=tests)) +
+    geom_line() + 
+    xlab("Date")+ylab(paste("Cumulative number of tests in",names(time_datasets[i]),sep = ' '))+scale_x_date(date_breaks = "1 month", date_labels = "%b")+theme_stata()
+  time_series_countries[[paste(names(time_datasets[i]))]][["contact_tracing"]] <- ggplot(time_datasets[[i]], aes(x=date, y=contact_tracing)) +
+    geom_line() + 
+    xlab("Date")+ylab(paste("Cumulative number of tests in",names(time_datasets[i]),sep = ' '))+scale_x_date(date_breaks = "1 month", date_labels = "%b")+theme_stata()
   
 }
 
