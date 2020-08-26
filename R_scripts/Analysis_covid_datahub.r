@@ -396,4 +396,14 @@ total_v <- total[order(total_v$vent),] # order the data [very important!]
 
 #plotting a few time series
 
+dataf <- covid19()#updated data
 
+#one dataset for each country
+
+time_datasets <- NULL
+
+for(i in 1:length(total_v$subunit)){
+  
+  time_datasets[[paste(total_v$subunit[i])]] <- filter(dataf,administrative_area_level_1==paste(total_v$subunit[i])) 
+  
+}
