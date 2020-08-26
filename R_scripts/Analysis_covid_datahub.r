@@ -406,4 +406,24 @@ for(i in 1:length(total_v$subunit)){
   
   time_datasets[[paste(total_v$subunit[i])]] <- filter(dataf,administrative_area_level_1==paste(total_v$subunit[i])) 
   
+  
+  
 }
+
+time_series_countries=NULL
+# only a few configurations
+for(i in 1:length(time_datasets)){
+
+  time_series_countries[[paste(names(time_datasets[i]))]][["confirmed"]] <- ggplot(time_datasets[[i]], aes(x=date, y=confirmed)) +
+  geom_line() + 
+  xlab("Date")+ylab(paste("Cumulative number of confirmed cases in",names(time_datasets[i]),sep = ' '))+scale_x_date(date_breaks = "1 month", date_labels = "%b")+theme_stata()
+  time_series_countries[[paste(names(time_datasets[i]))]][["recovered"]] <- ggplot(time_datasets[[i]], aes(x=date, y=recovered)) +
+    geom_line() + 
+    xlab("Date")+ylab(paste("Cumulative necovered cases in",names(time_datasets[i]),sep = ' '))+scale_x_date(date_breaks = "1 month", date_labels = "%b")+theme_stata()
+  time_series_countries[[paste(names(time_datasets[i]))]][["deaths"]] <- ggplot(time_datasets[[i]], aes(x=date, y=deaths)) +
+    geom_line() + 
+    xlab("Date")+ylab(paste("Cumulative number of deaths in",names(time_datasets[i]),sep = ' '))+scale_x_date(date_breaks = "1 month", date_labels = "%b")+theme_stata()
+  
+}
+
+
