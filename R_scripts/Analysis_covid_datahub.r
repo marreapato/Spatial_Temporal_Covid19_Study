@@ -298,7 +298,7 @@ grid.arrange(maps_plot$feb$Confirmed_cases,maps_plot$marc$Confirmed_cases,maps_p
 comp_monthly <- NULL
 for(i in 1:16){
   (comp_monthly[[i]] <- grid.arrange(maps_plot$feb[[i]],maps_plot$marc[[i]],maps_plot$apr[[i]],maps_plot$may[[i]],maps_plot$jun[[i]],maps_plot$jul[[i]], ncol=2))
-  Sys.sleep(20)
+  #Sys.sleep(20)
   
 }
 
@@ -313,3 +313,87 @@ for(j in 1:length(maps_plot)){
   
   }
 }
+
+#number of hospitalized and icu patients, number of patients requiring ventilation
+
+utoday <- covid19(end = "2020-08-26")
+countries<-aggregate(hosp~administrative_area_level_1,utoday,sum)
+head(countries)
+
+#renaming
+countries$administrative_area_level_1 <- gsub("United States", "United States of America", countries$administrative_area_level_1)
+countries$administrative_area_level_1 <- gsub("Congo", "Republic of Congo", countries$administrative_area_level_1)
+countries$administrative_area_level_1 <- gsub("Republic of Congo, the Democratic Republic of the", "Democratic Republic of the Congo", countries$administrative_area_level_1)
+countries$administrative_area_level_1 <- gsub("Cote d'Ivoire", "Ivory Coast", countries$administrative_area_level_1)
+countries$administrative_area_level_1 <- gsub("Korea, South", "South Korea", countries$administrative_area_level_1)
+
+names(countries)[names(countries) == "administrative_area_level_1"] <- "subunit"
+
+total_h<-merge(world,countries,by="subunit")
+total_h$subunit<-factor(total_h$subunit)
+total_h <- total[order(total_h$hosp),] # order the data [very important!]
+
+#plotting chlotopleth map
+
+(ggplot(data = total_h) +
+    geom_sf(aes(fill = hosp)) +
+    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+    #         fill = NA, colour = "black", size = 1.5) +
+    scale_fill_viridis_c(option = "plasma") +
+    theme(panel.background = element_rect(fill = "azure"),
+          panel.border = element_rect(fill = NA))+labs(title = "Cumulative number of hospitalized patients of covid19",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+
+#icu patients
+countries<-aggregate(icu~administrative_area_level_1,utoday,sum)
+head(countries)
+
+#renaming
+countries$administrative_area_level_1 <- gsub("United States", "United States of America", countries$administrative_area_level_1)
+countries$administrative_area_level_1 <- gsub("Congo", "Republic of Congo", countries$administrative_area_level_1)
+countries$administrative_area_level_1 <- gsub("Republic of Congo, the Democratic Republic of the", "Democratic Republic of the Congo", countries$administrative_area_level_1)
+countries$administrative_area_level_1 <- gsub("Cote d'Ivoire", "Ivory Coast", countries$administrative_area_level_1)
+countries$administrative_area_level_1 <- gsub("Korea, South", "South Korea", countries$administrative_area_level_1)
+
+names(countries)[names(countries) == "administrative_area_level_1"] <- "subunit"
+
+total_i<-merge(world,countries,by="subunit")
+total_i$subunit<-factor(total_i$subunit)
+total_i <- total[order(total_i$icu),] # order the data [very important!]
+
+(ggplot(data = total_i) +
+    geom_sf(aes(fill = icu)) +
+    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+    #         fill = NA, colour = "black", size = 1.5) +
+    scale_fill_viridis_c(option = "plasma") +
+    theme(panel.background = element_rect(fill = "azure"),
+          panel.border = element_rect(fill = NA))+labs(title = "Cumulative number of hospitalized patients of covid19",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+
+#requiring ventilation
+
+countries<-aggregate(vent~administrative_area_level_1,utoday,sum)
+head(countries)
+
+#renaming
+countries$administrative_area_level_1 <- gsub("United States", "United States of America", countries$administrative_area_level_1)
+countries$administrative_area_level_1 <- gsub("Congo", "Republic of Congo", countries$administrative_area_level_1)
+countries$administrative_area_level_1 <- gsub("Republic of Congo, the Democratic Republic of the", "Democratic Republic of the Congo", countries$administrative_area_level_1)
+countries$administrative_area_level_1 <- gsub("Cote d'Ivoire", "Ivory Coast", countries$administrative_area_level_1)
+countries$administrative_area_level_1 <- gsub("Korea, South", "South Korea", countries$administrative_area_level_1)
+
+names(countries)[names(countries) == "administrative_area_level_1"] <- "subunit"
+
+total_v<-merge(world,countries,by="subunit")
+total_v$subunit<-factor(total_v$subunit)
+total_v <- total[order(total_v$vent),] # order the data [very important!]
+
+(ggplot(data = total_v) +
+    geom_sf(aes(fill = vent)) +
+    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+    #         fill = NA, colour = "black", size = 1.5) +
+    scale_fill_viridis_c(option = "plasma") +
+    theme(panel.background = element_rect(fill = "azure"),
+          panel.border = element_rect(fill = NA))+labs(title = "Cumulative number of hospitalized patients of covid19",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+
+#plotting a few time series
+
+
