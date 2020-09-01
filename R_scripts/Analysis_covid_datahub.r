@@ -24,12 +24,12 @@ world <- ne_countries(scale='medium',returnclass = 'sf')
 #obs: to check the number of hospitalized patients i'll have aggregate and sum
 
 #saving datasets
-feb <-covid19(start ="2020-02-29" ,end ="2020-02-29" ) 
-march <- covid19(start ="2020-03-31" ,end ="2020-03-31" ) 
-april <-covid19(start ="2020-04-30" ,end ="2020-04-30" )  
-may <- covid19(start ="2020-05-31" ,end ="2020-05-31" ) 
-june <- covid19(start ="2020-06-30" ,end ="2020-06-30" ) 
-july <- covid19(start ="2020-07-31" ,end ="2020-07-31" ) 
+feb <-covid19(start ="2020-02-29" ,end ="2020-02-29",raw = F ) 
+march <- covid19(start ="2020-03-31" ,end ="2020-03-31",raw = F ) 
+april <-covid19(start ="2020-04-30" ,end ="2020-04-30",raw = F )  
+may <- covid19(start ="2020-05-31" ,end ="2020-05-31" ,raw = F) 
+june <- covid19(start ="2020-06-30" ,end ="2020-06-30",raw = F ) 
+july <- covid19(start ="2020-07-31" ,end ="2020-07-31",raw = F ) 
 
 #list of datasets
 datasets <- list(feb20=feb,march20=march,april20=april,may20=may,june20=june,july=july)
@@ -37,7 +37,7 @@ datasets <- list(feb20=feb,march20=march,april20=april,may20=may,june20=june,jul
 #renaming a few cells in the datasets
 
 for(i in 1:length(datasets)){
- 
+  
   datasets[[i]]$school_closing <- gsub(0, "No measures", datasets[[i]]$school_closing)
   datasets[[i]]$school_closing <- gsub(1, "Recommend closing", datasets[[i]]$school_closing)
   datasets[[i]]$school_closing <- gsub(2, "Require closing (only some levels or categories)", datasets[[i]]$school_closing)
@@ -47,7 +47,7 @@ for(i in 1:length(datasets)){
   datasets[[i]]$workplace_closing <- gsub(1, "Recommend closing (or work from home)", datasets[[i]]$workplace_closing)
   datasets[[i]]$workplace_closing <- gsub(2, "Require closing for some sectors or categories of workers", datasets[[i]]$workplace_closing)
   datasets[[i]]$workplace_closing <- gsub(3, "require closing (or work from home) all-but-essential workplaces", datasets[[i]]$workplace_closing)
-   
+  
   datasets[[i]]$cancel_events<- gsub(0, "No measures", datasets[[i]]$cancel_events)
   datasets[[i]]$cancel_events <- gsub(1, "Recommend cancelling", datasets[[i]]$cancel_events)
   datasets[[i]]$cancel_events <- gsub(2, "Require cancelling", datasets[[i]]$cancel_events)
@@ -57,7 +57,7 @@ for(i in 1:length(datasets)){
   datasets[[i]]$gatherings_restrictions<- gsub(2, "Restrictions on gatherings between 100-1000 people", datasets[[i]]$gatherings_restrictions)
   datasets[[i]]$gatherings_restrictions<- gsub(3, "Restrictions on gatherings between 10-100 people", datasets[[i]]$gatherings_restrictions)
   datasets[[i]]$gatherings_restrictions<- gsub(4, "Restrictions on gatherings of less than 10 people", datasets[[i]]$gatherings_restrictions)
- 
+  
   datasets[[i]]$transport_closing<- gsub(0, "No measures", datasets[[i]]$transport_closing)
   datasets[[i]]$transport_closing<- gsub(1, "Recommend closing", datasets[[i]]$transport_closing)
   datasets[[i]]$transport_closing<- gsub(2, "Require closing", datasets[[i]]$transport_closing)
@@ -70,7 +70,7 @@ for(i in 1:length(datasets)){
   datasets[[i]]$internal_movement_restrictions<- gsub(0, "No measures", datasets[[i]]$internal_movement_restrictions)
   datasets[[i]]$internal_movement_restrictions<- gsub(1, "Recommend closing (or significantly reduce volume/route/means of transport)", datasets[[i]]$internal_movement_restrictions)
   datasets[[i]]$internal_movement_restrictions<- gsub(2, "Require closing (or prohibit most people from using it)", datasets[[i]]$internal_movement_restrictions)
- 
+  
   datasets[[i]]$international_movement_restrictions<- gsub(0, "No measures", datasets[[i]]$international_movement_restrictions)
   datasets[[i]]$international_movement_restrictions<- gsub(1, "Screening", datasets[[i]]$international_movement_restrictions)
   datasets[[i]]$international_movement_restrictions<- gsub(2, "Quarantine arrivals from high-risk regions", datasets[[i]]$international_movement_restrictions)
@@ -131,164 +131,164 @@ maps_plot <- list(feb=NULL,marc=NULL,apr=NULL,may=NULL,jun=NULL,jul=NULL)
 name_mont <- c("February.","March.","April.","May.","June.","July.")
 
 for(i in 1:length(total)){
-#confirmed number of cases 
-(maps_plot[[i]][["Confirmed_cases"]] <- ggplot(data = total[[i]]) +
-    geom_sf(aes(fill = confirmed)) +
-    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-    #         fill = NA, colour = "black", size = 1.5) +
-    scale_fill_continuous_tableau() +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title = paste("Cumulative number of confirmed cases of covid19 in",name_mont[i],sep=" "),fill="Confirmed cases.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-#confirmed number of deaths 
-(maps_plot[[i]][["Deaths"]] <- ggplot(data = total[[i]]) +
-    geom_sf(aes(fill = deaths)) +
-    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-    #         fill = NA, colour = "black", size = 1.5) +
-    scale_fill_gradient_tableau(palette = "Red-Gold") +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title =paste("Cumulative number of deaths from covid19 in",name_mont[i],sep=" "),fill="Number of deaths.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-#confirmed number of recovered cases in february
-(maps_plot[[i]][["Recovered_cases"]] <- ggplot(data = total[[i]]) +
-    geom_sf(aes(fill = recovered)) +
-    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-    #         fill = NA, colour = "black", size = 1.5) +
-    scale_fill_gradient_tableau(palette = "Green-Gold") +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title = paste("Cumulative number of recovered patients of covid19 in",name_mont[i],sep = " "),fill="Recovered cases.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-#cumulative number of tests in february
-(maps_plot[[i]][["N_of_tests"]] <- ggplot(data = total[[i]]) +
-    geom_sf(aes(fill = tests)) +
-    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-    #         fill = NA, colour = "black", size = 1.5) +
-    scale_fill_gradient_tableau("Orange-Gold") +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title = paste("Cumulative number of tests of covid19 in",name_mont[i],sep=' '),fill="Number of tests.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-#population in february
-(maps_plot[[i]][["Population"]] <- ggplot(data = total[[i]]) +
-    geom_sf(aes(fill = population)) +
-    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-    #         fill = NA, colour = "black", size = 1.5) +
-    scale_fill_gradient_tableau(palette="Blue-Teal") +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title = paste("World population in",name_mont[i],sep = ' '),fill="Population.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-#descriptive information feb#######################
-
-
-#school closures
-(maps_plot[[i]][["School_closures"]] <- ggplot(data = total[[i]]) +
-   geom_sf(aes(fill = school_closing)) +
-   #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-   #         fill = NA, colour = "black", size = 1.5) +
-   scale_fill_economist() +
-   theme(panel.background = element_rect(fill = "white"),
-         panel.border = element_rect(fill = NA))+labs(title = paste("School closures in",name_mont[i],sep=' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-#workspace closures
-(maps_plot[[i]][["Workspace_closures"]] <- ggplot(data = total[[i]]) +
-    geom_sf(aes(fill = workplace_closing)) +
-    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-    #         fill = NA, colour = "black", size = 1.5) +
-    scale_fill_economist() +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title = paste("Workspace closures in",name_mont[i],sep=' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-
-#canceled events
-(maps_plot[[i]][["Canceled_events"]] <- ggplot(data = total[[i]]) +
-    geom_sf(aes(fill = cancel_events)) +
-    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-    #         fill = NA, colour = "black", size = 1.5) +
-    scale_fill_economist() +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title = paste("Canceled events in",name_mont[i],sep=' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-#gatherings restrictions
-
-(maps_plot[[i]][["Gathering_restr"]] <- ggplot(data = total[[i]]) +
-    geom_sf(aes(fill = gatherings_restrictions)) +
-    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-    #         fill = NA, colour = "black", size = 1.5) +
-    scale_fill_economist() +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title = paste("Gathering restrictions in",name_mont[i],sep = ' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-
-#transport closures
-(maps_plot[[i]][["Transport_closures"]] <- ggplot(data = total[[i]]) +
-    geom_sf(aes(fill = transport_closing)) +
-    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-    #         fill = NA, colour = "black", size = 1.5) +
-    scale_fill_economist() +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title = paste("Transport closures in",name_mont[i],sep = ' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-#stay home restrictions
-
-(maps_plot[[i]][["Stay_home"]] <- ggplot(data = total[[i]]) +
-    geom_sf(aes(fill = stay_home_restrictions)) +
-    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-    #         fill = NA, colour = "black", size = 1.5) +
-    scale_fill_economist() +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title = paste("Stay home restrictions in", name_mont[i],sep = ' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-#internal_movement_restrictions	
-
-(maps_plot[[i]][["Internal_restric"]] <- ggplot(data = total[[i]]) +
-    geom_sf(aes(fill = internal_movement_restrictions)) +
-    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-    #         fill = NA, colour = "black", size = 1.5) +
-    scale_fill_economist() +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title = paste("Internal movement restrictions in",name_mont[i],sep = ' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-#international_movement_restrictions		
-
-(maps_plot[[i]][["International_restric"]] <- ggplot(data = total[[i]]) +
-    geom_sf(aes(fill = international_movement_restrictions)) +
-    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-    #         fill = NA, colour = "black", size = 1.5) +
-    scale_fill_economist() +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title = paste("Internal movement restrictions in",name_mont[i],sep = ' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-
-#information_campaigns			
-
-(maps_plot[[i]][["Info_campaigns"]] <- ggplot(data = total[[i]]) +
-    geom_sf(aes(fill = information_campaigns)) +
-    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-    #         fill = NA, colour = "black", size = 1.5) +
-    scale_fill_economist() +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title = paste("Information campaigns in",name_mont[i],sep = ' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-#testing_policy				
-
-(maps_plot[[i]][["Testing_policy"]] <- ggplot(data = total[[i]]) +
-    geom_sf(aes(fill = testing_policy)) +
-    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-    #         fill = NA, colour = "black", size = 1.5) +
-    scale_fill_economist() +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title =paste("Testing policy in",name_mont[i],sep = " "),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-#contact_tracing				
-
-(maps_plot[[i]][["Contact_tracing"]] <- ggplot(data = total[[i]]) +
-    geom_sf(aes(fill = contact_tracing)) +
-    #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-    #         fill = NA, colour = "black", size = 1.5) +
-    scale_fill_economist() +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title =paste( "Contact tracing in",name_mont[i],sep=" "),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
-
-
+  #confirmed number of cases 
+  (maps_plot[[i]][["Confirmed_cases"]] <- ggplot(data = total[[i]]) +
+     geom_sf(aes(fill = confirmed)) +
+     #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+     #         fill = NA, colour = "black", size = 1.5) +
+     scale_fill_continuous_tableau() +
+     theme(panel.background = element_rect(fill = "white"),
+           panel.border = element_rect(fill = NA))+labs(title = paste("Cumulative number of confirmed cases of covid19 in",name_mont[i],sep=" "),fill="Confirmed cases.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  #confirmed number of deaths 
+  (maps_plot[[i]][["Deaths"]] <- ggplot(data = total[[i]]) +
+      geom_sf(aes(fill = deaths)) +
+      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+      #         fill = NA, colour = "black", size = 1.5) +
+      scale_fill_gradient_tableau(palette = "Red-Gold") +
+      theme(panel.background = element_rect(fill = "white"),
+            panel.border = element_rect(fill = NA))+labs(title =paste("Cumulative number of deaths from covid19 in",name_mont[i],sep=" "),fill="Number of deaths.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  #confirmed number of recovered cases in february
+  (maps_plot[[i]][["Recovered_cases"]] <- ggplot(data = total[[i]]) +
+      geom_sf(aes(fill = recovered)) +
+      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+      #         fill = NA, colour = "black", size = 1.5) +
+      scale_fill_gradient_tableau(palette = "Green-Gold") +
+      theme(panel.background = element_rect(fill = "white"),
+            panel.border = element_rect(fill = NA))+labs(title = paste("Cumulative number of recovered patients of covid19 in",name_mont[i],sep = " "),fill="Recovered cases.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  #cumulative number of tests in february
+  (maps_plot[[i]][["N_of_tests"]] <- ggplot(data = total[[i]]) +
+      geom_sf(aes(fill = tests)) +
+      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+      #         fill = NA, colour = "black", size = 1.5) +
+      scale_fill_gradient_tableau("Orange-Gold") +
+      theme(panel.background = element_rect(fill = "white"),
+            panel.border = element_rect(fill = NA))+labs(title = paste("Cumulative number of tests of covid19 in",name_mont[i],sep=' '),fill="Number of tests.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  #population in february
+  (maps_plot[[i]][["Population"]] <- ggplot(data = total[[i]]) +
+      geom_sf(aes(fill = population)) +
+      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+      #         fill = NA, colour = "black", size = 1.5) +
+      scale_fill_gradient_tableau(palette="Blue-Teal") +
+      theme(panel.background = element_rect(fill = "white"),
+            panel.border = element_rect(fill = NA))+labs(title = paste("World population in",name_mont[i],sep = ' '),fill="Population.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  #descriptive information feb#######################
+  
+  
+  #school closures
+  (maps_plot[[i]][["School_closures"]] <- ggplot(data = total[[i]]) +
+     geom_sf(aes(fill = school_closing)) +
+     #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+     #         fill = NA, colour = "black", size = 1.5) +
+     scale_fill_economist() +
+     theme(panel.background = element_rect(fill = "white"),
+           panel.border = element_rect(fill = NA))+labs(title = paste("School closures in",name_mont[i],sep=' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  #workspace closures
+  (maps_plot[[i]][["Workspace_closures"]] <- ggplot(data = total[[i]]) +
+      geom_sf(aes(fill = workplace_closing)) +
+      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+      #         fill = NA, colour = "black", size = 1.5) +
+      scale_fill_economist() +
+      theme(panel.background = element_rect(fill = "white"),
+            panel.border = element_rect(fill = NA))+labs(title = paste("Workspace closures in",name_mont[i],sep=' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  
+  #canceled events
+  (maps_plot[[i]][["Canceled_events"]] <- ggplot(data = total[[i]]) +
+      geom_sf(aes(fill = cancel_events)) +
+      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+      #         fill = NA, colour = "black", size = 1.5) +
+      scale_fill_economist() +
+      theme(panel.background = element_rect(fill = "white"),
+            panel.border = element_rect(fill = NA))+labs(title = paste("Canceled events in",name_mont[i],sep=' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  #gatherings restrictions
+  
+  (maps_plot[[i]][["Gathering_restr"]] <- ggplot(data = total[[i]]) +
+      geom_sf(aes(fill = gatherings_restrictions)) +
+      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+      #         fill = NA, colour = "black", size = 1.5) +
+      scale_fill_economist() +
+      theme(panel.background = element_rect(fill = "white"),
+            panel.border = element_rect(fill = NA))+labs(title = paste("Gathering restrictions in",name_mont[i],sep = ' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  
+  #transport closures
+  (maps_plot[[i]][["Transport_closures"]] <- ggplot(data = total[[i]]) +
+      geom_sf(aes(fill = transport_closing)) +
+      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+      #         fill = NA, colour = "black", size = 1.5) +
+      scale_fill_economist() +
+      theme(panel.background = element_rect(fill = "white"),
+            panel.border = element_rect(fill = NA))+labs(title = paste("Transport closures in",name_mont[i],sep = ' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  #stay home restrictions
+  
+  (maps_plot[[i]][["Stay_home"]] <- ggplot(data = total[[i]]) +
+      geom_sf(aes(fill = stay_home_restrictions)) +
+      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+      #         fill = NA, colour = "black", size = 1.5) +
+      scale_fill_economist() +
+      theme(panel.background = element_rect(fill = "white"),
+            panel.border = element_rect(fill = NA))+labs(title = paste("Stay home restrictions in", name_mont[i],sep = ' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  #internal_movement_restrictions	
+  
+  (maps_plot[[i]][["Internal_restric"]] <- ggplot(data = total[[i]]) +
+      geom_sf(aes(fill = internal_movement_restrictions)) +
+      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+      #         fill = NA, colour = "black", size = 1.5) +
+      scale_fill_economist() +
+      theme(panel.background = element_rect(fill = "white"),
+            panel.border = element_rect(fill = NA))+labs(title = paste("Internal movement restrictions in",name_mont[i],sep = ' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  #international_movement_restrictions		
+  
+  (maps_plot[[i]][["International_restric"]] <- ggplot(data = total[[i]]) +
+      geom_sf(aes(fill = international_movement_restrictions)) +
+      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+      #         fill = NA, colour = "black", size = 1.5) +
+      scale_fill_economist() +
+      theme(panel.background = element_rect(fill = "white"),
+            panel.border = element_rect(fill = NA))+labs(title = paste("Internal movement restrictions in",name_mont[i],sep = ' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  
+  #information_campaigns			
+  
+  (maps_plot[[i]][["Info_campaigns"]] <- ggplot(data = total[[i]]) +
+      geom_sf(aes(fill = information_campaigns)) +
+      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+      #         fill = NA, colour = "black", size = 1.5) +
+      scale_fill_economist() +
+      theme(panel.background = element_rect(fill = "white"),
+            panel.border = element_rect(fill = NA))+labs(title = paste("Information campaigns in",name_mont[i],sep = ' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  #testing_policy				
+  
+  (maps_plot[[i]][["Testing_policy"]] <- ggplot(data = total[[i]]) +
+      geom_sf(aes(fill = testing_policy)) +
+      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+      #         fill = NA, colour = "black", size = 1.5) +
+      scale_fill_economist() +
+      theme(panel.background = element_rect(fill = "white"),
+            panel.border = element_rect(fill = NA))+labs(title =paste("Testing policy in",name_mont[i],sep = " "),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  #contact_tracing				
+  
+  (maps_plot[[i]][["Contact_tracing"]] <- ggplot(data = total[[i]]) +
+      geom_sf(aes(fill = contact_tracing)) +
+      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+      #         fill = NA, colour = "black", size = 1.5) +
+      scale_fill_economist() +
+      theme(panel.background = element_rect(fill = "white"),
+            panel.border = element_rect(fill = NA))+labs(title =paste( "Contact tracing in",name_mont[i],sep=" "),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+  
+  
 }
 
 grid.arrange(maps_plot$feb$Confirmed_cases,maps_plot$marc$Confirmed_cases,maps_plot$apr$Confirmed_cases,maps_plot$may$Confirmed_cases,maps_plot$jun$Confirmed_cases,maps_plot$jul$Confirmed_cases, ncol=2)
@@ -310,13 +310,13 @@ for(j in 1:length(maps_plot)){
   for(i in 1:16){
     plot(maps_plot[[j]][[i]])
     Sys.sleep(30)
-  
+    
   }
 }
 
 #number of hospitalized and icu patients, number of patients requiring ventilation
 
-utoday <- covid19(end = "2020-08-26")
+utoday <- covid19(end = "2020-08-26",raw = F)
 countries<-aggregate(hosp~administrative_area_level_1,utoday,sum)
 head(countries)
 
@@ -396,7 +396,7 @@ total_v <- total[order(total_v$vent),] # order the data [very important!]
 
 #plotting a few time series
 
-dataf <- covid19()#updated data
+dataf <- covid19(raw = F)#updated data
 
 #one dataset for each country
 
@@ -413,10 +413,10 @@ for(i in 1:length(total_v$subunit)){
 time_series_countries=NULL
 # only a few configurations
 for(i in 1:length(time_datasets)){
-
+  
   time_series_countries[[paste(names(time_datasets[i]))]][["confirmed"]] <- ggplot(time_datasets[[i]], aes(x=date, y=confirmed)) +
-  geom_line() + 
-  xlab("Date")+ylab(paste("Cumulative number of confirmed cases in",names(time_datasets[i]),sep = ' '))+scale_x_date(date_breaks = "1 month", date_labels = "%b")+theme_stata()
+    geom_line() + 
+    xlab("Date")+ylab(paste("Cumulative number of confirmed cases in",names(time_datasets[i]),sep = ' '))+scale_x_date(date_breaks = "1 month", date_labels = "%b")+theme_stata()
   time_series_countries[[paste(names(time_datasets[i]))]][["recovered"]] <- ggplot(time_datasets[[i]], aes(x=date, y=recovered)) +
     geom_line() + 
     xlab("Date")+ylab(paste("Cumulative necovered cases in",names(time_datasets[i]),sep = ' '))+scale_x_date(date_breaks = "1 month", date_labels = "%b")+theme_stata()
@@ -431,5 +431,4 @@ for(i in 1:length(time_datasets)){
     xlab("Date")+ylab(paste("Cumulative number of tests in",names(time_datasets[i]),sep = ' '))+scale_x_date(date_breaks = "1 month", date_labels = "%b")+theme_stata()
   
 }
-
 
