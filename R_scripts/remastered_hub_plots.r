@@ -142,12 +142,15 @@ for(i in 1:length(total)){
   total[[i]] <- cbind(total[[i]],zconfirmed,zdeaths,ztests,zrecovered)
  
 }
+?scale_fill_gradient
 
-
-ggplot(data = total$totaljul) +
+ggplot(data = total$totalm) +
     geom_sf(aes(fill = zconfirmed)) +
-    scale_fill_continuous_tableau() +
-    theme(panel.background = element_rect(fill = "white"),
+    scale_fill_gradient2(low = "white",
+                        mid = "brown",
+                        high = "red",
+                        midpoint = 0.4975) +
+    theme(panel.background = element_rect(fill = "grey"),
           panel.border = element_rect(fill = NA))+labs(title ="Cumulative number of confirmed cases of covid19 in march",fill="Confirmed cases.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub"))
 
 
