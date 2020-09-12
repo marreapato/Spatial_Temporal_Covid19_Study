@@ -151,7 +151,7 @@ ggplot(data = total$totalm) +
                         high = "red",
                         midpoint = 0.4975) +
     theme(panel.background = element_rect(fill = "grey"),
-          panel.border = element_rect(fill = NA))+labs(title ="Cumulative number of confirmed cases of covid19 in march",fill="Confirmed cases.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub"))
+          panel.border = element_rect(fill = NA))+labs(title ="Número de casos confirmados até Março",fill="Casos confirmados: ",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub"))
 
 
 
