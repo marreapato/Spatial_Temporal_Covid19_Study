@@ -255,7 +255,7 @@ for(i in 1:length(total)){
       #         fill = NA, colour = "black", size = 1.5) +
       scale_fill_economist() +
       theme(panel.background = element_rect(fill = "white"),
-            panel.border = element_rect(fill = NA))+labs(title = paste("Internal movement restrictions in",name_mont[i],sep = ' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+            panel.border = element_rect(fill = NA))+labs(title = paste("International movement restrictions in",name_mont[i],sep = ' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
   
   
   #information_campaigns			
@@ -298,10 +298,11 @@ grid.arrange(maps_plot$feb$Confirmed_cases,maps_plot$marc$Confirmed_cases,maps_p
 comp_monthly <- NULL
 for(i in 1:16){
   (comp_monthly[[i]] <- grid.arrange(maps_plot$feb[[i]],maps_plot$marc[[i]],maps_plot$apr[[i]],maps_plot$may[[i]],maps_plot$jun[[i]],maps_plot$jul[[i]], ncol=2))
-  #Sys.sleep(20)
+  #Sys.sleep(30)
   
 }
-
+#1800 x 900 pic
+grid.arrange(maps_plot$feb[[13]],maps_plot$marc[[13]],maps_plot$apr[[13]],maps_plot$may[[13]],maps_plot$jun[[13]],maps_plot$jul[[13]], ncol=2)
 #plots per month
 
 maps_plot[[1]][1]
