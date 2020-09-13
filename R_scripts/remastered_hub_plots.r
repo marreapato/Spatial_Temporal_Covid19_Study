@@ -136,23 +136,26 @@ for(i in 1:length(total)){
     zdeaths[j] <- (total[[i]]$deaths[j]-min(total[[i]]$deaths))/(max(total[[i]]$deaths)-min(total[[i]]$deaths))
     ztests[j] <- (total[[i]]$tests[j]-min(total[[i]]$tests))/(max(total[[i]]$tests)-min(total[[i]]$tests))
     zrecovered[j] <- (total[[i]]$recovered[j]-min(total[[i]]$recovered))/(max(total[[i]]$recovered)-min(total[[i]]$recovered))
-      
+    
     
   }
   total[[i]] <- cbind(total[[i]],zconfirmed,zdeaths,ztests,zrecovered)
- 
+  
 }
 ?scale_fill_gradient
 
-ggplot(data = total$totalm) +
-    geom_sf(aes(fill = zconfirmed)) +
-    scale_fill_gradient2(low = "white",
-                        mid = "brown",
-                        high = "red",
-                        midpoint = 0.4975) +
-    theme(panel.background = element_rect(fill = "grey"),
-          panel.border = element_rect(fill = NA))+labs(title ="Número de casos confirmados até Março",fill="Casos confirmados: ",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub"))
+vcolor=c("white","green","blue","red")
 
+ggplot(data = total$totaljul) +
+  geom_sf(aes(fill = zconfirmed)) +
+  scale_fill_gradientn(colors=vcolor)+
+  theme(panel.background = element_rect(fill = "grey"),
+        panel.border = element_rect(fill = NA))+labs(title ="Número de casos confirmados até Março",fill="Casos confirmados: ",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub"))
+
+#scale_fill_gradient2(low = "white",
+#                    mid = "green",
+#                   high = "red",
+#                  midpoint = 0.4875) +
 
 
 
@@ -173,9 +176,9 @@ ggplot(data = total$totalm) +
 
 #school closures
 ggplot(data = total$totalf) +
-   geom_sf(aes(fill = school_closing)) +
-   #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
-   #         fill = NA, colour = "black", size = 1.5) +
-   scale_fill_manual(values=c("#ECEC2A","#9EF635","#E53535")) +
-   theme(panel.background = element_rect(fill = "white"),
-         panel.border = element_rect(fill = NA))+labs(title ="Fechamento de escolas em Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub"))
+  geom_sf(aes(fill = school_closing)) +
+  #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
+  #         fill = NA, colour = "black", size = 1.5) +
+  scale_fill_manual(values=c("#ECEC2A","#9EF635","#E53535")) +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(fill = NA))+labs(title ="Fechamento de escolas em Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub"))
