@@ -144,9 +144,9 @@ for(i in 1:length(total)){
 }
 ?scale_fill_gradient
 
-vcolor=c("white","green","blue","red")
+vcolor=c("#FFFFFF","#00FFF3","#0FBE09","#003AFF","red")
 
-ggplot(data = total$totaljul) +
+ggplot(data = total$totalm) +
   geom_sf(aes(fill = zconfirmed)) +
   scale_fill_gradientn(colors=vcolor)+
   theme(panel.background = element_rect(fill = "grey"),
