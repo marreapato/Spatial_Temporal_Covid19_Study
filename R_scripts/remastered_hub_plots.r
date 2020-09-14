@@ -291,32 +291,44 @@ c_plots$jun$zrecov <-ggplot(data = total$totaljun) +
 c_plots$jul$zconf <-ggplot(data = total$totaljul) +
   geom_sf(aes(fill = zconfirmed)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(panel.background = element_rect(fill = "grey"),
+  theme(legend.position = c(-0.5,2),panel.background = element_rect(fill = "grey"),
         panel.border = element_rect(fill = NA))+labs(title ="Julho",fill="Casos confirmados: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$jul$zdeath <-ggplot(data = total$totaljul) +
   geom_sf(aes(fill = zdeaths)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(panel.background = element_rect(fill = "grey"),
+  theme(legend.position = c(-0.5,2),panel.background = element_rect(fill = "grey"),
         panel.border = element_rect(fill = NA))+labs(title ="Julho",fill="Mortes: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$jul$ztest <-ggplot(data = total$totaljul) +
   geom_sf(aes(fill = ztests)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(panel.background = element_rect(fill = "grey"),
+  theme(legend.position = c(-0.5,2),panel.background = element_rect(fill = "grey"),
         panel.border = element_rect(fill = NA))+labs(title ="Julho",fill="Testes: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$jul$zrecov <-ggplot(data = total$totaljul) +
   geom_sf(aes(fill = zrecovered)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(panel.background = element_rect(fill = "grey"),
+  theme(legend.position = c(-0.5,2),panel.background = element_rect(fill = "grey"),
         panel.border = element_rect(fill = NA))+labs(title ="Julho",fill="Recuperados: ",caption=c("Fonte: Covid19DataHub"))
 
 
 #grids continuous
+#save in 1600 809
 
+?grid.arrange
 
+#conf
+grid.arrange(c_plots$fev$zconf,c_plots$mar$zconf,c_plots$apr$zconf,c_plots$may$zconf,c_plots$jun$zconf,c_plots$jul$zconf,top="Casos confirmados por mês",ncol=2,nrow=3)
 
+#deaths
+grid.arrange(c_plots$fev$zdeath,c_plots$mar$zdeath,c_plots$apr$zdeath,c_plots$may$zdeath,c_plots$jun$zdeath,c_plots$jul$zdeath,top="Mortes confirmadas",ncol=2,nrow=3)
+
+#tests
+grid.arrange(c_plots$fev$zconf,c_plots$mar$zconf,c_plots$apr$zconf,c_plots$may$zconf,c_plots$jun$zconf,c_plots$jul$zconf,top="Casos confirmados por mês",ncol=2,nrow=3)
+
+#recov
+grid.arrange(c_plots$fev$zconf,c_plots$mar$zconf,c_plots$apr$zconf,c_plots$may$zconf,c_plots$jun$zconf,c_plots$jul$zconf,top="Casos confirmados por mês",ncol=2,nrow=3)
 
 
 
