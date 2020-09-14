@@ -19,7 +19,17 @@ library(rnaturalearthdata)
 library(rnaturalearth)
 library(maps)
 library(gridExtra)
-
+addUnits <- function(n) {
+  labels <- ifelse(n < 1000, n,  # less than thousands
+                   ifelse(n < 1e6, paste0(round(n/1e3), 'k'),  # in thousands
+                          ifelse(n < 1e9, paste0(round(n/1e6), 'M'),  # in millions
+                                 ifelse(n < 1e12, paste0(round(n/1e9), 'B'), # in billions
+                                        ifelse(n < 1e15, paste0(round(n/1e12), 'T'), # in trillions
+                                               'too big!'
+                                        )))))
+  return(labels)
+  
+}
 world <- ne_countries(scale='medium',returnclass = 'sf')
 #obs: to check the number of hospitalized patients i'll have aggregate and sum
 
@@ -136,25 +146,25 @@ for(i in 1:length(total)){
      geom_sf(aes(fill = confirmed)) +
      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
      #         fill = NA, colour = "black", size = 1.5) +
-     scale_fill_continuous_tableau() +
+     scale_fill_continuous_tableau(labels=addUnits) +
      theme(panel.background = element_rect(fill = "white"),
-           panel.border = element_rect(fill = NA))+labs(title = paste("Cumulative number of confirmed cases of covid19 in",name_mont[i],sep=" "),fill="Confirmed cases.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+           panel.border = element_rect(fill = NA))+labs(title = paste("Cumulative number of confirmed cases of covid19 in",name_mont[i],sep=" "),fill="Confirmed cases.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub"))+scale_y_continuous(labels = addUnits))
   
   #confirmed number of deaths 
   (maps_plot[[i]][["Deaths"]] <- ggplot(data = total[[i]]) +
       geom_sf(aes(fill = deaths)) +
       #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
       #         fill = NA, colour = "black", size = 1.5) +
-      scale_fill_gradient_tableau(palette = "Red-Gold") +
+      scale_fill_gradient_tableau(labels=addUnits,palette = "Red-Gold") +
       theme(panel.background = element_rect(fill = "white"),
-            panel.border = element_rect(fill = NA))+labs(title =paste("Cumulative number of deaths from covid19 in",name_mont[i],sep=" "),fill="Number of deaths.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+            panel.border = element_rect(fill = NA))+labs(title =paste("Cumulative number of deaths from covid19 in",name_mont[i],sep=" "),fill="Number of deaths.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub"))+scale_y_continuous(labels = addUnits))
   
   #confirmed number of recovered cases in february
   (maps_plot[[i]][["Recovered_cases"]] <- ggplot(data = total[[i]]) +
       geom_sf(aes(fill = recovered)) +
       #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
       #         fill = NA, colour = "black", size = 1.5) +
-      scale_fill_gradient_tableau(palette = "Green-Gold") +
+      scale_fill_gradient_tableau(labels=addUnits,palette = "Green-Gold") +
       theme(panel.background = element_rect(fill = "white"),
             panel.border = element_rect(fill = NA))+labs(title = paste("Cumulative number of recovered patients of covid19 in",name_mont[i],sep = " "),fill="Recovered cases.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
   
@@ -163,7 +173,7 @@ for(i in 1:length(total)){
       geom_sf(aes(fill = tests)) +
       #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
       #         fill = NA, colour = "black", size = 1.5) +
-      scale_fill_gradient_tableau("Orange-Gold") +
+      scale_fill_gradient_tableau(labels=addUnits,"Orange-Gold") +
       theme(panel.background = element_rect(fill = "white"),
             panel.border = element_rect(fill = NA))+labs(title = paste("Cumulative number of tests of covid19 in",name_mont[i],sep=' '),fill="Number of tests.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
   
@@ -172,7 +182,7 @@ for(i in 1:length(total)){
       geom_sf(aes(fill = population)) +
       #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
       #         fill = NA, colour = "black", size = 1.5) +
-      scale_fill_gradient_tableau(palette="Blue-Teal") +
+      scale_fill_gradient_tableau(labels=addUnits,palette="Blue-Teal") +
       theme(panel.background = element_rect(fill = "white"),
             panel.border = element_rect(fill = NA))+labs(title = paste("World population in",name_mont[i],sep = ' '),fill="Population.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
   
@@ -184,7 +194,7 @@ for(i in 1:length(total)){
      geom_sf(aes(fill = school_closing)) +
      #geom_rect(xmin = -102.15, xmax = -74.12, ymin = 7.65, ymax = 33.97, 
      #         fill = NA, colour = "black", size = 1.5) +
-     scale_fill_economist() +
+     scale_fill_manual(values = c("green",'yellow','red','grey')) +
      theme(panel.background = element_rect(fill = "white"),
            panel.border = element_rect(fill = NA))+labs(title = paste("School closures in",name_mont[i],sep=' '),fill="Policy.",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
   
@@ -302,7 +312,7 @@ for(i in 1:16){
   
 }
 #1800 x 900 pic
-grid.arrange(maps_plot$feb[[13]],maps_plot$marc[[13]],maps_plot$apr[[13]],maps_plot$may[[13]],maps_plot$jun[[13]],maps_plot$jul[[13]], ncol=2)
+grid.arrange(maps_plot$feb[[6]],maps_plot$marc[[6]],maps_plot$apr[[6]],maps_plot$may[[6]],maps_plot$jun[[6]],maps_plot$jul[[6]], ncol=2)
 #plots per month
 
 maps_plot[[1]][1]
@@ -393,7 +403,7 @@ total_v <- total[order(total_v$vent),] # order the data [very important!]
     #         fill = NA, colour = "black", size = 1.5) +
     scale_fill_viridis_c(option = "plasma") +
     theme(panel.background = element_rect(fill = "azure"),
-          panel.border = element_rect(fill = NA))+labs(title = "Cumulative number of hospitalized patients of covid19",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub")))
+          panel.border = element_rect(fill = NA))+labs(title = "Cumulative number of hospitalized patients of covid19",subtitle = "Choropleth map",caption=c("Source: Covid19DataHub"))+scale_y_continuous(labels = addUnits))
 
 #plotting a few time series
 
@@ -432,3 +442,5 @@ for(i in 1:length(time_datasets)){
     xlab("Date")+ylab(paste("Cumulative number of tests in",names(time_datasets[i]),sep = ' '))+scale_x_date(date_breaks = "1 month", date_labels = "%b")+theme_stata()
   
 }
+
+
