@@ -20,6 +20,8 @@ library(rnaturalearth)
 library(maps)
 library(gridExtra)
 
+
+
 world <- ne_countries(scale='medium',returnclass = 'sf')
 #obs: to check the number of hospitalized patients i'll have aggregate and sum
 
@@ -122,6 +124,7 @@ for(i in 1:length(total)){
 }
 
 options(scipen=999)
+
 ggplot(data = total$totalm) +
   geom_sf(aes(fill = zconfirmed)) +
   scale_fill_gradientn(colors=vcolor)+
@@ -171,13 +174,13 @@ c_plots$fev$ztest <-ggplot(data = total$totalf) +
   geom_sf(aes(fill = ztests)) +
   scale_fill_gradientn(colors=vcolor)+
   theme(legend.position = "none",panel.background = element_rect(fill = "grey"),
-        panel.border = element_rect(fill = NA))+labs(title ="Fevereiro",fill="Testes: ",subtitle = "Choropleth map",caption=c("Fonte: Covid19DataHub"))
+        panel.border = element_rect(fill = NA))+labs(title ="Fevereiro",fill="Testes: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$fev$zrecov <-ggplot(data = total$totalf) +
   geom_sf(aes(fill = zrecovered)) +
   scale_fill_gradientn(colors=vcolor)+
   theme(legend.position = "none",panel.background = element_rect(fill = "grey"),
-        panel.border = element_rect(fill = NA))+labs(title ="Fevereiro",fill="Recuperados: ",subtitle = "Choropleth map",caption=c("Fonte: Covid19DataHub"))
+        panel.border = element_rect(fill = NA))+labs(title ="Fevereiro",fill="Recuperados: ",caption=c("Fonte: Covid19DataHub"))
 
 
 #march
@@ -319,21 +322,20 @@ c_plots$jul$zrecov <-ggplot(data = total$totaljul) +
 ?grid.arrange
 
 #conf
-grid.arrange(c_plots$fev$zconf,c_plots$mar$zconf,c_plots$apr$zconf,c_plots$may$zconf,c_plots$jun$zconf,c_plots$jul$zconf,top="Casos confirmados por mês",ncol=2,nrow=3)
+grid.arrange(c_plots$fev$zconf,c_plots$mar$zconf,c_plots$apr$zconf,c_plots$may$zconf,c_plots$jun$zconf,c_plots$jul$zconf,top="Casos confirmados",ncol=2,nrow=3)
 
 #deaths
 grid.arrange(c_plots$fev$zdeath,c_plots$mar$zdeath,c_plots$apr$zdeath,c_plots$may$zdeath,c_plots$jun$zdeath,c_plots$jul$zdeath,top="Mortes confirmadas",ncol=2,nrow=3)
 
 #tests
-grid.arrange(c_plots$fev$zconf,c_plots$mar$zconf,c_plots$apr$zconf,c_plots$may$zconf,c_plots$jun$zconf,c_plots$jul$zconf,top="Casos confirmados por mês",ncol=2,nrow=3)
+grid.arrange(c_plots$fev$ztest,c_plots$mar$ztest,c_plots$apr$ztest,c_plots$may$ztest,c_plots$jun$ztest,c_plots$jul$ztest,top="Quantidade de testes",ncol=2,nrow=3)
 
 #recov
-grid.arrange(c_plots$fev$zconf,c_plots$mar$zconf,c_plots$apr$zconf,c_plots$may$zconf,c_plots$jun$zconf,c_plots$jul$zconf,top="Casos confirmados por mês",ncol=2,nrow=3)
+grid.arrange(c_plots$fev$zrecov,c_plots$mar$zrecov,c_plots$apr$zrecov,c_plots$may$zrecov,c_plots$jun$zrecov,c_plots$jul$zrecov,top="Quantidade de recuperados",ncol=2,nrow=3)
 
 
-
-
-
+#descriptive information
+d_plots <- list(fev=NULL,mar=NULL,apr=NULL,may=NULL,jun=NULL,jul=NULL)
 
 #school closures
 ggplot(data = total$totalf) +
