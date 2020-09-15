@@ -742,7 +742,7 @@ grid.arrange(d_plots$fev$information_campaigns,d_plots$mar$information_campaigns
 (d_plots$jul$testing_policy <- ggplot(data = total$totaljul) +
     geom_sf(aes(fill = testing_policy)) +
     scale_fill_manual(values=c("#ECEC2A","#E53535","#9EF635","#00FFF3")) +
-    theme(legend.position = c(-0.275,2),panel.background = element_rect(fill = "white"),
+    theme(legend.position = c(-0.35,2),panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 grid.arrange(d_plots$fev$testing_policy,d_plots$mar$testing_policy,d_plots$apr$testing_policy,d_plots$may$testing_policy,d_plots$jun$testing_policy,d_plots$jul$testing_policy,top="Política de testagem.",ncol=2,nrow=3)
@@ -783,7 +783,7 @@ grid.arrange(d_plots$fev$testing_policy,d_plots$mar$testing_policy,d_plots$apr$t
 (d_plots$jul$contact_tracing <- ggplot(data = total$totaljul) +
     geom_sf(aes(fill = contact_tracing)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#E53535")) +
-    theme(legend.position = c(-0.275,2),panel.background = element_rect(fill = "white"),
+    theme(legend.position = c(-0.35,2),panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 grid.arrange(d_plots$fev$contact_tracing,d_plots$mar$contact_tracing,d_plots$apr$contact_tracing,d_plots$may$contact_tracing,d_plots$jun$contact_tracing,d_plots$jul$contact_tracing,top="Política de testagem.",ncol=2,nrow=3)
