@@ -47,18 +47,18 @@ for(i in 1:length(datasets)){
   
   datasets[[i]]$workplace_closing <- gsub(0, "Sem medidas", datasets[[i]]$workplace_closing)
   datasets[[i]]$workplace_closing <- gsub(1, "Recomendou fechamento (Ou home-office)", datasets[[i]]$workplace_closing)
-  datasets[[i]]$workplace_closing <- gsub(2, "Fechamento obrigatório para alguns setores ou categorias de trabalho", datasets[[i]]$workplace_closing)
-  datasets[[i]]$workplace_closing <- gsub(3, 'Fechamento obrigatório (ou home-office), menos para trabalhos considerados essenciais', datasets[[i]]$workplace_closing)
+  datasets[[i]]$workplace_closing <- gsub(2, "Fechamento obrigatório para alguns setores\nou categorias de trabalho", datasets[[i]]$workplace_closing)
+  datasets[[i]]$workplace_closing <- gsub(3, 'Fechamento obrigatório (ou home-office),\nmenos para trabalhos considerados essenciais', datasets[[i]]$workplace_closing)
   
   datasets[[i]]$cancel_events<- gsub(0, "Sem medidas", datasets[[i]]$cancel_events)
   datasets[[i]]$cancel_events <- gsub(1, "Recomendou cancelar", datasets[[i]]$cancel_events)
   datasets[[i]]$cancel_events <- gsub(2, "Cancelamento obrigatório", datasets[[i]]$cancel_events)
   
   datasets[[i]]$gatherings_restrictions<- gsub(0, "Sem medidas", datasets[[i]]$gatherings_restrictions)
-  datasets[[i]]$gatherings_restrictions<- gsub(1, "Restrições em multidões muito grandes", datasets[[i]]$gatherings_restrictions)
-  datasets[[i]]$gatherings_restrictions<- gsub(2, "Restrições em multidões entre 100-1000 pessoas", datasets[[i]]$gatherings_restrictions)
-  datasets[[i]]$gatherings_restrictions<- gsub(3, "Restrições em multidões entre 10-100 pessoas", datasets[[i]]$gatherings_restrictions)
-  datasets[[i]]$gatherings_restrictions<- gsub(4, "Restrições em multidões com menos de 10 pessoas", datasets[[i]]$gatherings_restrictions)
+  datasets[[i]]$gatherings_restrictions<- gsub(1, "Restrições em multidões\nmuito grandes", datasets[[i]]$gatherings_restrictions)
+  datasets[[i]]$gatherings_restrictions<- gsub(2, "Restrições em multidões\nentre 100-1000 pessoas", datasets[[i]]$gatherings_restrictions)
+  datasets[[i]]$gatherings_restrictions<- gsub(3, "Restrições em multidões\nentre 10-100 pessoas", datasets[[i]]$gatherings_restrictions)
+  datasets[[i]]$gatherings_restrictions<- gsub(4, "Restrições em multidões\ncom menos de 10 pessoas", datasets[[i]]$gatherings_restrictions)
   
   datasets[[i]]$transport_closing<- gsub(0, "Sem medidas", datasets[[i]]$transport_closing)
   datasets[[i]]$transport_closing<- gsub(1, "Recomendou fechamento", datasets[[i]]$transport_closing)
@@ -66,32 +66,32 @@ for(i in 1:length(datasets)){
   
   datasets[[i]]$stay_home_restrictions<- gsub(0, "Sem medidas", datasets[[i]]$stay_home_restrictions)
   datasets[[i]]$stay_home_restrictions<- gsub(1, "Recomendação para ficar em casa", datasets[[i]]$stay_home_restrictions)
-  datasets[[i]]$stay_home_restrictions<- gsub(2, "Obrigação de ficar em casa exceto para exercício diário,\n compras, e viagens “essencias”", datasets[[i]]$stay_home_restrictions)
-  datasets[[i]]$stay_home_restrictions<- gsub(3, "Obrigação de ficar em casa com mínimas excessões", datasets[[i]]$stay_home_restrictions)
+  datasets[[i]]$stay_home_restrictions<- gsub(2, "Obrigação de ficar em casa exceto para\nexercício diário, compras, e viagens “essencias”", datasets[[i]]$stay_home_restrictions)
+  datasets[[i]]$stay_home_restrictions<- gsub(3, "Obrigação de ficar em casa\ncom mínimas excessões", datasets[[i]]$stay_home_restrictions)
   
   datasets[[i]]$internal_movement_restrictions<- gsub(0, "Sem medidas", datasets[[i]]$internal_movement_restrictions)
-  datasets[[i]]$internal_movement_restrictions<- gsub(1, "Recomendação de fechamento (ou redução significante no volume/rotas/meios de transporte)", datasets[[i]]$internal_movement_restrictions)
-  datasets[[i]]$internal_movement_restrictions<- gsub(2, "Fechamento Obrigatório (ou proibição do uso para maiorioa das pessoas)", datasets[[i]]$internal_movement_restrictions)
+  datasets[[i]]$internal_movement_restrictions<- gsub(1, "Recomendação de fechamento\n(ou redução significante no volume/rotas/meios de transporte)", datasets[[i]]$internal_movement_restrictions)
+  datasets[[i]]$internal_movement_restrictions<- gsub(2, "Fechamento Obrigatório\n(ou proibição do uso para maiorioa das pessoas)", datasets[[i]]$internal_movement_restrictions)
   
   datasets[[i]]$international_movement_restrictions<- gsub(0, "Sem medidas", datasets[[i]]$international_movement_restrictions)
   datasets[[i]]$international_movement_restrictions<- gsub(1, "Screening", datasets[[i]]$international_movement_restrictions)
-  datasets[[i]]$international_movement_restrictions<- gsub(2, "Quarantena para recém-chegados de regiões de alto risco", datasets[[i]]$international_movement_restrictions)
+  datasets[[i]]$international_movement_restrictions<- gsub(2, "Quarantena para recém-chegados\nde regiões de alto risco", datasets[[i]]$international_movement_restrictions)
   datasets[[i]]$international_movement_restrictions<- gsub(3, "Banimento para regiões de alto risco", datasets[[i]]$international_movement_restrictions)
   datasets[[i]]$international_movement_restrictions<- gsub(4, "Fechamento total de fronteiras", datasets[[i]]$international_movement_restrictions)
   
   
   datasets[[i]]$information_campaigns<- gsub(0, "Sem campanha pública de informação", datasets[[i]]$information_campaigns)
-  datasets[[i]]$information_campaigns<- gsub(1, "Oficiais públicos alertando para cautela sobre a COVID-19", datasets[[i]]$information_campaigns)
+  datasets[[i]]$information_campaigns<- gsub(1, "Oficiais públicos alertando\npara cautela sobre a COVID-19", datasets[[i]]$information_campaigns)
   datasets[[i]]$information_campaigns<- gsub(2, "Campanha pública de informação coordenada", datasets[[i]]$information_campaigns)
   
   datasets[[i]]$testing_policy<- gsub(0, "Sem política de testagem", datasets[[i]]$testing_policy)
-  datasets[[i]]$testing_policy<- gsub(1, "Apenas os que (a) apresentaram sintomas E (b) atingem critérios específicos", datasets[[i]]$testing_policy)
+  datasets[[i]]$testing_policy<- gsub(1, "Apenas os que (a) apresentaram sintomas\nE (b) atingem critérios específicos", datasets[[i]]$testing_policy)
   datasets[[i]]$testing_policy<- gsub(2, "Testando todos com sintomas da COVID-19", datasets[[i]]$testing_policy)
   datasets[[i]]$testing_policy<- gsub(3, "Testagem pública aberta", datasets[[i]]$testing_policy)
   
   datasets[[i]]$contact_tracing<- gsub(0, "Sem política de testagem", datasets[[i]]$contact_tracing)
-  datasets[[i]]$contact_tracing<- gsub(1, "Rastreamento de contatos limitado, não feito para todos os casos", datasets[[i]]$contact_tracing)
-  datasets[[i]]$contact_tracing<- gsub(2, "Rastreamento de contatos, feito para todos os casos", datasets[[i]]$contact_tracing)
+  datasets[[i]]$contact_tracing<- gsub(1, "Rastreamento de contatos limitado,\nnão feito para todos os casos", datasets[[i]]$contact_tracing)
+  datasets[[i]]$contact_tracing<- gsub(2, "Rastreamento de contatos,\nfeito para todos os casos", datasets[[i]]$contact_tracing)
   
   
 }
@@ -341,37 +341,37 @@ d_plots <- list(fev=NULL,mar=NULL,apr=NULL,may=NULL,jun=NULL,jul=NULL)
 (d_plots$fev$school <- ggplot(data = total$totalf) +
     geom_sf(aes(fill = school_closing)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$mar$school <- ggplot(data = total$totalm) +
     geom_sf(aes(fill = school_closing)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Março.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$apr$school <- ggplot(data = total$totala) +
     geom_sf(aes(fill = school_closing)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title ="Abril",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Abril.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$may$school <- ggplot(data = total$totalma) +
     geom_sf(aes(fill = school_closing)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Maio.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$jun$school <- ggplot(data = total$totaljun) +
     geom_sf(aes(fill = school_closing)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Junho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$jul$school <- ggplot(data = total$totaljul) +
     geom_sf(aes(fill = school_closing)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
+    theme(legend.position =c(-0.35,2),panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 #school
@@ -384,40 +384,40 @@ grid.arrange(d_plots$fev$school,d_plots$mar$school,d_plots$apr$school,d_plots$ma
 (d_plots$fev$stay <- ggplot(data = total$totalf) +
    geom_sf(aes(fill = stay_home_restrictions)) +
    scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-   theme(panel.background = element_rect(fill = "white"),
+   theme(legend.position = "none",panel.background = element_rect(fill = "white"),
          panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$mar$stay <- ggplot(data = total$totalm) +
     geom_sf(aes(fill = stay_home_restrictions)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Março.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$apr$stay <- ggplot(data = total$totala) +
     geom_sf(aes(fill = stay_home_restrictions)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title ="Abril",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Abril.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$may$stay <- ggplot(data = total$totalma) +
     geom_sf(aes(fill = stay_home_restrictions)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Maio.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$jun$stay <- ggplot(data = total$totaljun) +
     geom_sf(aes(fill = stay_home_restrictions)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Junho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$jul$stay <- ggplot(data = total$totaljul) +
     geom_sf(aes(fill = stay_home_restrictions)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
+    theme(legend.position =c(-0.35,2),panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-grid.arrange(d_plots$fev$stay,d_plots$mar$stay,d_plots$apr$stay,d_plots$may$stay,d_plots$jun$stay,d_plots$jul$stay,top="Política de fechamento de escolas",ncol=2,nrow=3)
+grid.arrange(d_plots$fev$stay,d_plots$mar$stay,d_plots$apr$stay,d_plots$may$stay,d_plots$jun$stay,d_plots$jul$stay,top="Política de isolamento social",ncol=2,nrow=3)
 
 ###################################################
 #workplace closing
@@ -425,37 +425,160 @@ grid.arrange(d_plots$fev$stay,d_plots$mar$stay,d_plots$apr$stay,d_plots$may$stay
 (d_plots$fev$work <- ggplot(data = total$totalf) +
    geom_sf(aes(fill = workplace_closing)) +
    scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-   theme(panel.background = element_rect(fill = "white"),
+   theme(legend.position = "none",panel.background = element_rect(fill = "white"),
          panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$mar$work <- ggplot(data = total$totalm) +
     geom_sf(aes(fill = workplace_closing)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Março.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$apr$work <- ggplot(data = total$totala) +
     geom_sf(aes(fill = workplace_closing)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title ="Abril",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Abril.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$may$work <- ggplot(data = total$totalma) +
     geom_sf(aes(fill = workplace_closing)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Maio.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$jun$work <- ggplot(data = total$totaljun) +
     geom_sf(aes(fill = workplace_closing)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Junho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$jul$work <- ggplot(data = total$totaljul) +
     geom_sf(aes(fill = workplace_closing)) +
     scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
-    theme(panel.background = element_rect(fill = "white"),
+    theme(legend.position = c(-0.35,2),panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 grid.arrange(d_plots$fev$work,d_plots$mar$work,d_plots$apr$work,d_plots$may$work,d_plots$jun$work,d_plots$jul$work,top="Política de fechamento de locais de trabalho.",ncol=2,nrow=3)
+
+###################################################
+#canceled events
+
+(d_plots$fev$cancel <- ggplot(data = total$totalf) +
+   geom_sf(aes(fill = cancel_events)) +
+   scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
+   theme(legend.position = "none",panel.background = element_rect(fill = "white"),
+         panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$mar$cancel <- ggplot(data = total$totalm) +
+    geom_sf(aes(fill = cancel_events)) +
+    scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Março.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$apr$cancel <- ggplot(data = total$totala) +
+    geom_sf(aes(fill = cancel_events)) +
+    scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Abril.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$may$cancel <- ggplot(data = total$totalma) +
+    geom_sf(aes(fill = cancel_events)) +
+    scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Maio.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$jun$cancel <- ggplot(data = total$totaljun) +
+    geom_sf(aes(fill = cancel_events)) +
+    scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
+    theme(legend.position = "none",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Junho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$jul$cancel <- ggplot(data = total$totaljul) +
+    geom_sf(aes(fill = cancel_events)) +
+    scale_fill_manual(values=c("#ECEC2A","#9EF635","#00FFF3","#E53535")) +
+    theme(legend.position = c(-0.35,2),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+grid.arrange(d_plots$fev$cancel,d_plots$mar$cancel,d_plots$apr$cancel,d_plots$may$cancel,d_plots$jun$cancel,d_plots$jul$cancel,top="Política de cancelamento de eventos.",ncol=2,nrow=3)
+
+###################################################
+#gatherings_restrictions
+
+(d_plots$fev$gatherings_restrictions <- ggplot(data = total$totalf) +
+   geom_sf(aes(fill = gatherings_restrictions)) +
+   scale_fill_manual(values=c("#9EF635","#ECEC2A","#00FFF3","#E53535")) +
+   theme(legend.position = "none",panel.background = element_rect(fill = "white"),
+         panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$mar$gatherings_restrictions <- ggplot(data = total$totalm) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("#9EF635","grey","#ECEC2A","#00FFF3","#E53535")) +
+    theme(legend.position = "",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Março.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$apr$gatherings_restrictions <- ggplot(data = total$totala) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("#9EF635","grey","#ECEC2A","#00FFF3","#E53535")) +
+    theme(legend.position = "",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Abril.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$may$gatherings_restrictions <- ggplot(data = total$totalma) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("#9EF635","grey","#ECEC2A","#00FFF3","#E53535")) +
+    theme(legend.position = "",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Maio.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$jun$gatherings_restrictions <- ggplot(data = total$totaljun) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("#9EF635","grey","#ECEC2A","#00FFF3","#E53535")) +
+    theme(legend.position = "",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Junho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$jul$gatherings_restrictions <- ggplot(data = total$totaljul) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("#9EF635","grey","#ECEC2A","#00FFF3","#E53535")) +
+    theme(legend.position = c(-0.35,2),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+grid.arrange(d_plots$fev$gatherings_restrictions,d_plots$mar$gatherings_restrictions,d_plots$apr$gatherings_restrictions,d_plots$may$gatherings_restrictions,d_plots$jun$gatherings_restrictions,d_plots$jul$gatherings_restrictions,top="Política de restrição de multidões.",ncol=2,nrow=3)
+
+###################################################
+#gatherings_restrictions
+
+(d_plots$fev$gatherings_restrictions <- ggplot(data = total$totalf) +
+   geom_sf(aes(fill = gatherings_restrictions)) +
+   scale_fill_manual(values=c("#9EF635","#ECEC2A","#00FFF3","#E53535")) +
+   theme(legend.position = "none",panel.background = element_rect(fill = "white"),
+         panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$mar$gatherings_restrictions <- ggplot(data = total$totalm) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("#9EF635","grey","#ECEC2A","#00FFF3","#E53535")) +
+    theme(legend.position = "",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Março.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$apr$gatherings_restrictions <- ggplot(data = total$totala) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("#9EF635","grey","#ECEC2A","#00FFF3","#E53535")) +
+    theme(legend.position = "",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Abril.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$may$gatherings_restrictions <- ggplot(data = total$totalma) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("#9EF635","grey","#ECEC2A","#00FFF3","#E53535")) +
+    theme(legend.position = "",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Maio.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$jun$gatherings_restrictions <- ggplot(data = total$totaljun) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("#9EF635","grey","#ECEC2A","#00FFF3","#E53535")) +
+    theme(legend.position = "",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Junho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$jul$gatherings_restrictions <- ggplot(data = total$totaljul) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("#9EF635","grey","#ECEC2A","#00FFF3","#E53535")) +
+    theme(legend.position = c(-0.35,2),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+grid.arrange(d_plots$fev$gatherings_restrictions,d_plots$mar$gatherings_restrictions,d_plots$apr$gatherings_restrictions,d_plots$may$gatherings_restrictions,d_plots$jun$gatherings_restrictions,d_plots$jul$gatherings_restrictions,top="Política de restrição de multidões.",ncol=2,nrow=3)
