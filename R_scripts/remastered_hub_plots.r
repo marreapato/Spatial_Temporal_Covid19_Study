@@ -543,42 +543,42 @@ grid.arrange(d_plots$fev$cancel,d_plots$mar$cancel,d_plots$apr$cancel,d_plots$ma
 grid.arrange(d_plots$fev$gatherings_restrictions,d_plots$mar$gatherings_restrictions,d_plots$apr$gatherings_restrictions,d_plots$may$gatherings_restrictions,d_plots$jun$gatherings_restrictions,d_plots$jul$gatherings_restrictions,top="Política de restrição de multidões.",ncol=2,nrow=3)
 
 ###################################################
-#gatherings_restrictions
+#transport_closing
 
-(d_plots$fev$gatherings_restrictions <- ggplot(data = total$totalf) +
-   geom_sf(aes(fill = gatherings_restrictions)) +
-   scale_fill_manual(values=c("#9EF635","#ECEC2A","#00FFF3","#E53535")) +
-   theme(legend.position = "none",panel.background = element_rect(fill = "white"),
+(d_plots$fev$transport_closing <- ggplot(data = total$totalf) +
+   geom_sf(aes(fill = transport_closing)) +
+   scale_fill_manual(values=c("#9EF635","#E53535")) +
+   theme(legend.position = "",panel.background = element_rect(fill = "white"),
          panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-(d_plots$mar$gatherings_restrictions <- ggplot(data = total$totalm) +
-    geom_sf(aes(fill = gatherings_restrictions)) +
-    scale_fill_manual(values=c("#9EF635","grey","#ECEC2A","#00FFF3","#E53535")) +
+(d_plots$mar$transport_closing <- ggplot(data = total$totalm) +
+    geom_sf(aes(fill = transport_closing)) +
+    scale_fill_manual(values=c("#9EF635","#ECEC2A","#E53535")) +
     theme(legend.position = "",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Março.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-(d_plots$apr$gatherings_restrictions <- ggplot(data = total$totala) +
-    geom_sf(aes(fill = gatherings_restrictions)) +
-    scale_fill_manual(values=c("#9EF635","grey","#ECEC2A","#00FFF3","#E53535")) +
+(d_plots$apr$transport_closing <- ggplot(data = total$totala) +
+    geom_sf(aes(fill =transport_closing)) +
+    scale_fill_manual(values=c("#9EF635","#ECEC2A","#E53535")) +
     theme(legend.position = "",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Abril.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-(d_plots$may$gatherings_restrictions <- ggplot(data = total$totalma) +
-    geom_sf(aes(fill = gatherings_restrictions)) +
-    scale_fill_manual(values=c("#9EF635","grey","#ECEC2A","#00FFF3","#E53535")) +
+(d_plots$may$transport_closing <- ggplot(data = total$totalma) +
+    geom_sf(aes(fill =transport_closing)) +
+    scale_fill_manual(values=c("#9EF635","#ECEC2A","#E53535")) +
     theme(legend.position = "",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Maio.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-(d_plots$jun$gatherings_restrictions <- ggplot(data = total$totaljun) +
-    geom_sf(aes(fill = gatherings_restrictions)) +
-    scale_fill_manual(values=c("#9EF635","grey","#ECEC2A","#00FFF3","#E53535")) +
+(d_plots$jun$transport_closing <- ggplot(data = total$totaljun) +
+    geom_sf(aes(fill = transport_closing)) +
+    scale_fill_manual(values=c("#9EF635","#ECEC2A","#E53535")) +
     theme(legend.position = "",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Junho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-(d_plots$jul$gatherings_restrictions <- ggplot(data = total$totaljul) +
-    geom_sf(aes(fill = gatherings_restrictions)) +
-    scale_fill_manual(values=c("#9EF635","grey","#ECEC2A","#00FFF3","#E53535")) +
+(d_plots$jul$transport_closing <- ggplot(data = total$totaljul) +
+    geom_sf(aes(fill = transport_closing)) +
+    scale_fill_manual(values=c("#9EF635","#ECEC2A","#E53535")) +
     theme(legend.position = c(-0.35,2),panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-grid.arrange(d_plots$fev$gatherings_restrictions,d_plots$mar$gatherings_restrictions,d_plots$apr$gatherings_restrictions,d_plots$may$gatherings_restrictions,d_plots$jun$gatherings_restrictions,d_plots$jul$gatherings_restrictions,top="Política de restrição de multidões.",ncol=2,nrow=3)
+grid.arrange(d_plots$fev$transport_closing,d_plots$mar$transport_closing,d_plots$apr$transport_closing,d_plots$may$transport_closing,d_plots$jun$transport_closing,d_plots$jul$transport_closing,top="Política de fechamento de transportes.",ncol=2,nrow=3)
