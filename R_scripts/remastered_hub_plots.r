@@ -89,7 +89,7 @@ for(i in 1:length(datasets)){
   datasets[[i]]$testing_policy<- gsub(2, "Testando todos com sintomas da COVID-19", datasets[[i]]$testing_policy)
   datasets[[i]]$testing_policy<- gsub(3, "Testagem pública aberta", datasets[[i]]$testing_policy)
   
-  datasets[[i]]$contact_tracing<- gsub(0, "Sem política de testagem", datasets[[i]]$contact_tracing)
+  datasets[[i]]$contact_tracing<- gsub(0, "Sem política de rastreamento", datasets[[i]]$contact_tracing)
   datasets[[i]]$contact_tracing<- gsub(1, "Rastreamento de contatos limitado,\nnão feito para todos os casos", datasets[[i]]$contact_tracing)
   datasets[[i]]$contact_tracing<- gsub(2, "Rastreamento de contatos,\nfeito para todos os casos", datasets[[i]]$contact_tracing)
   
@@ -707,42 +707,83 @@ grid.arrange(d_plots$fev$international_movement_restrictions,d_plots$mar$interna
 grid.arrange(d_plots$fev$information_campaigns,d_plots$mar$information_campaigns,d_plots$apr$information_campaigns,d_plots$may$information_campaigns,d_plots$jun$information_campaigns,d_plots$jul$information_campaigns,top="Política pública de informação.",ncol=2,nrow=3)
 
 ###################################################
-#information campaigns
+#testing_policy
 
-(d_plots$fev$information_campaigns<- ggplot(data = total$totalf$testing_policy) +
-   geom_sf(aes(fill = information_campaigns)) +
-   scale_fill_manual(values=c("#9EF635","#ECEC2A","#E53535")) +
+(d_plots$fev$testing_policy<- ggplot(data = total$totalf) +
+   geom_sf(aes(fill = testing_policy)) +
+   scale_fill_manual(values=c("#ECEC2A","#E53535","#9EF635","#00FFF3")) +
    theme(legend.position = "",panel.background = element_rect(fill = "white"),
          panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-(d_plots$mar$information_campaigns <- ggplot(data = total$totalm) +
-    geom_sf(aes(fill = information_campaigns)) +
-    scale_fill_manual(values=c("#9EF635","#ECEC2A","#E53535")) +
+(d_plots$mar$testing_policy <- ggplot(data = total$totalm) +
+    geom_sf(aes(fill = testing_policy)) +
+    scale_fill_manual(values=c("#ECEC2A","#E53535","#9EF635","#00FFF3")) +
     theme(legend.position = "",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Março.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-(d_plots$apr$information_campaigns<- ggplot(data = total$totala) +
-    geom_sf(aes(fill =information_campaigns)) +
-    scale_fill_manual(values=c("#9EF635","#ECEC2A","#E53535")) +
+(d_plots$apr$testing_policy<- ggplot(data = total$totala) +
+    geom_sf(aes(fill =testing_policy)) +
+    scale_fill_manual(values=c("#ECEC2A","#E53535","#9EF635","#00FFF3")) +
     theme(legend.position = "",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Abril.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-(d_plots$may$information_campaigns <- ggplot(data = total$totalma) +
-    geom_sf(aes(fill =information_campaigns)) +
-    scale_fill_manual(values=c("#9EF635","#ECEC2A","#E53535")) +
+(d_plots$may$testing_policy <- ggplot(data = total$totalma) +
+    geom_sf(aes(fill =testing_policy)) +
+    scale_fill_manual(values=c("#ECEC2A","#E53535","#9EF635","#00FFF3")) +
     theme(legend.position = "",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Maio.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-(d_plots$jun$information_campaigns<- ggplot(data = total$totaljun) +
-    geom_sf(aes(fill = information_campaigns)) +
-    scale_fill_manual(values=c("#9EF635","#ECEC2A","#E53535")) +
+(d_plots$jun$testing_policy<- ggplot(data = total$totaljun) +
+    geom_sf(aes(fill = testing_policy)) +
+    scale_fill_manual(values=c("#ECEC2A","#E53535","#9EF635","#00FFF3")) +
     theme(legend.position = "",panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Junho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-(d_plots$jul$information_campaigns <- ggplot(data = total$totaljul) +
-    geom_sf(aes(fill = information_campaigns)) +
-    scale_fill_manual(values=c("#9EF635","#ECEC2A","#E53535")) +
-    theme(legend.position = c(-0.35,2),panel.background = element_rect(fill = "white"),
+(d_plots$jul$testing_policy <- ggplot(data = total$totaljul) +
+    geom_sf(aes(fill = testing_policy)) +
+    scale_fill_manual(values=c("#ECEC2A","#E53535","#9EF635","#00FFF3")) +
+    theme(legend.position = c(-0.275,2),panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-grid.arrange(d_plots$fev$information_campaigns,d_plots$mar$information_campaigns,d_plots$apr$information_campaigns,d_plots$may$information_campaigns,d_plots$jun$information_campaigns,d_plots$jul$information_campaigns,top="Política de fechamento internacional.",ncol=2,nrow=3)
+grid.arrange(d_plots$fev$testing_policy,d_plots$mar$testing_policy,d_plots$apr$testing_policy,d_plots$may$testing_policy,d_plots$jun$testing_policy,d_plots$jul$testing_policy,top="Política de testagem.",ncol=2,nrow=3)
+
+###################################################
+#contact_tracing
+
+(d_plots$fev$contact_tracing<- ggplot(data = total$totalf) +
+   geom_sf(aes(fill = contact_tracing)) +
+   scale_fill_manual(values=c("#ECEC2A","#9EF635","#E53535")) +
+   theme(legend.position = "",panel.background = element_rect(fill = "white"),
+         panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$mar$contact_tracing <- ggplot(data = total$totalm) +
+    geom_sf(aes(fill = contact_tracing)) +
+    scale_fill_manual(values=c("#ECEC2A","#9EF635","#E53535")) +
+    theme(legend.position = "",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Março.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$apr$contact_tracing<- ggplot(data = total$totala) +
+    geom_sf(aes(fill =contact_tracing)) +
+    scale_fill_manual(values=c("#ECEC2A","#9EF635","#E53535")) +
+    theme(legend.position = "",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Abril.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$may$contact_tracing <- ggplot(data = total$totalma) +
+    geom_sf(aes(fill =contact_tracing)) +
+    scale_fill_manual(values=c("#ECEC2A","#9EF635","#E53535")) +
+    theme(legend.position = "",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Maio.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$jun$contact_tracing<- ggplot(data = total$totaljun) +
+    geom_sf(aes(fill = contact_tracing)) +
+    scale_fill_manual(values=c("#ECEC2A","#9EF635","#E53535")) +
+    theme(legend.position = "",panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Junho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+(d_plots$jul$contact_tracing <- ggplot(data = total$totaljul) +
+    geom_sf(aes(fill = contact_tracing)) +
+    scale_fill_manual(values=c("#ECEC2A","#9EF635","#E53535")) +
+    theme(legend.position = c(-0.275,2),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+grid.arrange(d_plots$fev$contact_tracing,d_plots$mar$contact_tracing,d_plots$apr$contact_tracing,d_plots$may$contact_tracing,d_plots$jun$contact_tracing,d_plots$jul$contact_tracing,top="Política de testagem.",ncol=2,nrow=3)
