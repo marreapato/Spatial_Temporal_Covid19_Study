@@ -325,7 +325,7 @@ c_plots$jul$zrecov <-ggplot(data = total$totaljul) +
 grid.arrange(c_plots$fev$zconf,c_plots$mar$zconf,c_plots$apr$zconf,c_plots$may$zconf,c_plots$jun$zconf,c_plots$jul$zconf,top="Casos confirmados",ncol=2,nrow=3)
 
 #deaths
-grid.arrange(c_plots$fev$zdeath,c_plots$mar$zdeath,c_plots$apr$zdeath,c_plots$may$zdeath,c_plots$jun$zdeath,c_plots$jul$zdeath,top="Mortes confirmadas",ncol=2,nrow=3)
+grid.arrange(c_plots$fev$zdeath,c_plots$mar$zdeath,c_plots$apr$zdeath,c_plots$may$zdeath,c_plots$jun$zdeath,c_plots$jul$zdeath,top="Mortes",ncol=2,nrow=3)
 
 #tests
 grid.arrange(c_plots$fev$ztest,c_plots$mar$ztest,c_plots$apr$ztest,c_plots$may$ztest,c_plots$jun$ztest,c_plots$jul$ztest,top="Quantidade de testes",ncol=2,nrow=3)
@@ -622,7 +622,7 @@ grid.arrange(d_plots$fev$transport_closing,d_plots$mar$transport_closing,d_plots
     theme(legend.position = c(-0.35,2),panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-grid.arrange(d_plots$fev$internal_movement_restrictions,d_plots$mar$internal_movement_restrictions,d_plots$apr$internal_movement_restrictions,d_plots$may$internal_movement_restrictions,d_plots$jun$internal_movement_restrictions,d_plots$jul$internal_movement_restrictions,top="Política de fechamento de transportes.",ncol=2,nrow=3)
+grid.arrange(d_plots$fev$internal_movement_restrictions,d_plots$mar$internal_movement_restrictions,d_plots$apr$internal_movement_restrictions,d_plots$may$internal_movement_restrictions,d_plots$jun$internal_movement_restrictions,d_plots$jul$internal_movement_restrictions,top="Política de fechamento interno.",ncol=2,nrow=3)
 
 ###################################################
 #international_movement_restrictions
@@ -786,4 +786,4 @@ grid.arrange(d_plots$fev$testing_policy,d_plots$mar$testing_policy,d_plots$apr$t
     theme(legend.position = c(-0.35,2),panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-grid.arrange(d_plots$fev$contact_tracing,d_plots$mar$contact_tracing,d_plots$apr$contact_tracing,d_plots$may$contact_tracing,d_plots$jun$contact_tracing,d_plots$jul$contact_tracing,top="Política de testagem.",ncol=2,nrow=3)
+grid.arrange(d_plots$fev$contact_tracing,d_plots$mar$contact_tracing,d_plots$apr$contact_tracing,d_plots$may$contact_tracing,d_plots$jun$contact_tracing,d_plots$jul$contact_tracing,top="Política de rastreamento.",ncol=2,nrow=3)
