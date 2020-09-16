@@ -71,7 +71,7 @@ for(i in 1:length(datasets)){
   
   datasets[[i]]$internal_movement_restrictions<- gsub(0, "Sem medidas", datasets[[i]]$internal_movement_restrictions)
   datasets[[i]]$internal_movement_restrictions<- gsub(1, "Recomendação de fechamento\n(ou redução significante no volume/\nrotas/meios de transporte)", datasets[[i]]$internal_movement_restrictions)
-  datasets[[i]]$internal_movement_restrictions<- gsub(2, "Fechamento Obrigatório\n(ou proibição do uso para maiorioa das pessoas)\n", datasets[[i]]$internal_movement_restrictions)
+  datasets[[i]]$internal_movement_restrictions<- gsub(2, "Fechamento Obrigatório\n(ou proibição do uso para maioria das pessoas)\n", datasets[[i]]$internal_movement_restrictions)
   
   datasets[[i]]$international_movement_restrictions<- gsub(0, "Sem medidas", datasets[[i]]$international_movement_restrictions)
   datasets[[i]]$international_movement_restrictions<- gsub(1, "Screening", datasets[[i]]$international_movement_restrictions)
@@ -787,4 +787,3 @@ grid.arrange(d_plots$fev$testing_policy,d_plots$mar$testing_policy,d_plots$apr$t
           panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 grid.arrange(d_plots$fev$contact_tracing,d_plots$mar$contact_tracing,d_plots$apr$contact_tracing,d_plots$may$contact_tracing,d_plots$jun$contact_tracing,d_plots$jul$contact_tracing,top="Política de rastreamento.",ncol=2,nrow=3)
- 
