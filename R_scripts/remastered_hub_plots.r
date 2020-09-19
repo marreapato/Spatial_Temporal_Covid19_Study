@@ -160,11 +160,11 @@ i_vcolor=c("red","#003AFF","#0FBE09","#00FFF3","#FFFFFF")
 c_plots <- list(fev=NULL,mar=NULL,apr=NULL,may=NULL,jun=NULL,jul=NULL)
 
 c_plots$fev$zconf <-ggplot(data = total$totalf) +
-    geom_sf(aes(fill = zconfirmed)) +
-    scale_fill_gradientn(colors=vcolor)+
-    theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
-          panel.border = element_rect(fill = NA))+labs(title ="Até Fevereiro",fill="Casos confirmados: ",caption=c("Fonte: Covid19DataHub"))
-  
+  geom_sf(aes(fill = zconfirmed)) +
+  scale_fill_gradientn(colors=vcolor)+
+  theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(fill = NA))+labs(title ="Até Fevereiro",fill="Casos confirmados: ",caption=c("Fonte: Covid19DataHub"))
+
 c_plots$fev$zdeath <-ggplot(data = total$totalf) +
   geom_sf(aes(fill = zdeaths)) +
   scale_fill_gradientn(colors=vcolor)+
@@ -392,10 +392,10 @@ levels(total$totaljul$stay_home_restrictions)
 
 
 (d_plots$fev$stay <- ggplot(data = total$totalf) +
-   geom_sf(aes(fill = stay_home_restrictions)) +
-   scale_fill_manual(values=c("#00FFF3","#9EF635","#ECEC2A","#E53535")) +
-   theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
-         panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+    geom_sf(aes(fill = stay_home_restrictions)) +
+    scale_fill_manual(values=c("#00FFF3","#9EF635","#ECEC2A","#E53535")) +
+    theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$mar$stay <- ggplot(data = total$totalm) +
     geom_sf(aes(fill = stay_home_restrictions)) +
@@ -643,10 +643,10 @@ total$totaljul$international_movement_restrictions <- factor(total$totaljul$inte
 
 
 (d_plots$fev$international_movement_restrictions<- ggplot(data = total$totalf) +
-   geom_sf(aes(fill = international_movement_restrictions)) +
-   scale_fill_manual(values=c("#00FFF3","#9EF635","#ECEC2A","#E53535")) +
-   theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
-         panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+    geom_sf(aes(fill = international_movement_restrictions)) +
+    scale_fill_manual(values=c("#00FFF3","#9EF635","#ECEC2A","#E53535")) +
+    theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$mar$international_movement_restrictions <- ggplot(data = total$totalm) +
     geom_sf(aes(fill = international_movement_restrictions)) +
@@ -730,10 +730,10 @@ total$totaljul$testing_policy <- factor(total$totaljul$testing_policy,levels=c("
 
 
 (d_plots$fev$testing_policy<- ggplot(data = total$totalf) +
-   geom_sf(aes(fill = testing_policy)) +
-   scale_fill_manual(values=c("#ECEC2A","#E53535","#00FFF3","#9EF635")) +
-   theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
-         panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+    geom_sf(aes(fill = testing_policy)) +
+    scale_fill_manual(values=c("#ECEC2A","#E53535","#00FFF3","#9EF635")) +
+    theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$mar$testing_policy <- ggplot(data = total$totalm) +
     geom_sf(aes(fill = testing_policy)) +
@@ -776,10 +776,10 @@ total$totaljul$contact_tracing <- factor(total$totaljul$contact_tracing,levels=c
 
 
 (d_plots$fev$contact_tracing<- ggplot(data = total$totalf) +
-   geom_sf(aes(fill = contact_tracing)) +
-   scale_fill_manual(values=c("#ECEC2A","#9EF635","#E53535")) +
-   theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
-         panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+    geom_sf(aes(fill = contact_tracing)) +
+    scale_fill_manual(values=c("#ECEC2A","#9EF635","#E53535")) +
+    theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 (d_plots$mar$contact_tracing <- ggplot(data = total$totalm) +
     geom_sf(aes(fill = contact_tracing)) +
