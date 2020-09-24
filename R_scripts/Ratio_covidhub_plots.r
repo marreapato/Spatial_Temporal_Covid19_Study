@@ -204,7 +204,7 @@ for(i in 1:length(total)){
 
 #continuous information
 
-c_plots <- list(fev=NULL,mar=NULL,apr=NULL,may=NULL,jun=NULL,jul=NULL)
+c_plots <- list(fev=NULL,mar=NULL,abr=NULL,may=NULL,jun=NULL,jul=NULL)
 vcolor=c("#FFFFFF","#00FFF3","#0FBE09","#003AFF","red")
 i_vcolor=c("red","#003AFF","#0FBE09","#00FFF3","#FFFFFF")
 
@@ -410,37 +410,39 @@ c_plots$jun$zrecovcase <-ggplot(data = total$totaljun) +
 c_plots$jul$zconfpop <-ggplot(data = total$totaljul) +
   geom_sf(aes(fill = zconfirmedpop_ratio)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Julho",fill="Casos confirmados: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$jul$zdeathpop <-ggplot(data = total$totaljul) +
   geom_sf(aes(fill = zdeathspop_ratio)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Julho",fill="Mortes: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$jul$ztestpop <-ggplot(data = total$totaljul) +
   geom_sf(aes(fill = ztestspop_ratio)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Julho",fill="Testes: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$jul$zrecovpop <-ggplot(data = total$totaljul) +
   geom_sf(aes(fill = zrecoveredpop_ratio)) +
   scale_fill_gradientn(colors=i_vcolor)+
-  theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Julho",fill="Recuperados: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$jul$zdeathcase <-ggplot(data = total$totaljul) +
   geom_sf(aes(fill = zdeaths_conf_ratio)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Julho",fill="Mortes: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$jul$zrecovcase <-ggplot(data = total$totaljul) +
   geom_sf(aes(fill = zrecovered_conf_ratio)) +
   scale_fill_gradientn(colors=i_vcolor)+
-  theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Julho",fill="Recuperados: ",caption=c("Fonte: Covid19DataHub"))
 
 
+#deaths
+grid.arrange(c_plots$fev$zdeathpop,c_plots$mar$zdeathpop,c_plots$abr$zdeathpop,c_plots$may$zdeathpop,c_plots$jun$zdeathpop,c_plots$jul$zdeathpop,top="Mortes por quantidade populacional",ncol=2,nrow=3)
