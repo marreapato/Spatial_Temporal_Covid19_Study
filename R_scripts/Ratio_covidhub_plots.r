@@ -158,8 +158,52 @@ for(i in 1:length(total)){
   total[[i]] <- cbind(total[[i]],recov_case_ratio,death_case_ratio,case_pop_ratio,death_pop_ratio,recov_pop_ratio,test_pop_ratio)
   
 }
+#deleting NaNs
+
+for(i in 1:length(total)){
+ 
+  for(j in 1:nrow(total[[i]])){
+    
+    if(is.nan(total[[i]]$recov_case_ratio[j])==TRUE){
+      total[[i]]$recov_case_ratio[j]=0
+    }
+    
+    if(is.nan(total[[i]]$death_case_ratio[j])==TRUE){
+      total[[i]]$death_case_ratio[j]=0
+    }
+    
+  }
+
+}
 
 
 
-total$totalf$population[6]
-total$totalf$subunit[6]
+#patterns
+
+for(i in 1:length(total)){
+  zconfirmedpop_ratio=NULL
+  zdeathspop_ratio=NULL
+  ztestspop_ratio=NULL
+  zrecoveredpop_ratio=NULL
+  zdeaths_conf_ratio=NULL
+  zrecovered_conf_ratio=NULL
+  for(j in 1:nrow(total[[i]])){
+    
+    zconfirmedpop_ratio[j] <- (total[[i]]$case_pop_ratio[j]-min(total[[i]]$case_pop_ratio))/(max(total[[i]]$case_pop_ratio)-min(total[[i]]$case_pop_ratio))
+    zdeathspop_ratio[j] <- (total[[i]]$death_pop_ratio[j]-min(total[[i]]$death_pop_ratio))/(max(total[[i]]$death_pop_ratio)-min(total[[i]]$death_pop_ratio))
+    ztestspop_ratio[j] <- (total[[i]]$test_pop_ratio[j]-min(total[[i]]$test_pop_ratio))/(max(total[[i]]$test_pop_ratio)-min(total[[i]]$test_pop_ratio))
+    zrecoveredpop_ratio[j] <- (total[[i]]$recov_pop_ratio[j]-min(total[[i]]$recov_pop_ratio))/(max(total[[i]]$recov_pop_ratio)-min(total[[i]]$recov_pop_ratio))
+    zdeaths_conf_ratio[j] <- (total[[i]]$death_case_ratio[j]-min(total[[i]]$death_case_ratio))/(max(total[[i]]$death_case_ratio)-min(total[[i]]$death_case_ratio))
+    zrecovered_conf_ratio[j] <- (total[[i]]$recov_case_ratio[j]-min(total[[i]]$recov_case_ratio))/(max(total[[i]]$recov_case_ratio)-min(total[[i]]$recov_case_ratio))
+    
+    
+  }
+  total[[i]] <- cbind(total[[i]],zconfirmedpop_ratio,zdeathspop_ratio,ztestspop_ratio,zrecoveredpop_ratio,zdeaths_conf_ratio,zrecovered_conf_ratio)
+  
+}
+
+#continuous information
+
+c_plots <- list(fev=NULL,mar=NULL,apr=NULL,may=NULL,jun=NULL,jul=NULL)
+vcolor=c("#FFFFFF","#00FFF3","#0FBE09","#003AFF","red")
+i_vcolor=c("red","#003AFF","#0FBE09","#00FFF3","#FFFFFF")
