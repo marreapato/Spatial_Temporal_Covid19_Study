@@ -446,3 +446,18 @@ c_plots$jul$zrecovcase <-ggplot(data = total$totaljul) +
 
 #deaths
 grid.arrange(c_plots$fev$zdeathpop,c_plots$mar$zdeathpop,c_plots$abr$zdeathpop,c_plots$may$zdeathpop,c_plots$jun$zdeathpop,c_plots$jul$zdeathpop,top="Mortes por quantidade populacional",ncol=2,nrow=3)
+
+#confirmed
+grid.arrange(c_plots$fev$zconfpop,c_plots$mar$zconfpop,c_plots$abr$zconfpop,c_plots$may$zconfpop,c_plots$jun$zconfpop,c_plots$jul$zconfpop,top="Casos confirmados por quantidade populacional",ncol=2,nrow=3)
+
+#recovered
+grid.arrange(c_plots$fev$zrecovpop,c_plots$mar$zrecovpop,c_plots$abr$zrecovpop,c_plots$may$zrecovpop,c_plots$jun$zrecovpop,c_plots$jul$zrecovpop,top="Recuperados por quantidade populacional",ncol=2,nrow=3)
+
+#tests
+grid.arrange(c_plots$fev$ztestpop,c_plots$mar$ztestpop,c_plots$abr$ztestpop,c_plots$may$ztestpop,c_plots$jun$ztestpop,c_plots$jul$ztestpop,top="Testes por quantidade populacional",ncol=2,nrow=3)
+
+#recovered
+grid.arrange(c_plots$fev$zrecovcase,c_plots$mar$zrecovcase,c_plots$abr$zrecovcase,c_plots$may$zrecovcase,c_plots$jun$zrecovcase,c_plots$jul$zrecovcase,top="Recuperados por quantidade de casos",ncol=2,nrow=3)
+
+#deaths
+grid.arrange(c_plots$fev$zdeathcase,c_plots$mar$zdeathcase,c_plots$abr$zdeathcase,c_plots$may$zdeathcase,c_plots$jun$zdeathcase,c_plots$jul$zdeathcase,top="Mortes por quantidade de casos",ncol=2,nrow=3)
