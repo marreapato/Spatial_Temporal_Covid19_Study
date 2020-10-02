@@ -119,7 +119,7 @@ total <- list(totalf=NULL,totalm=NULL,totala=NULL,totalma=NULL,totaljun=NULL,tot
 
 for(i in 1:length(total)){
   total[[i]]<-merge(world,countries[[i]],by="subunit")
-  #total[[i]]$subunit<-factor(total[[i]]$subunit)
+  total[[i]]$subunit<-factor(total[[i]]$name)
   #total[[i]] <- total[[i]][order(total[[i]]$confirmed),] # order the data [very important!]
   
 }
@@ -234,7 +234,7 @@ lw <- nb2listw(queen.r.nb, style="W", zero.policy=TRUE)
 lw$weights
 moran.test(total$totaljul$zdeathspop_ratio,lw,zero.policy = TRUE)
 moran.test(total$totaljul$zconfirmedpop_ratio,lw,zero.policy = TRUE)
-
+#plot(density(total$totaljul$zdeathspop_ratio))
 #validation????
 moran.mc(nsim=185,total$totaljul$zdeathspop_ratio,lw,zero.policy = TRUE)
 
@@ -244,15 +244,15 @@ moran.mc(nsim=185,total$totaljul$zdeathspop_ratio,lw,zero.policy = TRUE)
 ##########################################################
 
 #moran.plot(total$totaljul$transport_closing, listw=lw)
+moran.plot(total$totaljul$zdeathspop_ratio, listw=nb2listw(queen.r.nb,style="W",zero.policy = TRUE))
+
+moran.plot(total$totaljul$zconfirmedpop_ratio, listw=nb2listw(queen.r.nb,style="W",zero.policy = TRUE))
 
 
 
 
 
-
-
-
-
+####################################################
 
 
 
@@ -266,6 +266,8 @@ totaljul<-merge(world,countries$countriesjul,by="subunit")
 death_pop_ratiojul <- ((totaljul$deaths)/(totaljul$population))
 totaljul <- cbind(totaljul,"deaths"=death_pop_ratiojul)
 
+totaljul=totaljul[!is.na(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596..),]
+
 queen.r.nb <- poly2nb(totaljul,queen = TRUE,row.names = totaljul$name)
 
 summary(queen.r.nb)
@@ -273,4 +275,12 @@ summary(queen.r.nb)
 lw <- nb2listw(queen.r.nb, style="W", zero.policy=TRUE)
 
 lw$weights
+
+plot(totaljul)
+plot(totaljul, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(queen.r.nb, coordinates(totaljul), col='red', lwd=2, add=TRUE)#links
+
 moran.test(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596..,lw,zero.policy = TRUE,na.action = na.omit)
+
+moran.plot(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., listw = lw)
+
