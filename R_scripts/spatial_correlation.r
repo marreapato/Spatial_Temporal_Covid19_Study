@@ -1,16 +1,16 @@
-#install.packages("COVID19")
-#install.packages("tidyverse")
-#install.packages("ggthemes")
-#install.packages("zoo")
-#install.packages("sf")
-#install.packages("maps")
+install.packages("COVID19")
+install.packages("tidyverse")
+install.packages("ggthemes")
+install.packages("zoo")
+install.packages("sf")
+install.packages("maps")
 #The package rnaturalearth also provides a map of countries of the entire world
-#install.packages("rnaturalearth")
-#install.packages('rnaturalearthdata')
-#install.packages("rgeos")
-#install.packages("gridExtra")
-#install.packages("rgdal")
-#install.packages("spdep")
+install.packages("rnaturalearth")
+install.packages('rnaturalearthdata')
+install.packages("rgeos")
+install.packages("gridExtra")
+install.packages("rgdal")
+install.packages("spdep")
 library(rgeos)
 library(sf)
 library(zoo)#deal with dates
@@ -292,8 +292,9 @@ moran.mc(nsim=1000,totaljul$c.NA..0.0000342189495180643..0.00000168777675075841.
 #links between polygons
 #https://rspatial.org/raster/analysis/analysis.pdf
 #scatter plot
-nci=moran.plot(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., listw = lw)
+nci <- moran.plot(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., listw = lw)
 ?moran.plot
+
 
 #####################
 
@@ -316,18 +317,37 @@ plot(PPV3.w, coordinates(totaljul), col='red', lwd=2, add=TRUE)#links
 
 
 prodMapdist<- unlist(nbdists(cartePPV3.nb, coor))
-summary(prodMapdist)
+
 
 max_k1<-max(prodMapdist)
+summary(prodMapdist)
 
 prod_kd4<-dnearneigh(coor,d1=0, d2=max_k1, row.names=totaljul$name)
 
 plot(totaljul)
 
 plot(prod_kd4, coor, add=T,col="green",lwd=0.1)
+
 moran.test(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., nb2listw(prod_kd4))
 
 
 moran.plot(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., listw = nb2listw(prod_kd4))
 
 ##############################################
+
+
+local.mi.prod<-localmoran(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., PPV3.w)
+
+totaljul$lmi<-local.mi.prod[,1]
+
+totaljul$lmi.p<-local.mi.prod[,5]
+
+totaljul$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                      ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+spplot(totaljul, "lmi", at=summary(totaljul$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
+spplot(totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"))
