@@ -232,12 +232,11 @@ summary(queen.r.nb)
 lw <- nb2listw(queen.r.nb, style="W", zero.policy=TRUE)
 ?moran.test
 lw$weights
-moran.test(total$totaljul$zdeathspop_ratio,lw,zero.policy = TRUE)
-moran.test(total$totaljul$zconfirmedpop_ratio,lw,zero.policy = TRUE)
+moran.test(total$totaljul$zdeathspop_ratio,lw,zero.policy = TRUE,alternative = "greater")
+moran.test(total$totaljul$zrecovered_conf_ratio,lw,zero.policy = TRUE)
 #plot(density(total$totaljul$zdeathspop_ratio))
 #validation????
 moran.mc(nsim=185,total$totaljul$zdeathspop_ratio,lw,zero.policy = TRUE)
-
 
 #moran.test(total$totaljul$transport_closing,lw,zero.policy = TRUE)
 
@@ -246,8 +245,11 @@ moran.mc(nsim=185,total$totaljul$zdeathspop_ratio,lw,zero.policy = TRUE)
 #moran.plot(total$totaljul$transport_closing, listw=lw)
 moran.plot(total$totaljul$zdeathspop_ratio, listw=nb2listw(queen.r.nb,style="W",zero.policy = TRUE))
 
-moran.plot(total$totaljul$zconfirmedpop_ratio, listw=nb2listw(queen.r.nb,style="W",zero.policy = TRUE))
+moran.plot(total$totaljul$icu, listw=nb2listw(queen.r.nb,style="W",zero.policy = TRUE))
 
+#nb plot does not work with sf objects
+plot(total$totaljul$geometry, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(queen.r.nb, coordinates(total$totaljul$geometry), col='red', lwd=2, add=TRUE)#links
 
 
 
@@ -264,23 +266,59 @@ totaljul <-  NA
 
 totaljul<-merge(world,countries$countriesjul,by="subunit")
 death_pop_ratiojul <- ((totaljul$deaths)/(totaljul$population))
-totaljul <- cbind(totaljul,"deaths"=death_pop_ratiojul)
+zdeathspop_rat <- (death_pop_ratiojul-min(!is.na(death_pop_ratiojul)))/(max(!is.na(death_pop_ratiojul))-min(!is.na(death_pop_ratiojul)))
+totaljul <- cbind(totaljul,deaths=c(zdeathspop_rat))
+
+#totaljul <- cbind(totaljul,"deaths"=death_pop_ratiojul)
 
 totaljul=totaljul[!is.na(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596..),]
 
-queen.r.nb <- poly2nb(totaljul,queen = TRUE,row.names = totaljul$name)
 
+#totaljul=totaljul[!is.na(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596..),]
+queen.r.nb <- poly2nb(totaljul,queen = TRUE,row.names = totaljul$name)
 summary(queen.r.nb)
+
 #?nb2listw
 lw <- nb2listw(queen.r.nb, style="W", zero.policy=TRUE)
 
-lw$weights
-
+lw$weights=lw$weights[[!0]]
+for(i in 1:length(lw$weights)){
+  lw$weights[[i]]=lw$weights[[!is.null(lw$weights[i])]]
+}
 plot(totaljul)
 plot(totaljul, col='gray', border='blue', lwd=2,main= "Vizinhos")
 plot(queen.r.nb, coordinates(totaljul), col='red', lwd=2, add=TRUE)#links
 
 moran.test(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596..,lw,zero.policy = TRUE,na.action = na.omit)
 
+moran.mc(nsim=1000,totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596..,lw,zero.policy = TRUE,na.action = na.omit)
+
+#links between polygons
+#https://rspatial.org/raster/analysis/analysis.pdf
+#scatter plot
 moran.plot(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., listw = lw)
+?moran.plot
+
+#####################
+
+#extra dont run
+
+coor <- coordinates(totaljul)
+cartePPV3.knn <- knearneigh(coor, k=2) 
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = totaljul$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)
+
+moran.plot(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., PPV3.w, zero.policy=TRUE)
+moran.test(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596..,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+plot(totaljul, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(totaljul), col='red', lwd=2, add=TRUE)#links
+###############
+
+
+
+
+
+
+
 
