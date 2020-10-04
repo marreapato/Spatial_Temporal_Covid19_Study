@@ -292,7 +292,7 @@ moran.mc(nsim=1000,totaljul$c.NA..0.0000342189495180643..0.00000168777675075841.
 #links between polygons
 #https://rspatial.org/raster/analysis/analysis.pdf
 #scatter plot
-moran.plot(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., listw = lw)
+nci=moran.plot(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., listw = lw)
 ?moran.plot
 
 #####################
@@ -330,5 +330,4 @@ moran.test(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0
 
 moran.plot(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., listw = nb2listw(prod_kd4))
 
-
-
+##############################################
