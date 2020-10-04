@@ -281,10 +281,6 @@ summary(queen.r.nb)
 #?nb2listw
 lw <- nb2listw(queen.r.nb, style="W", zero.policy=TRUE)
 
-lw$weights=lw$weights[[!0]]
-for(i in 1:length(lw$weights)){
-  lw$weights[[i]]=lw$weights[[!is.null(lw$weights[i])]]
-}
 plot(totaljul)
 plot(totaljul, col='gray', border='blue', lwd=2,main= "Vizinhos")
 plot(queen.r.nb, coordinates(totaljul), col='red', lwd=2, add=TRUE)#links
@@ -301,7 +297,7 @@ moran.plot(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0
 
 #####################
 
-#extra dont run
+#nearest neighbours
 
 coor <- coordinates(totaljul)
 cartePPV3.knn <- knearneigh(coor, k=2) 
@@ -313,12 +309,26 @@ moran.test(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0
 
 plot(totaljul, col='gray', border='blue', lwd=2,main= "Vizinhos")
 plot(PPV3.w, coordinates(totaljul), col='red', lwd=2, add=TRUE)#links
+
 ###############
 
+#coordinates (centroides)
 
 
+prodMapdist<- unlist(nbdists(cartePPV3.nb, coor))
+summary(prodMapdist)
+
+max_k1<-max(prodMapdist)
+
+prod_kd4<-dnearneigh(coor,d1=0, d2=max_k1, row.names=totaljul$name)
+
+plot(totaljul)
+
+plot(prod_kd4, coor, add=T,col="green",lwd=0.1)
+moran.test(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., nb2listw(prod_kd4))
 
 
+moran.plot(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., listw = nb2listw(prod_kd4))
 
 
 
