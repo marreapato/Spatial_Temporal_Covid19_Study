@@ -395,3 +395,4 @@ spplot(totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main 
 ?spplot
 
 ##############################################
+ 
