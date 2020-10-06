@@ -249,14 +249,14 @@ moran.plot(total$totaljul$icu, listw=nb2listw(queen.r.nb,style="W",zero.policy =
 
 #nb plot does not work with sf objects
 plot(total$totaljul$geometry, col='gray', border='blue', lwd=2,main= "Vizinhos")
-plot(queen.r.nb, coordinates(total$totaljul$geometry), col='red', lwd=2, add=TRUE)#links
+plot(queen.r.nb, cbind(total$totaljul$latitude,total$totaljul$longitude), col='red', lwd=2, add=TRUE)#links
 
 
 
 
 ####################################################
 
-
+#the right way to do it
 
 #for sp object
 
@@ -265,37 +265,55 @@ world <- ne_countries(scale='medium',returnclass = 'sp')
 totaljul <-  NA
 
 totaljul<-merge(world,countries$countriesjul,by="subunit")
+
 death_pop_ratiojul <- ((totaljul$deaths)/(totaljul$population))
+
 zdeathspop_rat <- (death_pop_ratiojul-min(!is.na(death_pop_ratiojul)))/(max(!is.na(death_pop_ratiojul))-min(!is.na(death_pop_ratiojul)))
-totaljul <- cbind(totaljul,deaths=c(zdeathspop_rat))
+
+totaljul$deaths_ratio <- zdeathspop_rat
 
 #totaljul <- cbind(totaljul,"deaths"=death_pop_ratiojul)
 
-totaljul=totaljul[!is.na(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596..),]
+totaljul=totaljul[!is.na(totaljul$deaths_ratio),]
 
 
-#totaljul=totaljul[!is.na(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596..),]
+#totaljul=totaljul[!is.na(totaljul$deaths_ratio),]
 queen.r.nb <- poly2nb(totaljul,queen = TRUE,row.names = totaljul$name)
 summary(queen.r.nb)
-
+?poly2nb
 #?nb2listw
+
 lw <- nb2listw(queen.r.nb, style="W", zero.policy=TRUE)
 
 plot(totaljul)
 plot(totaljul, col='gray', border='blue', lwd=2,main= "Vizinhos")
 plot(queen.r.nb, coordinates(totaljul), col='red', lwd=2, add=TRUE)#links
 
-moran.test(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596..,lw,zero.policy = TRUE,na.action = na.omit)
+moran.test(totaljul$deaths_ratio,lw,zero.policy = TRUE,na.action = na.omit)
 
-moran.mc(nsim=1000,totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596..,lw,zero.policy = TRUE,na.action = na.omit)
+?moran.test
+moran.mc(nsim=1000,totaljul$deaths_ratio,lw,zero.policy = TRUE,na.action = na.omit)
 
 #links between polygons
 #https://rspatial.org/raster/analysis/analysis.pdf
 #scatter plot
-nci <- moran.plot(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., listw = lw)
+nci <- moran.plot(totaljul$deaths_ratio, listw = lw)
+abline(h=mean(totaljul$deaths_ratio), lt=2)#fixing
 ?moran.plot
 
+#moran plot hard way, but it works
+laglw <- lag.listw(lw,totaljul$deaths_ratio)
+?lag.listw
 
+plot(laglw,totaljul$deaths_ratio)
+reg <- lm(  totaljul$deaths_ratio ~ laglw )
+abline(reg, lwd=2)
+abline(h=mean(totaljul$deaths_ratio), lt=2)
+abline(v=mean(laglw,na.rm = T), lt=2)
+
+
+length(totaljul$deaths_ratio)
+length(lw$neighbours)
 #####################
 
 #nearest neighbours
@@ -305,12 +323,12 @@ cartePPV3.knn <- knearneigh(coor, k=2)
 cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = totaljul$name)
 PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)
 
-moran.plot(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., PPV3.w, zero.policy=TRUE)
-moran.test(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596..,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.plot(totaljul$deaths_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(totaljul$deaths_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=1000,totaljul$deaths_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 
 plot(totaljul, col='gray', border='blue', lwd=2,main= "Vizinhos")
 plot(PPV3.w, coordinates(totaljul), col='red', lwd=2, add=TRUE)#links
-
 ###############
 
 #coordinates (centroides)
@@ -322,21 +340,23 @@ prodMapdist<- unlist(nbdists(cartePPV3.nb, coor))
 max_k1<-max(prodMapdist)
 summary(prodMapdist)
 
-prod_kd4<-dnearneigh(coor,d1=0, d2=max_k1, row.names=totaljul$name)
+prod_kd4<-dnearneigh(coor,d1=min(prodMapdist), d2=max_k1, row.names=totaljul$name)
 
 plot(totaljul)
 
-plot(prod_kd4, coor, add=T,col="green",lwd=0.1)
+plot(prod_kd4, coor, add=T,col="green",lwd=2)
+lw2=nb2listw(prod_kd4,zero.policy = TRUE)
+moran.test(totaljul$deaths_ratio, lw2)
+moran.mc(nsim=1000,totaljul$deaths_ratio,lw2,zero.policy = TRUE,na.action = na.omit)
 
-moran.test(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., nb2listw(prod_kd4))
 
+moran.plot(totaljul$deaths_ratio, listw = nb2listw(prod_kd4))
 
-moran.plot(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., listw = nb2listw(prod_kd4))
 
 ##############################################
+#knn method
 
-
-local.mi.prod<-localmoran(totaljul$c.NA..0.0000342189495180643..0.00000168777675075841..NA..0.0000547729955874596.., PPV3.w)
+local.mi.prod<-localmoran(totaljul$deaths_ratio, PPV3.w)
 
 totaljul$lmi<-local.mi.prod[,1]
 
@@ -350,4 +370,28 @@ totaljul$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
 #require("sp")
 
 spplot(totaljul, "lmi", at=summary(totaljul$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-spplot(totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"))
+spplot(totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Local Moran's i")
+?spplot
+
+
+##############################################
+#polygon method
+
+local.mi.prod<-localmoran(totaljul$deaths_ratio, lw)
+
+totaljul$lmi<-local.mi.prod[,1]
+
+totaljul$lmi.p<-local.mi.prod[,5]
+
+totaljul$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                     ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+spplot(totaljul, "lmi", at=summary(totaljul$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
+spplot(totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Local Moran's i")
+?spplot
+
+##############################################
