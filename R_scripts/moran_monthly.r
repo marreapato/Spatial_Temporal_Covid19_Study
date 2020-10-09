@@ -129,6 +129,18 @@ for(i in 1:length(total)){
 }
 
 options(scipen=999)
+#monthly cases###########################
+
+for(i in 1:length(total)){
+  if(i!=1){
+    total[[i]]$monthy_confirmed <-total[[i]]$confirmed-total[[i-1]]$confirmed  
+    total[[i]]$monthy_recovered <-total[[i]]$recovered-total[[i-1]]$recovered
+    total[[i]]$monthy_tested <-total[[i]]$tests-total[[i-1]]$tests
+    total[[i]]$monthy_deaths <-total[[i]]$deaths-total[[i-1]]$deaths
+    }
+}
+
+###################################
 
 for(i in 1:length(total)){
   recov_case_ratio=NULL
