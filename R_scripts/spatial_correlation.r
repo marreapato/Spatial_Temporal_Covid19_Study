@@ -292,7 +292,7 @@ plot(queen.r.nb, coordinates(totaljul), col='red', lwd=2, add=TRUE)#links
 moran.test(totaljul$deaths_ratio,lw,zero.policy = TRUE,na.action = na.omit)
 
 ?moran.test
-moran.mc(nsim=1000,totaljul$deaths_ratio,lw,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,totaljul$deaths_ratio,lw,zero.policy = TRUE,na.action = na.omit)
 
 #links between polygons
 #https://rspatial.org/raster/analysis/analysis.pdf
@@ -395,4 +395,3 @@ spplot(totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main 
 ?spplot
 
 ##############################################
- 
