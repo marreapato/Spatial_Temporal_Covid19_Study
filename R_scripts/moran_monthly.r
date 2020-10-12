@@ -227,4 +227,685 @@ for(i in 1:length(total)){
 }
 
 ###################
+#nearest neighbours
+#February
+coor <- coordinates(total$totalf)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalf$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
 
+plot(total$totalf, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totalf), col='red', lwd=2, add=TRUE)#links
+#lots of variables missing
+
+
+#Moran's Is
+#cumulative first which is monthly in february
+#deaths
+moran.plot(total$totalf$deaths, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalf$deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#cases
+moran.plot(total$totalf$confirmed, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalf$confirmed,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered
+moran.plot(total$totalf$recovered, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalf$recovered,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#tests
+moran.plot(total$totalf$tests, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalf$tests,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalf$tests,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#not validated
+
+#ratios
+#deaths_case
+moran.plot(total$totalf$death_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalf$death_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered_case
+moran.plot(total$totalf$recov_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalf$recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalf$recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#high corr
+
+#case_pop
+moran.plot(total$totalf$case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalf$case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#death_pop
+moran.plot(total$totalf$death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalf$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered_pop
+moran.plot(total$totalf$recov_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalf$recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#tests_pop
+moran.plot(total$totalf$test_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalf$test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#March
+coor <- coordinates(total$totalm)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalm$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totalm, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totalm), col='red', lwd=2, add=TRUE)#links
+
+#Moran's Is
+#cumulative first
+#deaths
+moran.plot(total$totalm$deaths, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#cases
+moran.plot(total$totalm$confirmed, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$confirmed,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered
+moran.plot(total$totalm$recovered, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$recovered,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#tests
+moran.plot(total$totalm$tests, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$tests,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalm$tests,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#not validated
+
+#ratios
+#deaths_case
+moran.plot(total$totalm$death_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$death_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered_case
+moran.plot(total$totalm$recov_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#case_pop
+moran.plot(total$totalm$case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalm$case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death_pop
+moran.plot(total$totalm$death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalm$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#recovered_pop
+moran.plot(total$totalm$recov_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalm$recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#tests_pop
+moran.plot(total$totalm$test_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalm$test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#monthly
+#cumulative first
+#deaths
+moran.plot(total$totalm$monthy_deaths, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$monthy_deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#cases
+moran.plot(total$totalm$monthy_confirmed, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$monthy_confirmed,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered
+moran.plot(total$totalm$monthy_recovered, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$monthy_recovered,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#tests
+moran.plot(total$totalm$monthy_tested, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$monthy_tested,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalm$monthy_tested,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#not validated
+
+#ratios
+#deaths_case
+moran.plot(total$totalm$m_death_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$m_death_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered_case
+moran.plot(total$totalm$m_recov_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$m_recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#case_pop
+moran.plot(total$totalm$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalm$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death_pop
+moran.plot(total$totalm$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalm$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#recovered_pop
+moran.plot(total$totalm$m_recov_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$m_recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalm$m_recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#tests_pop
+moran.plot(total$totalm$m_test_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalm$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalm$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+###########################################################################################
+
+
+#April
+coor <- coordinates(total$totala)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totala$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totala, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totala), col='red', lwd=2, add=TRUE)#links
+
+#Moran's Is
+#cumulative first
+#deaths
+moran.plot(total$totala$deaths, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#cases
+moran.plot(total$totala$confirmed, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$confirmed,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered
+moran.plot(total$totala$recovered, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$recovered,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#tests
+moran.plot(total$totala$tests, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$tests,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#ratios
+#deaths_case
+moran.plot(total$totala$death_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$death_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered_case
+moran.plot(total$totala$recov_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totala$recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#case_pop
+moran.plot(total$totala$case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totala$case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death_pop
+moran.plot(total$totala$death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totala$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated more than 0.50
+
+#recovered_pop
+moran.plot(total$totala$recov_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totala$recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#tests_pop
+moran.plot(total$totala$test_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totala$test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#monthly
+#cumulative first
+#deaths
+moran.plot(total$totala$monthy_deaths, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$monthy_deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#cases
+moran.plot(total$totala$monthy_confirmed, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$monthy_confirmed,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totala$monthy_confirmed,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#not validated
+
+#recovered
+moran.plot(total$totala$monthy_recovered, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$monthy_recovered,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#tests
+moran.plot(total$totala$monthy_tested, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$monthy_tested,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#ratios
+#deaths_case
+moran.plot(total$totala$m_death_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$m_death_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered_case
+moran.plot(total$totala$m_recov_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$m_recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totala$m_recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#case_pop
+moran.plot(total$totala$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totala$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death_pop
+moran.plot(total$totala$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totala$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated MORE THAN 0.70
+
+#recovered_pop
+moran.plot(total$totala$m_recov_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$m_recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totala$m_recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#tests_pop
+moran.plot(total$totala$m_test_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totala$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+
+###########################################################################################
+
+
+#May
+coor <- coordinates(total$totalma)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalma$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totalma, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totalma), col='red', lwd=2, add=TRUE)#links
+
+#Moran's Is
+#cumulative first
+#deaths
+moran.plot(total$totalma$deaths, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalma$deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#not validated
+
+#cases
+moran.plot(total$totalma$confirmed, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$confirmed,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered
+moran.plot(total$totalma$recovered, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$recovered,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#tests
+moran.plot(total$totalma$tests, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$tests,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#ratios
+#deaths_case
+moran.plot(total$totalma$death_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$death_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalma$death_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#recovered_case
+moran.plot(total$totalma$recov_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalma$recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#case_pop
+moran.plot(total$totalma$case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalma$case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death_pop
+moran.plot(total$totalma$death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalma$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated more than 0.50
+
+#recovered_pop
+moran.plot(total$totalma$recov_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalma$recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#tests_pop
+moran.plot(total$totalma$test_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalma$test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#monthly
+#cumulative first
+#deaths
+moran.plot(total$totalma$monthy_deaths, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$monthy_deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#cases
+moran.plot(total$totalma$monthy_confirmed, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$monthy_confirmed,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalma$monthy_confirmed,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#not validated
+
+#recovered
+moran.plot(total$totalma$monthy_recovered, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$monthy_recovered,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#tests
+moran.plot(total$totalma$monthy_tested, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$monthy_tested,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+###############################################################################################
+
+#ratios
+#deaths_case
+moran.plot(total$totalma$m_death_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$m_death_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered_case
+moran.plot(total$totalma$m_recov_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$m_recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalma$m_recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+################################################################
+
+
+#case_pop
+moran.plot(total$totalma$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalma$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death_pop
+moran.plot(total$totalma$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalma$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated MORE THAN 0.70
+
+#recovered_pop
+moran.plot(total$totalma$m_recov_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$m_recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalma$m_recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#tests_pop
+moran.plot(total$totalma$m_test_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalma$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+
+###########################################################################################
+
+
+#June
+coor <- coordinates(total$totaljun)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaljun$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totaljun, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totaljun), col='red', lwd=2, add=TRUE)#links
+
+#Moran's Is
+#cumulative first
+#deaths
+moran.plot(total$totaljun$deaths, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljun$deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#cases
+moran.plot(total$totaljun$confirmed, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$confirmed,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered
+moran.plot(total$totaljun$recovered, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$recovered,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#tests
+moran.plot(total$totaljun$tests, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$tests,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#ratios
+#deaths_case
+moran.plot(total$totaljun$death_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$death_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljun$death_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#recovered_case
+moran.plot(total$totaljun$recov_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljun$recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#case_pop
+moran.plot(total$totaljun$case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljun$case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death_pop
+moran.plot(total$totaljun$death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljun$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated more than 0.50
+
+#recovered_pop
+moran.plot(total$totaljun$recov_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljun$recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#tests_pop
+moran.plot(total$totaljun$test_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljun$test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#monthly
+#cumulative first
+#deaths
+moran.plot(total$totaljun$monthy_deaths, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$monthy_deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljun$monthy_deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#cases
+moran.plot(total$totaljun$monthy_confirmed, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$monthy_confirmed,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered
+moran.plot(total$totaljun$monthy_recovered, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$monthy_recovered,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#tests
+moran.plot(total$totaljun$monthy_tested, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$monthy_tested,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+###############################################################################################
+
+#ratios
+#deaths_case
+moran.plot(total$totaljun$m_death_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$m_death_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered_case
+moran.plot(total$totaljun$m_recov_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$m_recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljun$m_recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+################################################################
+
+
+#case_pop
+moran.plot(total$totaljun$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljun$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death_pop
+moran.plot(total$totaljun$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljun$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#recovered_pop
+moran.plot(total$totaljun$m_recov_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$m_recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljun$m_recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#tests_pop
+moran.plot(total$totaljun$m_test_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljun$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+
+###########################################################################################
+
+
+#July
+coor <- coordinates(total$totaljul)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaljul$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totaljul, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totaljul), col='red', lwd=2, add=TRUE)#links
+
+#Moran's Is
+#cumulative first
+#deaths
+moran.plot(total$totaljul$deaths, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#cases
+moran.plot(total$totaljul$confirmed, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$confirmed,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered
+moran.plot(total$totaljul$recovered, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$recovered,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#tests
+moran.plot(total$totaljul$tests, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$tests,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#ratios
+#deaths_case
+moran.plot(total$totaljul$death_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$death_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$death_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#recovered_case
+moran.plot(total$totaljul$recov_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#case_pop
+moran.plot(total$totaljul$case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death_pop
+moran.plot(total$totaljul$death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated more than 0.50
+
+#recovered_pop
+moran.plot(total$totaljul$recov_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#tests_pop
+moran.plot(total$totaljul$test_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#monthly
+#cumulative first
+#deaths
+moran.plot(total$totaljul$monthy_deaths, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$monthy_deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$monthy_deaths,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#not validated
+
+#cases
+moran.plot(total$totaljul$monthy_confirmed, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$monthy_confirmed,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$monthy_confirmed,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#not validated
+
+#recovered
+moran.plot(total$totaljul$monthy_recovered, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$monthy_recovered,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#tests
+moran.plot(total$totaljul$monthy_tested, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$monthy_tested,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+###############################################################################################
+
+#ratios
+#deaths_case
+moran.plot(total$totaljul$m_death_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$m_death_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#recovered_case
+moran.plot(total$totaljul$m_recov_case_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$m_recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$m_recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#not validated
+
+################################################################
+
+
+#case_pop
+moran.plot(total$totaljul$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death_pop
+moran.plot(total$totaljul$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#recovered_pop
+moran.plot(total$totaljul$m_recov_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$m_recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$m_recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#tests_pop
+moran.plot(total$totaljul$m_test_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
