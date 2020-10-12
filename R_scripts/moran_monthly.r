@@ -125,7 +125,7 @@ total <- list(totalf=NULL,totalm=NULL,totala=NULL,totalma=NULL,totaljun=NULL,tot
 
 for(i in 1:length(total)){
   total[[i]]<-merge(world,countries[[i]],by="subunit")
-
+  
 }
 
 options(scipen=999)
@@ -137,11 +137,11 @@ for(i in 1:length(total)){
     total[[i]]$monthy_recovered <-total[[i]]$recovered-total[[i-1]]$recovered
     total[[i]]$monthy_tested <-total[[i]]$tests-total[[i-1]]$tests
     total[[i]]$monthy_deaths <-total[[i]]$deaths-total[[i-1]]$deaths
-    }
+  }
 }
 
 ###################################
-
+#for cumulatove numbers
 for(i in 1:length(total)){
   recov_case_ratio=NULL
   
@@ -186,15 +186,45 @@ for(i in 1:length(total)){
   
 }
 
-queen.r.nb <- poly2nb(total$totaljul,queen = TRUE,row.names = total$totaljul$name)
-summary(queen.r.nb)
-?poly2nb
-#?nb2listw
 
-lw <- nb2listw(queen.r.nb, style="W", zero.policy=TRUE)
+###################################
+#for monthly numbers
+for(i in 1:length(total)){
+  m_recov_case_ratio=NULL
+  
+  m_death_case_ratio=NULL
+  
+  m_case_pop_ratio=NULL
+  
+  m_recov_pop_ratio=NULL
+  
+  m_death_pop_ratio=NULL
+  
+  m_test_pop_ratio=NULL
+  
+  for(j in 1:nrow(total[[i]])){
+    
+    m_recov_case_ratio[j] <- ((total[[i]]$monthy_recovered[j])/(total[[i]]$monthy_confirmed[j]))
+    
+    m_death_case_ratio[j] <- ((total[[i]]$monthy_deaths[j])/(total[[i]]$monthy_confirmed[j]))
+    
+    m_case_pop_ratio[j] <- ((total[[i]]$monthy_confirmed[j])/(total[[i]]$population[j]))
+    
+    m_death_pop_ratio[j] <- ((total[[i]]$monthy_deaths[j])/(total[[i]]$population[j]))
+    
+    m_recov_pop_ratio[j] <- ((total[[i]]$monthy_recovered[j])/(total[[i]]$population[j]))
+    
+    m_test_pop_ratio[j] <- ((total[[i]]$monthy_tested[j])/(total[[i]]$population[j]))
+    
+  }
+  total[[i]]$m_recov_case_ratio <- m_recov_case_ratio
+  total[[i]]$m_death_case_ratio <- m_death_case_ratio
+  total[[i]]$m_case_pop_ratio <- m_case_pop_ratio
+  total[[i]]$m_death_pop_ratio <- m_death_pop_ratio
+  total[[i]]$m_recov_pop_ratio <- m_recov_pop_ratio
+  total[[i]]$m_test_pop_ratio <- m_test_pop_ratio
+  
+}
 
-plot(total$totaljul)
-plot(total$totaljul, col='gray', border='blue', lwd=2,main= "Vizinhos")
-plot(queen.r.nb, coordinates(total$totaljul), col='red', lwd=2, add=TRUE)#links
+###################
 
-moran.test(total$totaljul$death_case_ratio,lw,zero.policy = TRUE,na.action = na.omit)
