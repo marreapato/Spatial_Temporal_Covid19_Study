@@ -451,6 +451,28 @@ moran.test(total$totala$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na
 moran.mc(nsim=10000,total$totala$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 #validated more than 0.50
 
+####
+#death pop local
+local.mi.prod<-localmoran(total$totala$death_pop_ratio, PPV3.w)
+
+total$totala$lmi<-local.mi.prod[,1]
+
+total$totala$lmi.p<-local.mi.prod[,5]
+
+total$totala$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                     ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+require("RColorBrewer")
+
+#require("sp")
+
+spplot(total$totala, "lmi", at=summary(total$totala$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
+spplot(total$totala, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Local Moran's i")
+?spplot
+
+
+####
+
 #recovered_pop
 moran.plot(total$totala$recov_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totala$recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
@@ -500,11 +522,55 @@ moran.test(total$totala$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = n
 moran.mc(nsim=10000,total$totala$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 #validated
 
+####
+#death pop local
+local.mi.prod<-localmoran(total$totala$m_death_pop_ratio, PPV3.w)
+
+total$totala$lmi<-local.mi.prod[,1]
+
+total$totala$lmi.p<-local.mi.prod[,5]
+
+total$totala$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                         ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+spplot(total$totala, "lmi", at=summary(total$totala$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
+spplot(total$totala, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Local Moran's i")
+?spplot
+
+
+####
+
+
 #death_pop
 moran.plot(total$totala$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totala$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 moran.mc(nsim=10000,total$totala$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 #validated MORE THAN 0.70
+
+#monthly death pop local
+local.mi.prod<-localmoran(total$totala$m_death_pop_ratio, PPV3.w)
+
+total$totala$lmi<-local.mi.prod[,1]
+
+total$totala$lmi.p<-local.mi.prod[,5]
+
+total$totala$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                         ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+spplot(total$totala, "lmi", at=summary(total$totala$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
+spplot(total$totala, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Local Moran's i")
+?spplot
+
+
+####
 
 #recovered_pop
 moran.plot(total$totala$m_recov_pop_ratio, PPV3.w, zero.policy=TRUE)
@@ -520,6 +586,23 @@ moran.mc(nsim=10000,total$totala$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.a
 
 
 ###########################################################################################
+#monthly death pop local
+local.mi.prod<-localmoran(total$totalma$m_death_pop_ratio, PPV3.w)
+
+total$totalma$lmi<-local.mi.prod[,1]
+
+total$totalma$lmi.p<-local.mi.prod[,5]
+
+total$totalma$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                          ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+spplot(total$totalma, "lmi", at=summary(total$totalma$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
+spplot(total$totalma, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Local Moran's i")
+?spplot
 
 
 #May
@@ -575,6 +658,27 @@ moran.plot(total$totalma$death_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totalma$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 moran.mc(nsim=10000,total$totalma$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 #validated more than 0.50
+
+#death pop local
+local.mi.prod<-localmoran(total$totalma$death_pop_ratio, PPV3.w)
+
+total$totalma$lmi<-local.mi.prod[,1]
+
+total$totalma$lmi.p<-local.mi.prod[,5]
+
+total$totalma$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                         ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+spplot(total$totalma, "lmi", at=summary(total$totalma$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
+spplot(total$totalma, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Local Moran's i")
+?spplot
+
+
+####
 
 #recovered_pop
 moran.plot(total$totalma$recov_pop_ratio, PPV3.w, zero.policy=TRUE)
@@ -634,7 +738,7 @@ moran.mc(nsim=10000,total$totalma$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.
 moran.plot(total$totalma$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totalma$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 moran.mc(nsim=10000,total$totalma$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-#validated MORE THAN 0.70
+#validated
 
 #recovered_pop
 moran.plot(total$totalma$m_recov_pop_ratio, PPV3.w, zero.policy=TRUE)
@@ -650,7 +754,6 @@ moran.mc(nsim=10000,total$totalma$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.
 
 
 ###########################################################################################
-
 
 #June
 coor <- coordinates(total$totaljun)
@@ -705,6 +808,27 @@ moran.plot(total$totaljun$death_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totaljun$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 moran.mc(nsim=10000,total$totaljun$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 #validated more than 0.50
+
+#death pop local
+local.mi.prod<-localmoran(total$totaljun$death_pop_ratio, PPV3.w)
+
+total$totaljun$lmi<-local.mi.prod[,1]
+
+total$totaljun$lmi.p<-local.mi.prod[,5]
+
+total$totaljun$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                         ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+spplot(total$totaljun, "lmi", at=summary(total$totaljun$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
+spplot(total$totaljun, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Local Moran's i")
+?spplot
+
+
+####
 
 #recovered_pop
 moran.plot(total$totaljun$recov_pop_ratio, PPV3.w, zero.policy=TRUE)
@@ -765,6 +889,27 @@ moran.plot(total$totaljun$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totaljun$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 moran.mc(nsim=10000,total$totaljun$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 #validated
+
+#monthly death pop local
+local.mi.prod<-localmoran(total$totaljun$m_death_pop_ratio, PPV3.w)
+
+total$totaljun$lmi<-local.mi.prod[,1]
+
+total$totaljun$lmi.p<-local.mi.prod[,5]
+
+total$totaljun$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+spplot(total$totaljun, "lmi", at=summary(total$totaljul$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
+spplot(total$totaljun, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Local Moran's i")
+?spplot
+
+
+####
 
 #recovered_pop
 moran.plot(total$totaljun$m_recov_pop_ratio, PPV3.w, zero.policy=TRUE)
@@ -836,6 +981,27 @@ moran.test(total$totaljul$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = 
 moran.mc(nsim=10000,total$totaljul$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 #validated more than 0.50
 
+#death pop local
+local.mi.prod<-localmoran(total$totaljul$death_pop_ratio, PPV3.w)
+
+total$totaljul$lmi<-local.mi.prod[,1]
+
+total$totaljul$lmi.p<-local.mi.prod[,5]
+
+total$totaljul$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                         ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+spplot(total$totaljul, "lmi", at=summary(total$totaljul$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
+spplot(total$totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Local Moran's i")
+?spplot
+
+
+####
+
 #recovered_pop
 moran.plot(total$totaljul$recov_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totaljul$recov_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
@@ -897,6 +1063,27 @@ moran.plot(total$totaljul$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totaljul$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 moran.mc(nsim=10000,total$totaljul$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 #validated
+
+#monthly death pop local
+local.mi.prod<-localmoran(total$totaljul$m_death_pop_ratio, PPV3.w)
+
+total$totaljul$lmi<-local.mi.prod[,1]
+
+total$totaljul$lmi.p<-local.mi.prod[,5]
+
+total$totaljul$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                         ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+spplot(total$totaljul, "lmi", at=summary(total$totaljul$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
+spplot(total$totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Local Moran's i")
+?spplot
+
+
+####
 
 #recovered_pop
 moran.plot(total$totaljul$m_recov_pop_ratio, PPV3.w, zero.policy=TRUE)
