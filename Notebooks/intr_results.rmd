@@ -1,0 +1,76 @@
+---
+title: "Covid-19 análise espaço-temporal."
+author: "Lucas Rabelo"
+output:
+  pdf_document:
+    toc: no
+    toc_depth: '6'
+    number_sections: no
+    keep_tex: yes
+    citation_package: natbib
+    pandoc_args: --listings
+    includes: null
+  word_document:
+    toc: no
+    toc_depth: '6'
+geometry: margin=1in
+fontsize: 12pt
+linestretch: 1.5
+documentclass: report
+---
+
+# Introdução {.tabset .tabset-fade .tabset-pills}
+
+ Decretada como pandemia no dia 
+
+- **Índice - **
+Parâmetro: toc; Binário; O padrão é falso.
+
+- **Profundidade do índice - ** Parâmetro: toc_depth; Varia de 1 a 6; O padrão é 3.
+
+- **Numerar as seções - ** Parâmetro: number_sections; Binário; O padrão é falso. 
+
+- **Temas - ** Parâmetro: theme. 
+
+  - Opções: Cerulean, journal, flatly, darkly, readable, spacelab, united, cosmo, lumen, paper, sandstone, simplex e yeti.
+
+- **Incluir o código, mas deixá-lo oculto - ** Parâmetro: code_folding; o padrão é show.
+
+  - Opções: hide e show.
+
+```{r , fig.cap='Logo', out.width = '125%', fig.align = 'left'}
+knitr::include_graphics("cancel.png")
+```
+# Metodologia
+
+## Detalhando as funções do chunk
+
+- Observe as opções de click da engrenagem.
+
+- No chunk acima foi ocultado tanto código quanto saída. Apesar disso, o código (Soma <-  4+9) foi compilado, portanto o objeto "Soma" foi criado. Logo, podemos chamá-lo: Soma =
+
+- Inserindo uma condição para compilar um chunk e apresentar o código.
+
+  - Parâmetro para compilar o chunk: **eval**; Binário.
+  - Parâmetro para apresentar o código: **echo**; Binário.
+  
+
+# Resultados
+
+## Detalhando as funções do chunk
+
+
+
+# Discussão
+
+## Detalhando as funções do chunk
+
+-
+
+
+
+![Imagem do diretório](/cloud/project/cancel.png)
+
+
+
+
