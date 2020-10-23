@@ -21,7 +21,7 @@ documentclass: report
 
 # Introdução {.tabset .tabset-fade .tabset-pills}
 
- A infecção pelo vírus da Covid-19 já era considerada uma epidemia no final de 2019 na cidade de Wuhan na China, [...] a situação vivenciada por grande parte dos países do mundo foi reconhecida como pandemia pela Organização Mundial da Saude (OMS) em 12 de março de 2020.  
+ A infecção pelo vírus da Covid-19 já era considerada uma epidemia no final de 2019 na cidade de Wuhan na China $\!\!^1$, [...] a situação vivenciada por grande parte dos países do mundo foi reconhecida como pandemia pela Organização Mundial da Saude (OMS) em 12 de março de 2020.  
 
 ```{r , fig.cap='Logo', out.width = '125%', fig.align = 'left'}
 knitr::include_graphics("cancel.png")
