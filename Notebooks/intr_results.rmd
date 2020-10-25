@@ -31,12 +31,16 @@ documentclass: report
  
 # Metodologia
 
+ Para implementação das técnicas estatísticas e uso do banco de dados foi utilizado o software R (versão 4.0.3), o qual contém a biblioteca COVID19 implementado pela *COVID-19 Data Hub* $\!\!^5$, responsável por providenciar um banco de dados unificado com diversas fontes de informação, e atualizado diariamente com início em Fevereiro de 2020.  
+
+ 
 # Resultados
+
 
 # Discussão
 
-![Imagem do diretório](/cloud/project/cancel.png)
 
+# Conclusão
 
 # Referências
 
@@ -48,3 +52,5 @@ documentclass: report
 [3] - https://www.euro.who.int/en/health-topics/health-emergencies/coronavirus-covid-19/news/news/2020/3/who-announces-covid-19-outbreak-a-pandemic
 
 [4] - http://www.sinaldetransito.com.br/artigos/espacial.pdf
+
+[5] - Guidotti, E., Ardia, D., (2020), "COVID-19 Data Hub", Journal of Open Source Software 5(51):2376, doi: 10.21105/joss.02376.
