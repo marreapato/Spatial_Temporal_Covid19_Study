@@ -21,7 +21,7 @@ documentclass: report
 
 # Introdução {.tabset .tabset-fade .tabset-pills}
 
- A infecção pelo vírus da Covid-19 já era considerada uma epidemia no final de 2019 na cidade de Wuhan na China $\!\!^1$. Apesar da dificuldade de identificar a origem do vírus, o pangolim $\!\!^2$ [...] a situação vivenciada por grande parte dos países do mundo foi reconhecida como pandemia pela Organização Mundial da Saude (OMS) em 12 de março de 2020.  
+ No final de 2019, o estado de contágio pelo Covid-19 já era considerado como epidêmico na cidade de Wuhan na China $\!\!^1$, apesar da dificuldade de identificar a origem do vírus, é possível que tanto pangolim como o morcego tenham sido hospedeiros iniciais, visto que tanto o SARS quanto o MERS geralmente passam por hospedeiros intermediários $\!\!^2$. Apesar de anteriormente diversos orgãos públicos recomendarem cautela em relação ao Covid-19, em 12 de março de 2020 o estado de pandemia foi reconhecido pela Organização Mundial da Saúde (OMS) $\!\!^3$.  
 
 ```{r , fig.cap='Logo', out.width = '125%', fig.align = 'left'}
 knitr::include_graphics("cancel.png")
