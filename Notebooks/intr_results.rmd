@@ -21,11 +21,12 @@ documentclass: report
 
 # Introdução {.tabset .tabset-fade .tabset-pills}
 
- No final de 2019, o estado de contágio pelo Covid-19 já era considerado como epidêmico na cidade de Wuhan na China $\!\!^1$, apesar da dificuldade de identificar a origem do vírus, é possível que tanto pangolim como o morcego tenham sido hospedeiros iniciais, visto que tanto o SARS quanto o MERS geralmente passam por hospedeiros intermediários $\!\!^2$. Apesar de anteriormente diversos orgãos públicos recomendarem cautela em relação ao Covid-19, em 12 de março de 2020 o estado de pandemia foi reconhecido pela Organização Mundial da Saúde (OMS) $\!\!^3$.  
+ No final de 2019, o estado de contágio pela Covid-19 já era considerado como epidêmico na cidade de Wuhan na China $\!\!^1$, apesar da dificuldade de identificar a origem do vírus, é possível que tanto pangolim como o morcego tenham sido hospedeiros iniciais, visto que tanto o SARS quanto o MERS geralmente passam por hospedeiros intermediários $\!\!^2$. Apesar de anteriormente diversos orgãos públicos recomendarem cautela em relação a Covid-19, em 12 de março de 2020 o estado de pandemia foi reconhecido pela Organização Mundial da Saúde (OMS) $\!\!^3$.  
 
-```{r , fig.cap='Logo', out.width = '125%', fig.align = 'left'}
-knitr::include_graphics("cancel.png")
-```
+ Devido a presença de infectados pela Covid-19 na maioria dos países do globo, é de suma importância que sejam realizados estudos sobre o caráter espaço-temporal da pandemia, identificando fatores como as políticas de contenção ao contágio adotadas pelos países de acordo com o tempo e a aceleração do crescimento de infectados em cada nação. Ao traçar um perfil sobre o comportamento espaço-temporal da Covid-19, estudos como esse podrão ser analisados para lidar com possíveis pandemias causadas por vírus que apresentem características similares a Sars-CoV-2.
+ 
+ 
+ 
 # Metodologia
 
 # Resultados
@@ -37,8 +38,9 @@ knitr::include_graphics("cancel.png")
 
 # Referências
 
-[3] - https://www.euro.who.int/en/health-topics/health-emergencies/coronavirus-covid-19/news/news/2020/3/who-announces-covid-19-outbreak-a-pandemic (pandemia)
-
 [1] - https://reader.elsevier.com/reader/sd/pii/S2090123220300540?token=26B4D22A444963A79BDEF6C0D5D6B7DBAB6E417B72741E9408077164DFE98DD3C60085E40FB8A46964B454ECB0981D81
 
 [2] - https://reader.elsevier.com/reader/sd/pii/S0960982220303602?token=DDACE18C1AEF3D5006049D4C47E460D652C20143E76F940DC4A8391256E205355A5219746EA07D1536C391E71CE6CDE4
+
+
+[3] - https://www.euro.who.int/en/health-topics/health-emergencies/coronavirus-covid-19/news/news/2020/3/who-announces-covid-19-outbreak-a-pandemic
