@@ -2,6 +2,9 @@
 title: "Covid-19 análise espaço-temporal."
 author: "Lucas Rabelo"
 output:
+  word_document:
+    toc: no
+    toc_depth: '6'
   pdf_document:
     toc: no
     toc_depth: '6'
@@ -10,9 +13,6 @@ output:
     citation_package: natbib
     pandoc_args: --listings
     includes: null
-  word_document:
-    toc: no
-    toc_depth: '6'
 geometry: margin=1in
 fontsize: 12pt
 linestretch: 1.5
@@ -31,7 +31,7 @@ documentclass: report
  
 # Metodologia
 
- Para implementação das técnicas estatísticas e uso do banco de dados foi utilizado o software R (versão 4.0.3), o qual contém a biblioteca COVID19 implementado pela *COVID-19 Data Hub* $\!\!^5$, responsável por providenciar um banco de dados unificado com início em Fevereiro de 2020, além de conter diversas fontes de informação diferentes, o banco também providencia as medidas políticas adotadas por cada país de acordo com tempo, além de ser constantemente atualizado.  
+ Para implementação das técnicas estatísticas e uso do banco de dados foi utilizado o software R (versão 4.0.3), o qual contém a biblioteca COVID19 implementado pela *COVID-19 Data Hub* $\!\!^5$, responsável por providenciar um banco de dados unificado com início em Fevereiro de 2020, além de conter diversas fontes de informação diferentes, o banco também providencia as medidas políticas adotadas por cada país de acordo com tempo, sendo constantemente atualizado.  
 
  
 # Resultados
