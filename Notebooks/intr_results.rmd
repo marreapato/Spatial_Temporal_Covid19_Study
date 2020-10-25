@@ -31,7 +31,7 @@ documentclass: report
  
 # Metodologia
 
- Para implementação das técnicas estatísticas e uso do banco de dados foi utilizado o software R (versão 4.0.3), o qual contém a biblioteca COVID19 implementado pela *COVID-19 Data Hub* $\!\!^5$, responsável por providenciar um banco de dados unificado com diversas fontes de informação, e atualizado diariamente com início em Fevereiro de 2020.  
+ Para implementação das técnicas estatísticas e uso do banco de dados foi utilizado o software R (versão 4.0.3), o qual contém a biblioteca COVID19 implementado pela *COVID-19 Data Hub* $\!\!^5$, responsável por providenciar um banco de dados unificado com início em Fevereiro de 2020, além de conter diversas fontes de informação diferentes, o banco também providencia as medidas políticas adotadas por cada país de acordo com tempo, além de ser constantemente atualizado.  
 
  
 # Resultados
@@ -47,7 +47,6 @@ documentclass: report
 [1] - https://reader.elsevier.com/reader/sd/pii/S2090123220300540?token=26B4D22A444963A79BDEF6C0D5D6B7DBAB6E417B72741E9408077164DFE98DD3C60085E40FB8A46964B454ECB0981D81
 
 [2] - https://reader.elsevier.com/reader/sd/pii/S0960982220303602?token=DDACE18C1AEF3D5006049D4C47E460D652C20143E76F940DC4A8391256E205355A5219746EA07D1536C391E71CE6CDE4
-
 
 [3] - https://www.euro.who.int/en/health-topics/health-emergencies/coronavirus-covid-19/news/news/2020/3/who-announces-covid-19-outbreak-a-pandemic
 
