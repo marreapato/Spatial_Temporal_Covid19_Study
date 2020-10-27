@@ -51,7 +51,7 @@ documentclass: report
 
 ## Conclusão
 
- Portanto é de se concluir que há uma dependência espacial no número de mortes cumulativo por habitantes infectados pela Covid-19, sendo esta mais notável nos países da parte ocidental da Europa e na América do Sul, existe portanto a necessidade de se investigar o motivo de tal dependência espacial, presente também sem o efeito da sazionalidade ao se analizar o número mensal mortes por habitantes.
+ Portanto é de se concluir que há uma dependência espacial no número de mortes cumulativo por habitantes infectados pela Covid-19, que teve seu pico no primeiro semestre em Maio de 2020 e começou a registrar alto crescimento em Abril, sendo esta mais notável nos países da parte ocidental da Europa e na América do Sul, existe portanto a necessidade de se investigar o motivo de tal dependência espacial, presente também sem o efeito da sazionalidade ao se analizar o número mensal mortes por habitantes.
 
 ## Referências
 
