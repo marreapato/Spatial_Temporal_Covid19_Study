@@ -50,6 +50,7 @@ documentclass: report
  A partir do mês de Maio houve uma abrupta aceleração no crescimento da quantidade de casos acumulados por habitante em todos os continentes, sendo este mês o pico de contágio no primeiro semestre, se mantendo em um alto patamar até o mês de Julho. No entanto o crescimento do número de casos acumulados já é visível no mês de Abril em diversos continentes como na América do Norte, América do Sul, Ásia e Europa continente que apresentou dependência espacial no número cumulativo e mensal de mortes por habitantes já no mês de Abril apresentava uma dependência espacial local. 
  
 ![](pop_cases.png)
+**Figura 1 -** Quantidade de casos por habitante.
 
 ## Conclusão
 
