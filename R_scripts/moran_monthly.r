@@ -460,14 +460,14 @@ total$totala$lmi<-local.mi.prod[,1]
 total$totala$lmi.p<-local.mi.prod[,5]
 
 total$totala$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                     ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+                                         ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
 
 require("RColorBrewer")
 
 #require("sp")
 
 spplot(total$totala, "lmi", at=summary(total$totala$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-spplot(total$totala, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Local Moran's i")
+ck1=spplot(total$totala, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Abril")
 ?spplot
 
 
@@ -667,14 +667,14 @@ total$totalma$lmi<-local.mi.prod[,1]
 total$totalma$lmi.p<-local.mi.prod[,5]
 
 total$totalma$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                         ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+                                          ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
 
 #require("RColorBrewer")
 
 #require("sp")
 
 spplot(total$totalma, "lmi", at=summary(total$totalma$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-spplot(total$totalma, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Local Moran's i")
+ck2=spplot(total$totalma, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Maio")
 ?spplot
 
 
@@ -817,14 +817,14 @@ total$totaljun$lmi<-local.mi.prod[,1]
 total$totaljun$lmi.p<-local.mi.prod[,5]
 
 total$totaljun$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                         ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
 
 #require("RColorBrewer")
 
 #require("sp")
 
 spplot(total$totaljun, "lmi", at=summary(total$totaljun$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-spplot(total$totaljun, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Local Moran's i")
+ck3=spplot(total$totaljun, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Junho")
 ?spplot
 
 
@@ -989,14 +989,14 @@ total$totaljul$lmi<-local.mi.prod[,1]
 total$totaljul$lmi.p<-local.mi.prod[,5]
 
 total$totaljul$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                         ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
 
 #require("RColorBrewer")
 
 #require("sp")
 
 spplot(total$totaljul, "lmi", at=summary(total$totaljul$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-spplot(total$totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Local Moran's i")
+ck4=spplot(total$totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Julho")
 ?spplot
 
 
@@ -1063,7 +1063,6 @@ moran.plot(total$totaljul$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totaljul$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 moran.mc(nsim=10000,total$totaljul$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 #validated
-
 #monthly death pop local
 local.mi.prod<-localmoran(total$totaljul$m_death_pop_ratio, PPV3.w)
 
@@ -1072,7 +1071,7 @@ total$totaljul$lmi<-local.mi.prod[,1]
 total$totaljul$lmi.p<-local.mi.prod[,5]
 
 total$totaljul$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                         ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
 
 #require("RColorBrewer")
 
@@ -1096,3 +1095,5 @@ moran.plot(total$totaljul$m_test_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totaljul$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 moran.mc(nsim=10000,total$totaljul$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 #validated
+
+grid.arrange(="",ncol=2,nrow=3)
