@@ -1096,4 +1096,4 @@ moran.test(total$totaljul$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action =
 moran.mc(nsim=10000,total$totaljul$m_test_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 #validated
 
-grid.arrange(="",ncol=2,nrow=3)
+grid.arrange(ck1,ck2,ck3,ck4="Moran local do numero de mortes acumuladas por mês",ncol=2,nrow=2)
