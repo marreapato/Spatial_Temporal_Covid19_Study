@@ -47,11 +47,11 @@ documentclass: report
  
 ## Discussão
 
- A partir do mês de Maio houve uma abrupta aceleração no crescimento da quantidade de casos acumulados por habitante em todos os continentes, sendo este mês o pico de contágio no primeiro semestre, se mantendo em um alto patamar até o mês de Julho.
+ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quantidade de casos acumulados por habitante em todos os continentes, sendo este mês o pico de contágio no primeiro semestre, se mantendo em um alto patamar até o mês de Julho. 
 
 ## Conclusão
 
- Portanto é de se concluir que há uma dependência espacial no número de mortes por Covid-19 cumulativo por habitantes, sendo esta mais notável nos países da parte ocidental da Europa e na América do Sul, existe portanto a necessidade de se investigar o motivo de tal dependência espacial, presente também sem o efeito da sazionalidade ao se analizar o número mensal mortes por habitantes.
+ Portanto é de se concluir que há uma dependência espacial no número de mortes cumulativo por habitantes infectados pela Covid-19, sendo esta mais notável nos países da parte ocidental da Europa e na América do Sul, existe portanto a necessidade de se investigar o motivo de tal dependência espacial, presente também sem o efeito da sazionalidade ao se analizar o número mensal mortes por habitantes.
 
 ## Referências
 
