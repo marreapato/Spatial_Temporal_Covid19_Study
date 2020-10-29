@@ -25,17 +25,17 @@ documentclass: report
 
  Devido a presença de infectados pela Covid-19 na maioria dos países do globo, é de suma importância que sejam realizados estudos sobre o caráter espaço-temporal da pandemia, identificando fatores como as políticas de contenção ao contágio adotadas pelos países de acordo com o tempo e a aceleração do crescimento de infectados em cada nação. Ao traçar um perfil sobre o comportamento espaço-temporal da Covid-19, estudos como esse poderão ser analisados para lidar com possíveis pandemias causadas por vírus que apresentem características similares a Sars-CoV-2.
  
- O objetivo deste trabalho será portanto traçar um perfil sobre o comportamento espacial da pandemia causada pelo vírus da Covid-19 ao utilizar de técnicas estatísticas para quantificação da dependência espacial como o cálculo do índice de Moran global e local $\!\!^4$, bem como analisar as políticas adotadas por cada país e o comportamento da pandemia ao longo do tempo.
+ O objetivo deste trabalho será portanto traçar um perfil sobre o comportamento espacial da pandemia causada pela Covid-19 ao utilizar de técnicas estatísticas para quantificação da dependência espacial como o cálculo do índice de Moran global e local $\!\!^4$, bem como analisar as políticas adotadas por cada país e o comportamento da pandemia ao longo do tempo.
  
 ## Metodologia
 
- Para implementação das técnicas estatísticas, cálculo da dependência espacial e uso do banco de dados foi utilizado o software R (versão 4.0.3), o qual contém a biblioteca COVID19 implementada pela *COVID-19 Data Hub* $\!\!^5$, responsável por providenciar um banco de dados unificado e constantemente atualizado, com início em Fevereiro de 2020. O banco de dados disponibilizado pela *COVID-19 Data Hub* além de conter diversas fontes de informação diferentes para todos os países em que foi possível a obtenção de dados, também providencia as medidas políticas adotadas de acordo com o tempo durante a pandemia.
+ Para implementação das técnicas estatísticas, cálculo da dependência espacial e uso do banco de dados foi utilizado o software R (versão 4.0.3), o qual contém a biblioteca COVID19 implementada pela *COVID-19 Data Hub* $\!\!^5$, responsável por providenciar um banco de dados unificado e constantemente atualizado, com início em Janeiro de 2020. O banco de dados disponibilizado pela *COVID-19 Data Hub* além de conter diversas fontes de informação diferentes para todos os países em que foi possível a obtenção de dados, também providencia as medidas políticas adotadas de acordo com o tempo durante a pandemia.
  
  o número acumulado de mortes, casos confirmados e recuperados são disponibilizados pelo banco de dados, no entanto como apenas são disponibilizados a quantidade acumulada, foi necessário calcular a quantidade mensal para cada uma das variáveis, dentre os meses de Fevereiro a Julho. No banco também é disponibilizada a quantidade de habitantes de cada país, portanto para melhor capturar o impacto do Covid-19 em cada localidade a quantidade de casos, recuperados e mortes foram calculadas de acordo com a razão pelo número de habitantes. 
 
 #### Índice de Moran
  
- Para avaliar a dependência espacial foi utilizado o método knn para ligar os polígnos e criar a matriz de vizinhança normalizada por linha para que fossem calculados o Índice de Moran global e o local, o índice global é o método tradicionalmente usado e condensa a dependência espacial em apenas um número $\!\!^6$, no entanto o uso do indicador local de associação espacial (LISA) utilizado para identificar padrões espaciais, se faz útil pois de acordo com Maia, Gomes e Almeida (2018, p.930) enquanto o índice de Moran global pode sugerir que haja baixa correlação espacial nos dados, os valores do LISA podem identificar sub-regiões geográficas em que o agrupamento (*clustering*) negativo ou positivo ocorram $\!\!^7$.
+ Para avaliar a dependência espacial foi utilizado o método knn para ligar os polígonos e criar a matriz de vizinhança normalizada por linha para que fossem calculados o Índice de Moran global e o local. O índice global é o método tradicionalmente usado e condensa a dependência espacial em apenas um número $\!\!^6$, no entanto o uso do indicador local de associação espacial (LISA) utilizado para identificar padrões espaciais, se faz útil pois de acordo com Maia, Gomes e Almeida (2018, p.930) enquanto o índice de Moran global pode sugerir que haja baixa correlação espacial nos dados, os valores do LISA podem identificar sub-regiões geográficas em que o agrupamento (*clustering*) negativo ou positivo ocorram $\!\!^7$.
  
  Como valores dentre 0 e 1 indicam correlação direta e positiva e negativos até -1 correlação inversa $\!\!^4$, por estarmos interessados na presença de dependência espacial positiva os testes de hipótese foram construídos com nível de confiança de 95%, seguindo a premissa de que a hipótese alternativa corresponde a um índice maior que zero, e a hipótese nula é de independência espacial, ou seja Ho=0 e H1>0. A validação do índice foi feita utilizando 10.000 simulações em um teste de permutações aleatórias.
  
@@ -71,3 +71,5 @@ documentclass: report
 [6] - http://www2.ime.unicamp.br/sinape/sites/default/files/Resumo%20expandido%20SINAPE.pdf
 
 [7] - SPATIAL STUDY OF INCIDENCE RATES OF OCCUPATIONAL ACCIDENTS IN BRAZIL FROM 2002 TO 2012
+
+[8] - 
