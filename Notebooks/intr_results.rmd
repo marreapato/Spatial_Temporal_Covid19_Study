@@ -44,6 +44,8 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
  
  Como valores dentre 0 e 1 indicam correlação direta e positiva e negativos até -1 correlação inversa, por estarmos interessados na presença de dependência espacial positiva os testes de hipótese foram construídos com nível de confiança de 95%, seguindo a premissa de que a hipótese alternativa corresponde a um índice maior que zero, e a hipótese nula é de independência espacial, ou seja Ho=0 e H1>0 $\!\!^8$. A validação do índice foi feita utilizando 10.000 simulações em um teste de permutações aleatórias.
  
+ (consertar)Já o Índice de Moran local $\!\!^8$ é calculado pela seguinte equação como evidenciado em:
+ $$I(i) = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x})w_{ij}}{W\sum_{i=1}^{n}(x_{i}-\overline{x})^2}$$
 ## Resultados
 
  A partir do mês de Abril, o número acumulado de mortes por habitante apresentou uma correlação espacial no índice de Moran global (IM>0,50; P-valor<0,05) que se manteve em um alto patamar de correlação até o mês de Julho. Referente ao índice de Moran calculado para o número mensal de mortes por habitante (ou seja sem o efeito da sazionalidade), no mês de Abril o índice de Moran global (IM=0,72; P-valor<0,05) apresentou um alto patamar de dependência.
