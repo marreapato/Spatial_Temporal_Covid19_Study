@@ -123,7 +123,10 @@ gm=ggplot(df_dados,aes(x=new_deaths,y=Valor,fill=Séries, colour=Séries))+
   labs(x="",y="Número de óbitos")
 gm
 
+dados2 <- data.frame(df_dados$`data_as$date`,df_dados$Séries,df_dados$Valor)
 
-ggplot(data = df_dados, mapping = aes(x = `data_as$date`, y = Valor, fill = Séries)) +
-  geom_col(stat = "identity",position = "dodge",width = 4)+
+dados2 <- na.omit(dados2)
+
+ggplot(data = dados2, mapping = aes(x = dados2$df_dados..data_as.date., y =dados2$df_dados.Valor, fill = dados2$df_dados.Séries)) +
+  geom_line(stat = "identity",position = "dodge",width = 4)+
 scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
