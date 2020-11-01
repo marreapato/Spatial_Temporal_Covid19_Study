@@ -1,0 +1,9 @@
+#Roll mean
+install.packages("tidyverse")
+install.packages("zoo")
+#média movel do mundo e dos continentes, número de mortes
+library(tidyverse)
+library(zoo) # pacote com função para médias móveis
+#Roll means #updated data
+data <- read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv")
+
