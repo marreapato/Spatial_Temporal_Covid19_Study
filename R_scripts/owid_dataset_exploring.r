@@ -93,6 +93,11 @@ ggplot(datan, aes(datan$gdp_per_capita,datan$total_cases_per_million)) +
 
 plot(rollmean(data_br$new_cases,7),type="l")
 ?rollmean
+###############################################################
+
+#Roll means
+data <- read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv")
+
 
 #asia
 data_as <- data %>% filter(continent=="Asia")
@@ -109,5 +114,16 @@ df_dados <- data_as%>%group_by(data_as$date)%>%
 df_dados=df_dados %>%
   mutate('roll_mean'=rollapply(df_dados$new_cases,7,mean,align='right',fill=NA))
 
+#grouping
+df_dados=df_dados %>%
+  gather(c("new_cases","roll_mean"),key="Séries", value="Valor")
+
+gm=ggplot(df_dados,aes(x=new_deaths,y=Valor,fill=Séries, colour=Séries))+
+  geom_line(size=1.1)+
+  labs(x="",y="Número de óbitos")
+gm
 
 
+ggplot(data = df_dados, mapping = aes(x = `data_as$date`, y = Valor, fill = Séries)) +
+  geom_col(stat = "identity",position = "dodge",width = 4)+
+scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
