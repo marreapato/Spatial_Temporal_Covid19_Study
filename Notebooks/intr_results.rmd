@@ -46,6 +46,7 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
  
  (consertar)Já o Índice de Moran local $\!\!^8$ é calculado pela seguinte equação como evidenciado em:
  $$I(i) = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x})w_{ij}}{W\sum_{i=1}^{n}(x_{i}-\overline{x})^2}$$
+ 
 ## Resultados
 
  A partir do mês de Abril, o número acumulado de mortes por habitante apresentou uma correlação espacial no índice de Moran global (IM>0,50; P-valor<0,05) que se manteve em um alto patamar de correlação até o mês de Julho. Referente ao índice de Moran calculado para o número mensal de mortes por habitante (ou seja sem o efeito da sazionalidade), no mês de Abril o índice de Moran global (IM=0,72; P-valor<0,05) apresentou um alto patamar de dependência.
