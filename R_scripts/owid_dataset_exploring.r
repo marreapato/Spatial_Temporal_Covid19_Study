@@ -93,3 +93,21 @@ ggplot(datan, aes(datan$gdp_per_capita,datan$total_cases_per_million)) +
 
 plot(rollmean(data_br$new_cases,7),type="l")
 ?rollmean
+
+#asia
+data_as <- data %>% filter(continent=="Asia")
+
+asia_mean=rollmean(data_as$new_cases,7)
+plot(rollmean(data_as$new_cases,7),type="l")
+
+#df_dados <- data_as
+#preciso somar
+
+df_dados <- data_as%>%group_by(data_as$date)%>%
+  summarise_if(is.numeric,sum)
+
+df_dados=df_dados %>%
+  mutate('roll_mean'=rollapply(df_dados$new_cases,7,mean,align='right',fill=NA))
+
+
+
