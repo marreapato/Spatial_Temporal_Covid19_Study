@@ -131,3 +131,37 @@ ggplot(data = dados2, mapping = aes(x = data, y =val,colour=serie, fill = serie)
   geom_line(stat = "identity")+
 scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
 
+###
+
+#asia
+data_eu <- data %>% filter(continent=="Europe")
+
+eu_mean=rollmean(data_eu$new_cases,7)
+plot(rollmean(data_eu$new_cases,7),type="l")
+
+#df_dados <- data_as
+#preciso somar
+
+df_dados <- data_eu%>%group_by(data_eu$date)%>%
+  summarise_if(is.numeric,sum)
+
+df_dados=df_dados %>%
+  mutate('roll_mean'=rollapply(df_dados$new_cases,7,mean,align='right',fill=NA))
+
+#grouping
+df_dados=df_dados %>%
+  gather(c("new_cases","roll_mean"),key="Séries", value="Valor")
+
+gm=ggplot(df_dados,aes(x=df_dados$`data_eu$date`,y=Valor,fill=Séries, colour=Séries))+
+  geom_line(size=1.1)+
+  labs(x="",y="Número de óbitos")
+gm
+
+dados2 <- data.frame('data'=df_dados$`data_eu$date`,'serie'=df_dados$Séries,'val'=df_dados$Valor)
+
+dados2 <- na.omit(dados2)
+
+ggplot(data = dados2, mapping = aes(x = data, y =val,colour=serie, fill = serie)) +
+  geom_line(stat = "identity")+
+  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
+
