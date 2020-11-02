@@ -45,7 +45,9 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
  Os valores variam de 1 a -1, sendo que o 0 indica a ausência de correlação espacial, no entanto como valores dentre positivos e até 1 indicam correlação direta e positiva e negativos até -1 correlação inversa, por estarmos interessados na presença de dependência espacial positiva os testes de hipótese foram construídos com nível de confiança de 95%, seguindo a premissa de que a hipótese alternativa corresponde a um índice maior que zero, e a hipótese nula é de independência espacial, ou seja Ho=0 e H1>0. A validação do índice foi feita utilizando 10.000 simulações em um teste de permutações aleatórias $\!\!^8$.
  
  Já o Índice de Moran local (*LISA*) é calculado pela seguinte equação:
- $$I(i) = \frac{x_{i}-\overline x}{s^{2}}\sum_{j=1}^{n}w_{ij}(x_{j}-\overline{x}), i=1,...,n$$
+ $$I(i) = \frac{x_{i}-\overline x}{s^{2}_{i}}\sum_{j=1}^{n}w_{ij}(x_{j}-\overline{x}), i=1,...,n, j\neq i$$
+ Onde $s^{2}_{i}$ é a variância da variável de estudo $x_{i}$:
+  $$s^{2}(i) = \frac{\sum_{j=1}^{n}(x_{j}-\overline x)^{2}}{n-1}, i=1,...,n, j\neq i$$
  
 ## Resultados
 
