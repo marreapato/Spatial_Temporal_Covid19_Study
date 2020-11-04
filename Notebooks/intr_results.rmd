@@ -31,7 +31,9 @@ documentclass: report
 
  Para implementação das técnicas estatísticas, cálculo da dependência espacial e uso do banco de dados foi utilizado o software R (versão 4.0.3), o qual contém a biblioteca COVID19 implementada pela *COVID-19 Data Hub* $\!\!^5$, responsável por providenciar um banco de dados unificado e constantemente atualizado, com início em Janeiro de 2020. O banco de dados disponibilizado pela *COVID-19 Data Hub* além de conter diversas fontes de informação diferentes para todos os países em que foi possível a obtenção de dados, também providencia as medidas políticas adotadas de acordo com o tempo durante a pandemia.
  
- o número acumulado de mortes, casos confirmados e recuperados são disponibilizados pelo banco de dados, no entanto como apenas são disponibilizados a quantidade acumulada, foi necessário calcular a quantidade mensal para cada uma das variáveis, dentre os meses de Fevereiro a Julho. No banco também é disponibilizada a quantidade de habitantes de cada país, portanto para melhor capturar o impacto do Covid-19 em cada localidade a quantidade de casos, recuperados e mortes foram calculadas de acordo com a razão pelo número de habitantes. 
+ o número acumulado de mortes, casos confirmados e recuperados são disponibilizados pelo banco de dados da *COVID-19 Data Hub*, no entanto como apenas são disponibilizados a quantidade acumulada, foi necessário calcular a quantidade mensal para cada uma das variáveis, dentre os meses de Fevereiro a Julho. No banco também é disponibilizada a quantidade de habitantes de cada país, portanto para melhor capturar o impacto do Covid-19 em cada localidade a quantidade de casos, recuperados e mortes foram calculadas de acordo com a razão pelo número de habitantes. 
+ 
+ Também foi utilizado um segundo banco de dados disponibilizado pela *Our World In Data* $\!\!^9$ (*OWID*), o banco provido pela *OWID* contém informações que foram utilizadas como complementares ao da *COVID-19 Data Hub*, como o número diário de casos confirmados e mortes por Covid-19. As informações sobre o número diário foram utilizadas para calcular a média móvel semanal para a variável de estudo. Além calcular a média móvel do número de casos e mortos pela Covid-19 por dia no mundo, a estatística também foi computada para os continentes em que foi identificado dependência espacial local.
 
 #### Índice de Moran
  
@@ -48,7 +50,7 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
  $$I(i) = \frac{x_{i}-\overline x}{s^{2}_{i}}\sum_{j=1}^{n}w_{ij}(x_{j}-\overline{x}), i=1,...,n, j\neq i$$
  Onde $s^{2}_{i}$ é a variância da variável de estudo $x_{i}$:
   $$s^{2}(i) = \frac{\sum_{j=1}^{n}(x_{j}-\overline x)^{2}}{n-1}, i=1,...,n, j\neq i$$
- 
+  
 ## Resultados
 
  A partir do mês de Abril, o número acumulado de mortes por habitante apresentou uma correlação espacial no índice de Moran global (IM>0,50; P-valor<0,05) que se manteve em um alto patamar de correlação até o mês de Julho. Referente ao índice de Moran calculado para o número mensal de mortes por habitante (ou seja sem o efeito da sazionalidade), no mês de Abril o índice de Moran global (IM=0,72; P-valor<0,05) apresentou um alto patamar de dependência.
@@ -59,8 +61,6 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
 
  A partir do mês de Maio houve uma abrupta aceleração no crescimento da quantidade de casos acumulados por habitante em todos os continentes, sendo este mês o pico de contágio no primeiro semestre, se mantendo em um alto patamar até o mês de Julho. No entanto o crescimento do número de casos acumulados já é visível no mês de Abril em diversos continentes como na América do Norte, América do Sul, Ásia e Europa continente que apresentou dependência espacial no número cumulativo e mensal de mortes por habitantes já no mês de Abril apresentava uma dependência espacial local. 
  
-![](pop_cases.png)
-**Figura 1 -** Quantidade de casos por habitante.
 
 ## Conclusão
 
@@ -83,3 +83,14 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
 [7] - SPATIAL STUDY OF INCIDENCE RATES OF OCCUPATIONAL ACCIDENTS IN BRAZIL FROM 2002 TO 2012
 
 [8] - https://periodicos.utfpr.edu.br/rbgeo/article/view/5912/4915
+
+[9] - Max Roser, Hannah Ritchie, Esteban Ortiz-Ospina and Joe Hasell (2020) - "Coronavirus Pandemic (COVID-19)". Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/coronavirus' [Online Resource]
+
+## Apêndice
+
+![](pop_cases.png)
+**Figura 1 -** Quantidade de casos por habitante.
+
+ 
+![](media_movel.png)
+**Figura 2 -** Média móvel semanal do número de novos casos da covid19.
