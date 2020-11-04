@@ -61,7 +61,7 @@ df_eu <- data.frame('data'=df_eu$`data_eu$date`,'serie'=df_eu$Séries,'val'=df_e
 eu=ggplot(data = df_eu, mapping = aes(x = data, y =val,colour=serie)) +
   geom_line(stat = "identity",size=1.1)+
   labs(title="Na Europa.",x="",y="Número de novos casos",colour="Série")+ 
-  scale_color_manual(labels = c("Novos casos", "Média movel"),values =c("green","red") )+
+  scale_color_manual(labels = c("Novos casos", "Média Móvel"),values =c("green","red") )+
   scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
 eu
 ###
@@ -110,7 +110,7 @@ df_sa <- data.frame('data'=df_sa$`data_sa$date`,'serie'=df_sa$Séries,'val'=df_s
 sa=ggplot(data = df_sa, mapping = aes(x = data, y =val,colour=serie)) +
   geom_line(stat = "identity",size=1.1)+
   labs(title="Na América do Sul.",x="",y="Número de novos casos",colour="Série")+ 
-  scale_color_manual(labels = c("Novos casos", "Média movel"),values =c("green","red") )+
+  scale_color_manual(labels = c("Novos casos", "Média Móvel"),values =c("green","red") )+
   scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
 sa
 ###
@@ -133,7 +133,7 @@ df_na <- data.frame('data'=df_na$`data_na$date`,'serie'=df_na$Séries,'val'=df_n
 na=ggplot(data = df_na, mapping = aes(x = data, y =val,colour=serie)) +
   geom_line(stat = "identity",size=1.1)+
   labs(title="Nas Américas do norte e central.",x="",y="Número de novos casos",colour="Série")+ 
-  scale_color_manual(labels = c("Novos casos", "Média movel"),values =c("green","red") )+
+  scale_color_manual(labels = c("Novos casos", "Média Móvel"),values =c("green","red") )+
   scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
 #  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
 na
@@ -173,7 +173,7 @@ df_w <- data_w%>%group_by(data_w$date)%>%
 #df_w <- df_w[!is.na(df_w$new_cases),]
 
 df_w=df_w %>%
-  mutate('roll_mean'=rollapply(new_cases,3,mean,align='right',fill=NA))
+  mutate('roll_mean'=rollapply(new_cases,7,mean,align='right',fill=NA))
 
 #grouping
 df_w=df_w %>%
@@ -185,7 +185,7 @@ df_w <- data.frame('data'=df_w$`data_w$date`,'serie'=df_w$Séries,'val'=df_w$Val
 wo=ggplot(data = df_w, mapping = aes(x = data, y =val,colour=serie)) +
   geom_line(stat = "identity",size=1.1)+
   labs(title="No mundo",x="",y="Número de novos casos",colour="Série")+ 
-  scale_color_manual(labels = c("Novos casos", "Média movel"),values =c("green","red") )+
+  scale_color_manual(labels = c("Novos casos", "Média móvel"),values =c("green","red") )+
   scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")#  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
 
 wo
@@ -245,10 +245,91 @@ df_eu <- data.frame('data'=df_eu$`data_eu$date`,'serie'=df_eu$Séries,'val'=df_e
 
 eu=ggplot(data = df_eu, mapping = aes(x = data, y =val,colour=serie)) +
   geom_line(stat = "identity",size=1.1)+
-  labs(title="Na Europa.",x="",y="Número de novos casos",colour="Série")+ 
-  scale_color_manual(labels = c("Novos casos", "Média movel"),values =c("green","red") )+
+  labs(title="Na Europa.",x="",y="Número de novas mortes",colour="Série")+ 
+  scale_color_manual(labels = c("Novas mortes", "Média Móvel"),values =c("green","red") )+
   scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
 eu
 ###
 
 
+###
+
+#South America
+data_sa <- data %>% filter(continent=="South America")
+
+df_sa <- data_sa%>%group_by(data_sa$date)%>%
+  summarise_if(is.numeric,sum,na.rm=T)
+#?rollapply
+df_sa=df_sa %>%
+  mutate('roll_mean'=rollapply(df_sa$new_deaths,7,mean,align='right',fill=NA))
+
+#grouping
+df_sa=df_sa %>%
+  gather(c("new_cases","roll_mean"),key="Séries", value="Valor")
+
+
+df_sa <- data.frame('data'=df_sa$`data_sa$date`,'serie'=df_sa$Séries,'val'=df_sa$Valor)
+
+sa=ggplot(data = df_sa, mapping = aes(x = data, y =val,colour=serie)) +
+  geom_line(stat = "identity",size=1.1)+
+  labs(title="Na América do Sul.",x="",y="Número de novas mortes",colour="Série")+ 
+  scale_color_manual(labels = c("Novas mortes", "Média Móvel"),values =c("green","red") )+
+  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
+sa
+###
+
+###
+
+#North America
+data_na <- data %>% filter(continent=="North America")
+
+df_na <- data_na%>%group_by(data_na$date)%>%
+  summarise_if(is.numeric,sum,na.rm=T)
+
+df_na=df_na %>%
+  mutate('roll_mean'=rollapply(df_na$new_deaths,7,mean,align='right',fill=NA))
+
+#grouping
+df_na=df_na %>%
+  gather(c("new_cases","roll_mean"),key="Séries", value="Valor")
+
+df_na <- data.frame('data'=df_na$`data_na$date`,'serie'=df_na$Séries,'val'=df_na$Valor)
+
+na=ggplot(data = df_na, mapping = aes(x = data, y =val,colour=serie)) +
+  geom_line(stat = "identity",size=1.1)+
+  labs(title="Nas Américas do norte e central.",x="",y="Número de novas mortes",colour="Série")+ 
+  scale_color_manual(labels = c("Novas mortes", "Média Móvel"),values =c("green","red") )+
+  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
+#  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
+na
+
+###
+
+#World
+data_w <- data 
+
+df_w <- data_w%>%group_by(data_w$date)%>%
+  summarise_if(is.numeric,sum,na.rm=T)
+#df_w <- data_w
+#df_w <- df_w[!is.na(df_w$new_cases),]
+
+df_w=df_w %>%
+  mutate('roll_mean'=rollapply(new_deaths,7,mean,align='right',fill=NA))
+
+#grouping
+df_w=df_w %>%
+  gather(c("new_cases","roll_mean"),key="Séries", value="Valor")
+
+
+df_w <- data.frame('data'=df_w$`data_w$date`,'serie'=df_w$Séries,'val'=df_w$Valor)
+
+wo=ggplot(data = df_w, mapping = aes(x = data, y =val,colour=serie)) +
+  geom_line(stat = "identity",size=1.1)+
+  labs(title="No mundo",x="",y="Número de novas mortes",colour="Série")+ 
+  scale_color_manual(labels = c("Novas mortes", "Média Móvel"),values =c("green","red") )+
+  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")#  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
+
+wo
+############################################
+grid.arrange(wo,eu,na,sa,top="Média móvel de novas mortes.",ncol=2,nrow=2)
+#width=1366&height=678
