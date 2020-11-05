@@ -79,3 +79,15 @@ for(i in 1:length(datasets)){
   datasets[[i]]<-merge(owid_list[[i]],datasets[[i]],by="iso_code")
 }
 
+#School  closures mar world, europe, sa, na
+continents=list(w=NA,eu=NA,sa=NA,na=NA)
+for(i in 1:length(datasets)){
+ 
+continents$w[i]=as.data.frame(as.vector(table(datasets[[i]]$school_closing)))
+
+continents$eu[i]=data.frame(as.vector(table(datasets[[i]]$school_closing[datasets[[i]]$continent=="Europe"])))
+
+continents$sa[i]=data.frame(as.vector(table(datasets[[i]]$school_closing[datasets[[i]]$continent=="South America"])))
+
+continents$na[i]=data.frame(as.vector(table(datasets[[i]]$school_closing[datasets[[i]]$continent=="North America"])))
+}
