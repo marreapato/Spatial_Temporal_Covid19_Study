@@ -147,5 +147,5 @@ continents$sa$international[[i]]=data.frame(table(datasets[[i]]$international_mo
 
 continents$na$international[[i]]=data.frame(table(datasets[[i]]$international_movement_restrictions[datasets[[i]]$continent=="North America"]))
 
-
 }
+
