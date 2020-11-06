@@ -80,14 +80,31 @@ for(i in 1:length(datasets)){
 }
 
 #School  closures mar world, europe, sa, na
-continents=list(w=NA,eu=NA,sa=NA,na=NA)
+continents=list(w=c(sc=list(),work=list()),eu=c(sc=list(),work=list()),sa=c(sc=list(),work=list()),na=c(sc=list(),work=list()))
 for(i in 1:length(datasets)){
  
-continents$w[i]=as.data.frame(as.vector(table(datasets[[i]]$school_closing)))
+continents$w$sc[[i]]=data.frame(table(datasets[[i]]$school_closing))
 
-continents$eu[i]=data.frame(as.vector(table(datasets[[i]]$school_closing[datasets[[i]]$continent=="Europe"])))
+continents$eu$sc[[i]]=as.data.frame(table(datasets[[i]]$school_closing[datasets[[i]]$continent=="Europe"]))
 
-continents$sa[i]=data.frame(as.vector(table(datasets[[i]]$school_closing[datasets[[i]]$continent=="South America"])))
+continents$sa$sc[[i]]=data.frame(table(datasets[[i]]$school_closing[datasets[[i]]$continent=="South America"]))
 
-continents$na[i]=data.frame(as.vector(table(datasets[[i]]$school_closing[datasets[[i]]$continent=="North America"])))
+continents$na$sc[[i]]=data.frame(table(datasets[[i]]$school_closing[datasets[[i]]$continent=="North America"]))
+
+continents$w$work[[i]]=data.frame(table(datasets[[i]]$workplace_closing))
+
+continents$eu$work[[i]]=data.frame(table(datasets[[i]]$workplace_closing[datasets[[i]]$continent=="Europe"]))
+
+continents$sa$work[[i]]=data.frame(table(datasets[[i]]$workplace_closing[datasets[[i]]$continent=="South America"]))
+
+continents$na$work[[i]]=data.frame(table(datasets[[i]]$workplace_closing[datasets[[i]]$continent=="North America"]))
+
+continents$w$events[[i]]=data.frame(table(datasets[[i]]$cancel_events))
+
+continents$eu$events[[i]]=data.frame(table(datasets[[i]]$cancel_events[datasets[[i]]$continent=="Europe"]))
+
+continents$sa$events[[i]]=data.frame(table(datasets[[i]]$cancel_events[datasets[[i]]$continent=="South America"]))
+
+continents$na$events[[i]]=data.frame(table(datasets[[i]]$cancel_events[datasets[[i]]$continent=="North America"]))
+
 }
