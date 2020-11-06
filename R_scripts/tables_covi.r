@@ -107,4 +107,45 @@ continents$sa$events[[i]]=data.frame(table(datasets[[i]]$cancel_events[datasets[
 
 continents$na$events[[i]]=data.frame(table(datasets[[i]]$cancel_events[datasets[[i]]$continent=="North America"]))
 
+#########
+
+continents$w$transp[[i]]=data.frame(table(datasets[[i]]$transport_closing))
+
+continents$eu$transp[[i]]=data.frame(table(datasets[[i]]$transport_closing[datasets[[i]]$continent=="Europe"]))
+
+continents$sa$transp[[i]]=data.frame(table(datasets[[i]]$transport_closing[datasets[[i]]$continent=="South America"]))
+
+continents$na$transp[[i]]=data.frame(table(datasets[[i]]$transport_closing[datasets[[i]]$continent=="North America"]))
+
+#########
+
+continents$w$home[[i]]=data.frame(table(datasets[[i]]$stay_home_restrictions))
+
+continents$eu$home[[i]]=data.frame(table(datasets[[i]]$stay_home_restrictions[datasets[[i]]$continent=="Europe"]))
+
+continents$sa$home[[i]]=data.frame(table(datasets[[i]]$stay_home_restrictions[datasets[[i]]$continent=="South America"]))
+
+continents$na$home[[i]]=data.frame(table(datasets[[i]]$stay_home_restrictions[datasets[[i]]$continent=="North America"]))
+
+#########
+
+continents$w$internal[[i]]=data.frame(table(datasets[[i]]$internal_movement_restrictions))
+
+continents$eu$internal[[i]]=data.frame(table(datasets[[i]]$internal_movement_restrictions[datasets[[i]]$continent=="Europe"]))
+
+continents$sa$internal[[i]]=data.frame(table(datasets[[i]]$internal_movement_restrictions[datasets[[i]]$continent=="South America"]))
+
+continents$na$internal[[i]]=data.frame(table(datasets[[i]]$internal_movement_restrictions[datasets[[i]]$continent=="North America"]))
+
+#########
+
+continents$w$international[[i]]=data.frame(table(datasets[[i]]$international_movement_restrictions))
+
+continents$eu$international[[i]]=data.frame(table(datasets[[i]]$international_movement_restrictions[datasets[[i]]$continent=="Europe"]))
+
+continents$sa$international[[i]]=data.frame(table(datasets[[i]]$international_movement_restrictions[datasets[[i]]$continent=="South America"]))
+
+continents$na$international[[i]]=data.frame(table(datasets[[i]]$international_movement_restrictions[datasets[[i]]$continent=="North America"]))
+
+
 }
