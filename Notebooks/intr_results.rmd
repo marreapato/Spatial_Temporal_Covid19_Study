@@ -176,23 +176,23 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 **Figura 11 -** Políticas de fechamento de comèrcio adotadas.
 
 
-![](.png)
+![](testpop.png)
 **Figura 12 -** Quantidade acumulada de testes por habitante.
 
 
-![](Tracing.png)
+![](recovpop.png)
 **Figura 13 -** Quantidade de recuperados por habitante.
 
 
-![](Tracing.png)
+![](deathspop.png)
 **Figura 14 -** Quantidade de mortes por habitante.
 
 
-![](Tracing.png)
+![](recovconf.png)
 **Figura 15 -** Quantidade de recuperados por caso confirmado.
 
 
-![](Tracing.png)
+![](deathconf.png)
 **Figura 16 -** Quantidade de mortes por caso confirmado.
 
 ![](pop_cases.png)
