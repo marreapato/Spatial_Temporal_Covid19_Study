@@ -36,6 +36,8 @@ documentclass: report
 Uma análise exploratória foi conduzida sobre o banco da *COVID-19 Data Hub* para verificar o comportamento das infecções, mortes e políticas de restrição adotadas pelos países durante o período de Fevereiro de 2020 até Julho de 2020, sendo conduzidas em sua maioria pela análise de mapas referentes a essas variáveis, analisando diversos países diferentes isoladamente (todos os mapas podem ser encontrados no seguinte link: https://sites.google.com/view/data-journalbr/covid19/primeiro-semestre-2020?authuser=0), para posteriormente partir para uma análise mais geral referente ao comportamento em cada continente. As informações referentes ao número de casos, recuperados, mortes, casos por habitante, recuperados por habitante e mortes por habitante foram normalizadas tendo seu valor máximo como 1 e o mínimo como 0.  
  
  Também foi utilizado um segundo banco de dados disponibilizado pela *Our World In Data* $\!\!^9$ (*OWID*), o banco provido pela *OWID* contém informações que foram utilizadas como complementares ao da *COVID-19 Data Hub*, dentre as quais o número diário de casos confirmados e mortes por Covid-19. O banco da *OWID* foi integrado ao da *COVID-19 Data Hub*, para calcular a média móvel semanal do número de casos e mortos pela Covid-19 por dia no mundo e dos continentes em que foi identificada correlação local, a estatística também foi computada para os continentes em que foi identificado dependência espacial local em alguma destas quantidades, no entanto ao computar para a América do Norte a América central também foi considerada.
+ 
+ Dentre as localidades (regionais, continentais ou mundo) em que foi identificada dependência espacial, foi feita uma análise sobre a quantidade relativa de países, calculando a razão dentre os que adotaram medidas de obrigatórias de fechamento ou restrição total e a quantidade de nações em cada localidade. Foi considerada uma quantidade de 195 países no mundo $\!\!^1$ $\!\!^0$, com um total de 193 membros da ONU e dois estados observadores, o Vaticano e a Palestina.
 
 #### Índice de Moran
  
@@ -61,7 +63,7 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
  
  A média móvel semanal da quantidade de casos por dia apresentou crescimento de Janeiro à Outubro, no mundo, na Europa e na América do Norte e Central, decaindo apenas na América do Sul, no entanto, a média semanal do número de mortes por dia apresentou uma variabilidade maior, porém com aumento em todas as localidades até o mês de outubro, sendo o aumento de maior impacto na Europa após uma brusca queda no número diário de falecidos pela Covid-19.
  
- Até o mês de Julho referente ao número cumulativo de morte por quantidade de casos o Iêmen foi o país com maior número de mortos por infectados, chegando a um falecimento de 29% dos contagiados pelo Covid-19, no geral as Américas, a África, a Europa, a Ásia e a Oceania agiram de maneiras muito similares no quesito referente ao fechamento internacional de fronteiras no começo da pandemia..
+ Até o mês de Julho referente ao número cumulativo de morte por quantidade de casos o Iêmen foi o país com maior número de mortos por infectados, chegando a um falecimento de 29% dos contagiados pelo Covid-19, no geral as Américas, a África, a Europa, a Ásia e a Oceania agiram de maneiras muito similares no quesito referente ao fechamento internacional de fronteiras no começo da pandemia. Dentre os continentes em que foi identificada dependência espacial sobre o número mensal de mortes por habitantes, de Fevereiro a Julho, houve similaridades nas políticas de (falar dos números relativos).
  
 ## Discussão
 
@@ -111,7 +113,9 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
  
 ## Conclusão
 
- Portanto, há uma dependência espacial no número de mortes cumulativo por habitantes infectados pela Covid-19, que teve seu pico no primeiro semestre em Maio de 2020 e começou a registrar alto crescimento em Abril, sendo esta mais notável nos países da parte ocidental da Europa e na América do Sul, existe portanto a necessidade de se investigar o motivo de tal dependência espacial, presente também sem o efeito da sazionalidade ao se analizar o número mensal mortes por habitantes.
+ Portanto, há uma dependência espacial no número de mortes por habitantes infectados pela Covid-19, que teve seu pico no primeiro semestre em Maio de 2020 e começou a registrar alto crescimento em Abril, apesar das similaridades políticas referente a poítica de fechamento internacional, esta dependência mais verificada apenas nos países da parte ocidental da Europa, na América do Sul e na América do Norte.
+ 
+ Apesar dos países em que foi identificada correlação espacial apresentarem diferenças entre as políticas de restrição adotadas, em contraposição dos que não houve nenhum tipo de correlação, existe portanto a necessidade de se investigar o motivo de tal dependência espacial para o número de mortes por habitantes e o porquê dela estar localizada nestes continentes.
 
 ## Referências
 
@@ -132,6 +136,8 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 [8] - https://periodicos.utfpr.edu.br/rbgeo/article/view/5912/4915
 
 [9] - Max Roser, Hannah Ritchie, Esteban Ortiz-Ospina and Joe Hasell (2020) - "Coronavirus Pandemic (COVID-19)". Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/coronavirus' [Online Resource]
+
+[10] - https://www.worldometers.info/geography/how-many-countries-are-there-in-the-world/
 
 ## Apêndice
 
