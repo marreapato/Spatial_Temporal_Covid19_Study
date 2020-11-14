@@ -27,6 +27,6 @@ n_polm$Mês <- my(n_polm$Mês)
 ggplot(data = n_polm[n_polm$Localidade=="Europa",], mapping = aes(x = Mês, y =`Proporção de medidas restritivas`,colour=Medidas)) +
   geom_line(stat = "identity",size=1.1)+
   labs(title="Na Europa.",x="",y="Proporção de medidas.",colour="Localidade")+ 
-#  scale_color_manual(values =c("green","red") )+
+  scale_color_manual(values =c("green","red","dark blue","yellow","purple","magenta","black") )+
  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")+ylim(0.0,1.0)
 ?geom_line
