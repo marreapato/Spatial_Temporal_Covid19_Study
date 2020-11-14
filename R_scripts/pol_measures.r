@@ -1,11 +1,13 @@
 #install.packages("tidyverse")
 #install.packages("readxl")
 #install.packages("lubridate")
-install.packages("ggthemes")
+#install.packages("ggthemes")
+#install.packages("gridExtra")
 library(tidyverse)
 library(readxl)
 library(lubridate)
 library(ggthemes)
+library(gridExtra)
 polm <- data.frame(read_xlsx("pol_meas.xlsx"))
 
 polm[polm$Localidade=="Mundo",c(3:12)]=polm[polm$Localidade=="Mundo",c(3:12)]/195
@@ -26,28 +28,38 @@ n_polm[n_polm$Mês=="Setembro",3]="09/2020"
 n_polm[n_polm$Mês=="Outubro",3]="10/2020"
 n_polm$Mês <- my(n_polm$Mês)
 
-ggplot(data = n_polm[n_polm$Localidade=="Europa",], mapping = aes(x = Mês, y =`Proporção de medidas restritivas`,colour=Medidas)) +
+(eu=ggplot(data = n_polm[n_polm$Localidade=="Europa",], mapping = aes(x = Mês, y =`Proporção de medidas restritivas`,colour=Medidas)) +
   geom_line(stat = "identity",size=1.1)+
-  labs(title="Na Europa.",x="",y="Proporção de medidas.",colour="Localidade")+ 
+  labs(title="Na Europa.",x="",y="Proporção de países.",colour="Localidade")+ 
   scale_color_manual(values =c("green","red","dark blue","yellow","purple","magenta","black") )+
- scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")+ylim(0.0,1.0)
+ scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")+ylim(0.0,1.0)+
+  theme(legend.position = "none",
+        panel.border = element_rect(fill = NA)))
+
 ?geom_line
 
-
-ggplot(data = n_polm[n_polm$Localidade=="Mundo",], mapping = aes(x = Mês, y =`Proporção de medidas restritivas`,colour=Medidas)) +
+(wo=ggplot(data = n_polm[n_polm$Localidade=="Mundo",], mapping = aes(x = Mês, y =`Proporção de medidas restritivas`,colour=Medidas)) +
   geom_line(stat = "identity",size=1.1)+
-  labs(title="No mundo.",x="",y="Proporção de medidas.",colour="Localidade")+ 
+  labs(title="No mundo.",x="",y="Proporção de países.",colour="Localidade")+ 
   scale_color_manual(values =c("green","red","dark blue","yellow","purple","magenta","black") )+
-  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")+ylim(0.0,1.0)
+  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")+ylim(0.0,1.0)+
+    theme(legend.position ="none",
+          panel.border = element_rect(fill = NA)))
 
-ggplot(data = n_polm[n_polm$Localidade=="América do Sul",], mapping = aes(x = Mês, y =`Proporção de medidas restritivas`,colour=Medidas)) +
+(sa=ggplot(data = n_polm[n_polm$Localidade=="América do Sul",], mapping = aes(x = Mês, y =`Proporção de medidas restritivas`,colour=Medidas)) +
   geom_line(stat = "identity",size=1.1)+
-  labs(title="Na América do Sul.",x="",y="Proporção de medidas.",colour="Localidade")+ 
+  labs(title="Na América do Sul.",x="",y="Proporção de países.",colour="Localidade")+ 
   scale_color_manual(values =c("green","red","dark blue","yellow","purple","magenta","black") )+
-  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")+ylim(0.0,1.0)
+  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")+ylim(0.0,1.0)+
+  theme(legend.position = "none",
+        panel.border = element_rect(fill = NA)))
 
-ggplot(data = n_polm[n_polm$Localidade=="América do Norte e Central",], mapping = aes(x = Mês, y =`Proporção de medidas restritivas`,colour=Medidas)) +
+(na=ggplot(data = n_polm[n_polm$Localidade=="América do Norte e Central",], mapping = aes(x = Mês, y =`Proporção de medidas restritivas`,colour=Medidas)) +
   geom_line(stat = "identity",size=1.1)+
-  labs(title="América do Norte e Central.",x="",y="Proporção de medidas.",colour="Localidade")+ 
+  labs(title="América do Norte e Central.",x="",y="Proporção de países.",colour="Localidade")+ 
   scale_color_manual(values =c("green","red","dark blue","yellow","purple","magenta","black") )+
-  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")+ylim(0.0,1.0)
+  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")+ylim(0.0,1.0)+
+    theme(legend.position =c(0.8,0.8),legend.box.just ="top", legend.key = element_rect(fill=alpha("transparent",0.02)),
+          legend.background = element_rect(fill=alpha('transparent', 0.02)),panel.border = element_rect(fill = "transparent")))
+#width=1366&height=678
+grid.arrange(wo,eu,sa,na,top="Adoção de medidas restrivas.")
