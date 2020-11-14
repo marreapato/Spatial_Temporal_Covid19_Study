@@ -216,3 +216,6 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 
 ![](men_local_deaths.png)
 **Figura 21 -** Índice local de Moran do número mensal de mortes por habitantes.
+
+![](pol_meas.png)
+**Figura 22 -** Proporção de países que adotaram medidas restritivas.
