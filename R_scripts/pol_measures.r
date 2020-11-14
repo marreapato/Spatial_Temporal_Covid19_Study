@@ -1,9 +1,11 @@
 #install.packages("tidyverse")
 #install.packages("readxl")
 #install.packages("lubridate")
+install.packages("ggthemes")
 library(tidyverse)
 library(readxl)
 library(lubridate)
+library(ggthemes)
 polm <- data.frame(read_xlsx("pol_meas.xlsx"))
 
 polm[polm$Localidade=="Mundo",c(3:12)]=polm[polm$Localidade=="Mundo",c(3:12)]/195
@@ -30,3 +32,22 @@ ggplot(data = n_polm[n_polm$Localidade=="Europa",], mapping = aes(x = Mês, y =`
   scale_color_manual(values =c("green","red","dark blue","yellow","purple","magenta","black") )+
  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")+ylim(0.0,1.0)
 ?geom_line
+
+
+ggplot(data = n_polm[n_polm$Localidade=="Mundo",], mapping = aes(x = Mês, y =`Proporção de medidas restritivas`,colour=Medidas)) +
+  geom_line(stat = "identity",size=1.1)+
+  labs(title="No mundo.",x="",y="Proporção de medidas.",colour="Localidade")+ 
+  scale_color_manual(values =c("green","red","dark blue","yellow","purple","magenta","black") )+
+  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")+ylim(0.0,1.0)
+
+ggplot(data = n_polm[n_polm$Localidade=="América do Sul",], mapping = aes(x = Mês, y =`Proporção de medidas restritivas`,colour=Medidas)) +
+  geom_line(stat = "identity",size=1.1)+
+  labs(title="Na América do Sul.",x="",y="Proporção de medidas.",colour="Localidade")+ 
+  scale_color_manual(values =c("green","red","dark blue","yellow","purple","magenta","black") )+
+  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")+ylim(0.0,1.0)
+
+ggplot(data = n_polm[n_polm$Localidade=="América do Norte e Central",], mapping = aes(x = Mês, y =`Proporção de medidas restritivas`,colour=Medidas)) +
+  geom_line(stat = "identity",size=1.1)+
+  labs(title="América do Norte e Central.",x="",y="Proporção de medidas.",colour="Localidade")+ 
+  scale_color_manual(values =c("green","red","dark blue","yellow","purple","magenta","black") )+
+  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")+ylim(0.0,1.0)
