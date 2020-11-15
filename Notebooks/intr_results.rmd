@@ -104,7 +104,7 @@ Em Março o país com mais recuperados por número de casos **(Figura - 15)** fo
 
 A partir do mês de Maio houve uma abrupta aceleração no crescimento da quantidade de casos acumulados por habitante em todos os continentes **(Figura - 17)**, sendo este mês o pico de contágio no primeiro semestre, se mantendo em um alto patamar até o mês de Julho. No entanto o crescimento do número de casos acumulados já é visível no mês de Abril em diversos continentes como na América do Norte, América do Sul, Ásia e Europa continente que apresentou dependência espacial no número cumulativo e mensal de mortes por habitantes já no mês de Abril apresentava uma dependência espacial local.
 
- Dentre as medidas restritivas adotadas **(Tabela 1)**, tanto as medidas de fechamento total de fronteiras como todas as outras políticas restritivas, atingiram seu pico no mês de Abril em todo o mundo, em que houve uma maior quantidade de países adotando essas políticas. Traçando um paralelo com a média móvel semanal do número de casos **(Figura - 18)**, houve um período de maior estabilidade na estatística em quase todo o mês, voltando a crescer aceleradamente no mês de Junho. Já em Abril, a média móvel do número de mortes **(Figura - 19)** que crescia de maneira bastante acelerada, apresentou uma leve desaceleração no mundo, porém voltou a crescer no mesmo mês e atingiu seu pico, caindo aceleradamente após o evento neste mês e voltando a crescer a partir de Junho.
+ Dentre as medidas restritivas adotadas **(Figura - 18)**, tanto as medidas de fechamento total de fronteiras como todas as outras políticas restritivas, atingiram seu pico no mês de Abril em todo o mundo, em que houve uma maior quantidade de países adotando essas políticas. Traçando um paralelo com a média móvel semanal do número de casos **(Figura - 19)**, houve um período de maior estabilidade na estatística em quase todo o mês, voltando a crescer aceleradamente no mês de Junho. Já em Abril, a média móvel do número de mortes **(Figura - 20)** que crescia de maneira bastante acelerada, apresentou uma leve desaceleração no mundo, porém voltou a crescer no mesmo mês e atingiu seu pico, caindo aceleradamente após o evento neste mês e voltando a crescer a partir de Junho.
  
  O Índice de Moran local sobre o número mensal de mortes por habitantes demonstrou uma forte dependência espacial na Europa de Abril até Maio, no mês de Junho e em seu subsequente a dependência local já não estava mais presente **(Figura - 20)**, enquanto o Índice sobre a quantidade acumulada **(Figura - 21)**, permaneceu por mais tempo. Em contrapartida a média móvel da quantidade de novos casos começou a cair a partir do mês de Abril no continente europeu, se mantendo em uma leve queda até o mês de Agosto. 
 
@@ -204,18 +204,19 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 ![](pop_cases.png)
 **Figura 17 -** Quantidade de casos por habitante.
 
+![](pol_meas.png)
+**Figura 18 -** Proporção de países que adotaram medidas restritivas.
+
  
 ![](media_movel.png)
-**Figura 18 -** Média móvel semanal do número de novos casos da Covid-19.
+**Figura 19 -** Média móvel semanal do número de novos casos da Covid-19.
 
 ![](n_mortes.png)
-**Figura 19 -** Média móvel semanal do número de novas mortes pela Covid-19.
+**Figura 20 -** Média móvel semanal do número de novas mortes pela Covid-19.
 
 ![](cum_local_death.png)
-**Figura 20 -** Índice local de Moran do número acumulado de mortes por habitantes.
+**Figura 21 -** Índice local de Moran do número acumulado de mortes por habitantes.
 
 ![](men_local_deaths.png)
-**Figura 21 -** Índice local de Moran do número mensal de mortes por habitantes.
+**Figura 22 -** Índice local de Moran do número mensal de mortes por habitantes.
 
-![](pol_meas.png)
-**Figura 22 -** Proporção de países que adotaram medidas restritivas.
