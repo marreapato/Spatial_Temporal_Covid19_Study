@@ -1159,3 +1159,5 @@ plot(total$totaljul,border="lightgray",col=colors[findInterval(quadrant,brks,all
 box()
 legend("bottomleft", legend = c("insignificant","low-low","low-high","high-low","high-high"),
        fill=colors,bty="n")
+
+#https://rpubs.com/quarcs-lab/spatial-autocorrelation
