@@ -1101,3 +1101,61 @@ grid.arrange(ck1,ck2,ck3,ck4,top="Índice de Moran local sobre o número cumulat
 ?grid.arrange()
 
 grid.arrange(kc1,kc2,kc3,kc4,top="Índice de Moran local sobre o número mensal \n de mortes por habitantes.")
+
+########################3
+                                                                          2.2), bty="n", cex=0.8, y.intersp=0.8)
+################################################################
+
+#testing local moran manner
+
+
+#monthly death pop local
+local.mi.prod<-localmoran(total$totaljul$m_death_pop_ratio, PPV3.w)
+
+total$totaljul$lmi<-local.mi.prod[,1]
+
+total$totaljul$lmi.p<-local.mi.prod[,5]
+
+total$totaljul$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+spplot(total$totaljul, "lmi", at=summary(total$totaljul$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
+kc4=spplot(total$totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Julho")
+?spplot
+
+
+####
+
+
+
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totaljul$m_death_pop_ratio - mean(total$totaljul$m_death_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- 4  
+quadrant[m.qualification <0 & m.local<0] <- 1      
+quadrant[m.qualification <0 & m.local>0] <- 2
+quadrant[m.qualification >0 & m.local<0] <- 3
+quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+
+
+# plot in r
+brks <- c(0,1,2,3,4)
+colors <- c("white","blue",rgb(0,0,1,alpha=0.4),rgb(1,0,0,alpha=0.4),"red")
+plot(total$totaljul,border="lightgray",col=colors[findInterval(quadrant,brks,all.inside=FALSE)])
+box()
+legend("bottomleft", legend = c("insignificant","low-low","low-high","high-low","high-high"),
+       fill=colors,bty="n")
