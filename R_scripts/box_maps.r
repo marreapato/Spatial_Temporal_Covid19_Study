@@ -47,7 +47,7 @@ sep <-covid19(start ="2020-09-30" ,end ="2020-09-30",raw = F )
 
 oct <-covid19(start ="2020-10-31" ,end ="2020-10-31",raw = F ) 
 
-#the right way to do it
+  #the right way to do it
 #list of datasets
 datasets <- list(jan20=jan,feb20=feb,march20=march,april20=april,may20=may,june20=june,july=july,aug20=aug,sep20=sep,oct20=oct)
 
@@ -285,8 +285,8 @@ quadrant[m.qualification <0 & m.local<0] <- 1#BB
 quadrant[m.qualification <0 & m.local>0] <- 2#BA
 quadrant[m.qualification >0 & m.local<0] <- 3#AB
 #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
-
 # plot in r
+?dev.size
 brks <- c(0,1,2,3,4)
 colors <- c("white","blue",rgb(0,0,1,alpha=0.4),rgb(1,0,0,alpha=0.4),"red")
 plot(total$totalj,border="lightgray",col=colors[findInterval(quadrant,brks,all.inside=FALSE)],main="Janeiro")
@@ -294,6 +294,8 @@ box()
 legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
        fill=colors,bty="n")
 jplot <- recordPlot()
+jplot=as_grob(jplot)
+
 jplot=as.ggplot(jplot)
 ###################
 #nearest neighbours
@@ -400,6 +402,8 @@ box()
 legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
        fill=colors,bty="n")
 fplot <- recordPlot()
+fplot <- as_grob(fplot)
+
 fplot <- as.ggplot(fplot)
 #install.packages("grid")
 #install.packages("ggplotify")
@@ -770,8 +774,10 @@ aplot <- as.ggplot(aplot)
 
 aplot
 ?grid.arrange
-grid.arrange(jplot,fplot,mplot,aplot,widths=c(0.2,0.2,0.2,0.2),heights =c(1,1,1,1))
-plot_grid(jplot,fplot)
+grid.arrange(jplot,fplot,mplot,aplot,widths=c(2,2,2,2))
+
+plot_grid(jplot,fplot,mplot,rel_widths = 0.2)
+?plot_grid
 ####
 
 #recovered_pop
@@ -972,6 +978,10 @@ box()
 legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
        fill=colors,bty="n")
 maplot <- recordPlot()
+maplot <- as_grob(maplot)
+
+maplot <- as.ggplot(maplot)
+
 maplot
 
 #recovered_pop
@@ -1170,7 +1180,9 @@ box()
 legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
        fill=colors,bty="n")
 junplot <- recordPlot()
-junplot
+junplot <- as_grob(junplot)
+
+junplot <- as.ggplot(junplot)
 
 
 ####
@@ -1373,7 +1385,9 @@ box()
 legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
        fill=colors,bty="n")
 julplot <- recordPlot()
-julplot
+julplot <- as_grob(julplot)
+
+julplot <- as.ggplot(julplot)
 
 
 ####
@@ -1454,7 +1468,9 @@ box()
 legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
        fill=colors,bty="n")
 augplot <- recordPlot()
-augplot
+augplot <- as_grob(augplot)
+
+augplot <- as.ggplot(augplot)
 
 
 ###################
@@ -1516,7 +1532,9 @@ box()
 legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
        fill=colors,bty="n")
 sepplot <- recordPlot()
-sepplot
+sepplot <- as_grob(sepplot)
+
+sepplot <- as.ggplot(sepplot)
 
 
 #nearest neighbours
@@ -1577,13 +1595,26 @@ box()
 legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
        fill=colors,bty="n")
 ocplot <- recordPlot()
-ocplot
+ocplot <- as_grob(ocplot)
+
+ocplot <- as.ggplot(ocplot)
 
 #https://rpubs.com/quarcs-lab/spatial-autocorrelation
 #install.packages("cowplot")
 library(gridGraphics)
 library(cowplot)
 
-plot_grid(jplot,fplot,rel_widths = c(0.2,0.2),rel_heights = c(0.2,0.2))
+plot_grid(jplot,fplot,mplot,aplot,rel_widths = c(0.2,0.2),rel_heights = c(0.00001,0.00001))
 ?plot_grid()
 
+grid.arrange(jplot,fplot, ncol = 2, main = "Main title")
+
+layout(matrix(c(1,2), nrow = 1, ncol = 2, byrow = TRUE))                              
+jplot
+fplot
+library("ggpubr")
+ggarrange(plotlist = list(jplot,fplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
+ggarrange(plotlist = list(mplot,aplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
+ggarrange(plotlist = list(maplot,junplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
+ggarrange(plotlist = list(julplot,augplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
+ggarrange(plotlist = list(sepplot,ocplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
