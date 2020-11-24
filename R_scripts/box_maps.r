@@ -1620,9 +1620,12 @@ ggarrange(plotlist = list(mplot,aplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
 ggarrange(plotlist = list(maplot,junplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
 ggarrange(plotlist = list(julplot,augplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
 ggarrange(plotlist = list(sepplot,ocplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
+#width=1366&height=678
+janfe=grid.arrange(jplot,fplot,widths=c(0.3,0.3))
+mara=grid.arrange(mplot,aplot,widths=c(0.3,0.3))
+majun=grid.arrange(maplot,junplot,widths=c(0.3,0.3))
+julaug=grid.arrange(julplot,augplot,widths=c(0.3,0.3))
+sepoc=grid.arrange(sepplot,ocplot,widths=c(0.3,0.3))
 
-janfe=grid.arrange(jplot,fplot,top="Índice de Moran local sobre o número cumulativo \n de mortes por habitantes.",widths=c(0.3,0.3))
-mara=grid.arrange(mplot,aplot,top="Índice de Moran local sobre o número cumulativo \n de mortes por habitantes.",widths=c(0.3,0.3))
-majun=grid.arrange(maplot,junplot,top="Índice de Moran local sobre o número cumulativo \n de mortes por habitantes.",widths=c(0.3,0.3))
-julaug=grid.arrange(julplot,augplot,top="Índice de Moran local sobre o número cumulativo \n de mortes por habitantes.",widths=c(0.3,0.3))
-sepoc=grid.arrange(sepplot,ocplot,top="Índice de Moran local sobre o número cumulativo \n de mortes por habitantes.",widths=c(0.3,0.3))
+#merge here
+#https://onlineconvertfree.com/merge-image/png-merge/
