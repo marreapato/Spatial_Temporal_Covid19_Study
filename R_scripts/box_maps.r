@@ -407,10 +407,10 @@ fplot <- as_grob(fplot)
 fplot <- as.ggplot(fplot)
 #install.packages("grid")
 #install.packages("ggplotify")
-
 library("grid")
 library("ggplotify")
-plot_grid(jplot,fplot)
+
+(k=plot_grid(jplot,fplot)
 #March
 coor <- coordinates(total$totalm)
 cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
@@ -1409,6 +1409,8 @@ grid.arrange(ck1,ck2,ck3,ck4,top="Índice de Moran local sobre o número cumulat
 
 grid.arrange(kc1,kc2,kc3,kc4,top="Índice de Moran local sobre o número mensal \n de mortes por habitantes.")
 
+janfe=grid.arrange(jplot,fplot,top="Boxmap sobre o número mensal \n de mortes por habitantes.",widths=c(0.3,0.3))
+
 ###################
 #nearest neighbours
 #august
@@ -1604,12 +1606,12 @@ ocplot <- as.ggplot(ocplot)
 library(gridGraphics)
 library(cowplot)
 
-plot_grid(jplot,fplot,mplot,aplot,rel_widths = c(0.2,0.2),rel_heights = c(0.00001,0.00001))
-?plot_grid()
+janfe=grid.arrange(jplot,fplot,top="Índice de Moran local sobre o número cumulativo \n de mortes por habitantes.",widths=c(0.3,0.3))
 
 grid.arrange(jplot,fplot, ncol = 2, main = "Main title")
-
-layout(matrix(c(1,2), nrow = 1, ncol = 2, byrow = TRUE))                              
+dev.off()
+layout(matrix(c(1,1), nrow = 1, ncol = 1, byrow = TRUE))                              
+janfe
 jplot
 fplot
 library("ggpubr")
@@ -1618,3 +1620,9 @@ ggarrange(plotlist = list(mplot,aplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
 ggarrange(plotlist = list(maplot,junplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
 ggarrange(plotlist = list(julplot,augplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
 ggarrange(plotlist = list(sepplot,ocplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
+
+janfe=grid.arrange(jplot,fplot,top="Índice de Moran local sobre o número cumulativo \n de mortes por habitantes.",widths=c(0.3,0.3))
+mara=grid.arrange(mplot,aplot,top="Índice de Moran local sobre o número cumulativo \n de mortes por habitantes.",widths=c(0.3,0.3))
+majun=grid.arrange(maplot,junplot,top="Índice de Moran local sobre o número cumulativo \n de mortes por habitantes.",widths=c(0.3,0.3))
+julaug=grid.arrange(julplot,augplot,top="Índice de Moran local sobre o número cumulativo \n de mortes por habitantes.",widths=c(0.3,0.3))
+sepoc=grid.arrange(sepplot,ocplot,top="Índice de Moran local sobre o número cumulativo \n de mortes por habitantes.",widths=c(0.3,0.3))
