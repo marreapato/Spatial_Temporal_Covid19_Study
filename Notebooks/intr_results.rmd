@@ -120,26 +120,22 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 
 ## Referências
 
-[1] - https://reader.elsevier.com/reader/sd/pii/S2090123220300540?token=26B4D22A444963A79BDEF6C0D5D6B7DBAB6E417B72741E9408077164DFE98DD3C60085E40FB8A46964B454ECB0981D81
+[1] - Muhammad Adnan Shereen, Suliman Khan, Abeer Kazmi, Nadia Bashir, Rabeea Siddique, COVID-19 infection: Origin, transmission, and characteristics of human coronaviruses, Journal of Advanced Research, Volume 24, 2020, Pages 91-98, ISSN 2090-1232, https://doi.org/10.1016/j.jare.2020.03.005.
 
-[2] - https://reader.elsevier.com/reader/sd/pii/S0960982220303602?token=DDACE18C1AEF3D5006049D4C47E460D652C20143E76F940DC4A8391256E205355A5219746EA07D1536C391E71CE6CDE4
+[2] - Tao Zhang, Qunfu Wu, Zhigang Zhang, Probable Pangolin Origin of SARS-CoV-2 Associated with the COVID-19 Outbreak, Current Biology, Volume 30, Issue 7, 2020, Pages 1346-1351.e2, ISSN 0960-9822, https://doi.org/10.1016/j.cub.2020.03.022.
 
-[3] - https://www.euro.who.int/en/health-topics/health-emergencies/coronavirus-covid-19/news/news/2020/3/who-announces-covid-19-outbreak-a-pandemic
+[3] - WHO announces COVID-19 outbreak a pandemic. World Health Organization Regional Office for Europe. [S.l.]. Publicado em: 12/03/2020. <https://www.euro.who.int/en/health-topics/health-emergencies/coronavirus-covid-19/news/news/2020/3/who-announces-covid-19-outbreak-a-pandemic>. Acesso em: 24/11/2020.
 
-[4] - http://www.sinaldetransito.com.br/artigos/espacial.pdf
+[4] -CARDOSO, Carlos Eduardo de Paiva. Dependência Espacial, Setores Censitários, Zonas OD, Distritos, Sub Prefeituras e etc. [S.l]. Publicado em: 06/09/2007. <http://www.sinaldetransito.com.br/artigos/espacial.pdf>. Acesso em: 24/11/2020.
 
-[5] - Guidotti, E., Ardia, D., (2020), "COVID-19 Data Hub", Journal of Open Source Software 5(51):2376, doi: 10.21105/joss.02376.
+[5] - Guidotti, E., Ardia, D., (2020), “COVID-19 Data Hub”, Journal of Open Source Software 5(51):2376, doi: 10.21105/joss.02376.
 
-[6] - http://www2.ime.unicamp.br/sinape/sites/default/files/Resumo%20expandido%20SINAPE.pdf
+[6] - BRAGA, Altemir da Silva. et al. Estudo de Dependência Espacial utilizando Análise de Dados de Área Aplicada na Mesorregião Metropolitana de Belo Horizonte por meio do Indicador Econômico PIB. 19ª SINAPE.  [S.l.]. 2010,  Disponível em: <http://www2.ime.unicamp.br/sinape/sites/default/files/Resumo%20expandido%20SINAPE.pdf>. Acesso em: 24/11/2020.
 
-[7] - SPATIAL STUDY OF INCIDENCE RATES OF OCCUPATIONAL ACCIDENTS IN BRAZIL FROM 2002 TO 2012
+[7] - MAIA, André Luis Santiago; GOMES, Gecynalda Soares da Silva; ALMEIDA, Isabelle Galdino de. SPATIAL STUDY OF INCIDENCE RATES OF OCCUPATIONAL ACCIDENTS IN BRAZIL FROM 2002 TO 2012. REVISTA BRASILEIRA DE BIOMETRIA, [S.l.], v. 36, n. 4, p. 927-941, dec. 2018. ISSN 1983-0823. Available at: <http://www.biometria.ufla.br/index.php/BBJ/article/view/322>. Date accessed: 24 nov. 2020. doi: https://doi.org/10.28951/rbb.v36i4.322.                                 
+[8] - SEFFRIN, R.; ARAUJO, E. C.; BAZZI, C. L.. Análise espacial de área aplicada a produtividade de soja na região oeste do Paraná utilizando o software R. R. bras. Geom., Curitiba, v. 6, n. 1, p. 23-43, jan/mar.2018. Disponível em: <https://periodicos.utfpr.edu.br/rbgeo/article/view/5912>. Acesso em: 24/11/2020.DOI: 10.3895/rbgeo.v6n1.5912
 
-[8] - https://periodicos.utfpr.edu.br/rbgeo/article/view/5912/4915
-
-[9] - Max Roser, Hannah Ritchie, Esteban Ortiz-Ospina and Joe Hasell (2020) - "Coronavirus Pandemic (COVID-19)". Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/coronavirus' [Online Resource]
-
-[10] - https://www.worldometers.info/geography/how-many-countries-are-there-in-the-world/
-
+[9] - Max Roser, Hannah Ritchie, Esteban Ortiz-Ospina and Joe Hasell (2020) - “Coronavirus Pandemic (COVID-19)”. Published online at OurWorldInData.org. Retrieved from: ‘https://ourworldindata.org/coronavirus’ [Online Resource]. Acesso em: 24/11/2020.
 ## Apêndice
 
 ![](information.png)
