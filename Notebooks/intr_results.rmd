@@ -2,9 +2,6 @@
 title: "Covid-19 análise espaço-temporal."
 author: "Lucas Rabelo"
 output:
-  word_document:
-    toc: no
-    toc_depth: '6'
   pdf_document:
     toc: no
     toc_depth: '6'
@@ -13,6 +10,9 @@ output:
     citation_package: natbib
     pandoc_args: --listings
     includes: null
+  word_document:
+    toc: no
+    toc_depth: '6'
 geometry: margin=1in
 fontsize: 12pt
 linestretch: 1.5
@@ -218,7 +218,7 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 ![](cum_local_death.png)
 **Figura 21 -** Índice local de Moran do número acumulado de mortes por habitantes.
 
-![](men_local_deaths.png)
+![](local_moran_d.png)
 **Figura 22 -** Índice local de Moran do número mensal de mortes por habitantes.
 
 #### Conjunto de boxmaps do número de mortes mensal por habitante.
