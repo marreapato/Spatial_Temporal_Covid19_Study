@@ -2,6 +2,9 @@
 title: "Covid-19 análise espaço-temporal."
 author: "Lucas Rabelo"
 output:
+  word_document:
+    toc: no
+    toc_depth: '6'
   pdf_document:
     toc: no
     toc_depth: '6'
@@ -10,9 +13,6 @@ output:
     citation_package: natbib
     pandoc_args: --listings
     includes: null
-  word_document:
-    toc: no
-    toc_depth: '6'
 geometry: margin=1in
 fontsize: 12pt
 linestretch: 1.5
@@ -116,7 +116,7 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
  
  A dependência local foi verificada apenas nos países da parte ocidental da Europa, na América do Sul e na América do Norte, havendo similaridades políticas referente as medidas de rastreamento de casos, a qual em maioria foi adotada apenas para casos específicos ou não foi adotada, obrigação para ficar em casa que foi pouco adotada sem ressalvas, e dentre a política de restrição de multidões que foi adotada restringindo aglomerações com mais de 10 pessoas.
  
- A presença de semelhanças dentre as políticas de isolamento social, restrição de multidões, rastreamento de casos e os aumentos no número de infectados pela Covid-19, nas regiões em que foi identificada correlação espacial local, existe portanto a necessidade de se investigar se as semelhanças, ou as diferenças dentre as medidas políticas, foram determinantes para o aumento da média móvel de casos no mundo, e para a presença de dependência espacial global, e local no número de mortes por habitantes nos continentes em que foi verificada.
+ Por conseguinte devido a presença de semelhanças dentre as políticas de isolamento social, restrição de multidões, rastreamento de casos e os aumentos no número de infectados pela Covid-19, nas regiões em que foi identificada correlação espacial local, existe a necessidade de determinar se as semelhanças, ou as diferenças dentre as medidas políticas, foram causas cruciais para o aumento da média móvel de casos no mundo, e para a presença de dependência espacial global e local, no número de mortes por habitantes nos continentes em que foi verificada.
 
 ## Referências
 
@@ -172,7 +172,7 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 
 
 ![](workplace.png)
-**Figura 9 -** Políticas de fechamento de comèrcio adotadas.
+**Figura 9 -** Políticas de fechamento de comércio adotadas.
 
 
 ![](stayhome.png)
@@ -221,3 +221,6 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 ![](men_local_deaths.png)
 **Figura 22 -** Índice local de Moran do número mensal de mortes por habitantes.
 
+#### Conjunto de boxmaps do número de mortes mensal por habitante.
+![](Fixed_boxmap.png)
+**Figura 23 -** Boxmaps da quantidade de mortes mensal por habitante.
