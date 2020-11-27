@@ -55,9 +55,11 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
  Onde $s^{2}_{i}$ é a variância da variável de estudo $x_{i}$:
   $$s^{2}(i) = \frac{\sum_{j=1}^{n}(x_{j}-\overline x)^{2}}{n-1}, i=1,...,n, j\neq i$$
   
+  Os mapas de correlação local de Moran, os *Boxmaps* e as tabelas de moran global, foram feitas para as variáveis (número de recuperados, casos ou mortes, sendo algumas destas) que atingissem correlação global IM>0,50. (falar dos boxmaps) houve no entanto a preferência pelo número mensal do que o acumulado, para contornar o possível efeito da sazionalidade e capturar a dependência local apenas em um determinado mês.
+  
 ## Resultados
 
- A partir do mês de Abril, o número acumulado de mortes por habitante apresentou uma correlação espacial no índice de Moran global (IM>0,50; P-valor<0,05) que se manteve em um alto patamar de correlação até o mês de Julho. Referente ao índice de Moran calculado para o número mensal de mortes por habitante (ou seja sem o efeito da sazionalidade), no mês de Abril o índice de Moran global (IM=0,72; P-valor<0,05) apresentou um alto patamar de dependência.
+ A partir do mês de Abril, o número acumulado de mortes por habitante apresentou uma correlação espacial no índice de Moran global (IM>0,50; P-valor<0,05) que se manteve em um alto patamar de correlação até o mês de Julho. Referente ao índice de Moran calculado para o número mensal de mortes por habitante (ou seja sem o efeito da sazionalidade), no mês de Abril o índice de Moran global (IM=0,72; P-valor<0,05) apresentou um alto patamar de dependênciav **(Tabela - 1)**, apresentando uma leve queda nos meses subsequentes em relação a Abril.
  
  Os índices locais de Moran para o número acumulado de mortes por habitante e para a quantidade mensal, dão um indicativo de uma grande dependência espacial entre a parte ocidental da Europa, América do Norte e América do Sul, havendo poucas diferenças entre os mapas de correlação local ao longo dos meses. 
  
@@ -132,10 +134,12 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 
 [6] - BRAGA, Altemir da Silva. et al. Estudo de Dependência Espacial utilizando Análise de Dados de Área Aplicada na Mesorregião Metropolitana de Belo Horizonte por meio do Indicador Econômico PIB. 19ª SINAPE.  [S.l.]. 2010,  Disponível em: <http://www2.ime.unicamp.br/sinape/sites/default/files/Resumo%20expandido%20SINAPE.pdf>. Acesso em: 24/11/2020.
 
-[7] - MAIA, André Luis Santiago; GOMES, Gecynalda Soares da Silva; ALMEIDA, Isabelle Galdino de. SPATIAL STUDY OF INCIDENCE RATES OF OCCUPATIONAL ACCIDENTS IN BRAZIL FROM 2002 TO 2012. REVISTA BRASILEIRA DE BIOMETRIA, [S.l.], v. 36, n. 4, p. 927-941, dec. 2018. ISSN 1983-0823. Available at: <http://www.biometria.ufla.br/index.php/BBJ/article/view/322>. Date accessed: 24 nov. 2020. doi: https://doi.org/10.28951/rbb.v36i4.322.                                 
+[7] - MAIA, André Luis Santiago; GOMES, Gecynalda Soares da Silva; ALMEIDA, Isabelle Galdino de. SPATIAL STUDY OF INCIDENCE RATES OF OCCUPATIONAL ACCIDENTS IN BRAZIL FROM 2002 TO 2012. REVISTA BRASILEIRA DE BIOMETRIA, [S.l.], v. 36, n. 4, p. 927-941, dec. 2018. ISSN 1983-0823. Available at: <http://www.biometria.ufla.br/index.php/BBJ/article/view/322>. Date accessed: 24 nov. 2020. doi: https://doi.org/10.28951/rbb.v36i4.322.    
+
 [8] - SEFFRIN, R.; ARAUJO, E. C.; BAZZI, C. L.. Análise espacial de área aplicada a produtividade de soja na região oeste do Paraná utilizando o software R. R. bras. Geom., Curitiba, v. 6, n. 1, p. 23-43, jan/mar.2018. Disponível em: <https://periodicos.utfpr.edu.br/rbgeo/article/view/5912>. Acesso em: 24/11/2020.DOI: 10.3895/rbgeo.v6n1.5912
 
 [9] - Max Roser, Hannah Ritchie, Esteban Ortiz-Ospina and Joe Hasell (2020) - “Coronavirus Pandemic (COVID-19)”. Published online at OurWorldInData.org. Retrieved from: ‘https://ourworldindata.org/coronavirus’ [Online Resource]. Acesso em: 24/11/2020.
+
 ## Apêndice
 
 ![](information.png)
