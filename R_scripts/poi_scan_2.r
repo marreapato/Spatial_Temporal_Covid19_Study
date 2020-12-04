@@ -107,16 +107,19 @@ z=scan_pb_poisson(counts,zones,n_mcsim = 999)
 z
 
 counties <- as.character(covidatag$administrative_area_level_1)
+counties <- counties[-193]
 # Calculate scores and add column with county names
 county_scores <- score_locations(z, zones)
 #county_scores <- county_scores[-c(195:199),]
 county_scores %<>% mutate(counties=covidatag$administrative_area_level_1)
 
 
-
 # Create a table for plotting
 
 top5 <- top_clusters(z, zones, k = 5, overlapping = FALSE)
+top5
+zones[[339]]
+county_scores$counties[188]
 
 # Find the counties corresponding to the spatial zones of the 5 clusters.
 top5_counties <- top5$zone %>%
