@@ -85,7 +85,7 @@ scan_pb_poisson(counts,zones,n_mcsim = 999)
 
 covidatag <- covid19(start ="2020/04/10" ,end ="2020/04/10" ,raw = F)
 
-covidata <- covid19(start ="2020/04/01" ,end ="2020/04/10" ,raw = F)
+covidata <- covid19(start ="2020/01/01" ,end ="2020/04/30" ,raw = F)
 
 covi_geo <- data.frame("county"=covidatag$id,"lat"=covidatag$latitude,"long"=covidatag$longitude)
 
@@ -95,6 +95,63 @@ counts <- covi_pop %>%
   df_to_matrix(time_col = "date", location_col = "county", value_col = "count")
 
 counts
+covi_geo <- na.omit(covi_geo)
+zones <- covi_geo %>%
+  select(long, lat) %>%
+  as.matrix %>%
+  spDists(x = ., y = ., longlat = TRUE) %>%
+  dist_to_knn(k = 15) %>%
+  knn_zones
+
+z=scan_pb_poisson(counts,zones,n_mcsim = 999)
+z
+?scan_permutation
+l=scan_permutation(counts,zones,n_mcsim = 999)
+l
+counties <- as.character(covidatag$administrative_area_level_1)
+counties <- counties[-193]#Virgin Islands, U.S.
+# Calculate scores and add column with county names
+county_scores <- score_locations(l, zones)
+#county_scores <- county_scores[-c(195:199),]
+county_scores %<>% mutate(counties=covidatag$administrative_area_level_1)
+
+?score_locations
+?top_clusters
+# Create a table for plotting
+
+top5 <- top_clusters(l, zones, k = 5, overlapping = FALSE)
+top5
+zones[[1623]]
+county_scores$counties[101]
+
+# Find the counties corresponding to the spatial zones of the 5 clusters.
+top5_counties <- top5$zone %>%
+  purrr::map(get_zone, zones = zones) %>%
+  purrr::map(function(x) counties[x])
+
+# Add the counties corresponding to the zones as a column
+top5 %<>% mutate(counties = top5_counties)
+
+
+
+####################################3
+#trying with covid
+covidata <- covid19(end = "2020-12-06" ,raw = F)
+covidata_ow <- read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv")
+covidata_ow <- data.frame("iso_code"=covidata_ow$iso_code,"date"=covidata_ow$date,"new_cases"=covidata_ow$new_cases)
+#names(covidata)[names(covidata) == "id"] <- "iso_code"
+
+#total <-merge(covidata_ow,covidata,by="iso_code")
+
+covi_geo <- data.frame("county"=covidatag$id,"lat"=covidatag$latitude,"long"=covidatag$longitude)
+
+covi_pop <- data.frame("date"=covidata_ow$date,"county"=covidata_ow$iso_code,"count"=covidata_ow$new_cases)
+
+counts <- covi_pop %>% 
+  df_to_matrix(time_col = "date", location_col = "county", value_col = "count")
+
+counts[is.na(counts)] <- 0
+
 covi_geo <- na.omit(covi_geo)
 zones <- covi_geo %>%
   select(long, lat) %>%
