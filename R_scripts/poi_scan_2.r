@@ -101,9 +101,6 @@ county_scores %<>% mutate(counties=covidatag$administrative_area_level_1)
 
 top5 <- top_clusters(z, zones, k = 5, overlapping = FALSE)
 top5
-zones[[1623]]
-county_scores$counties[101]
-
 # Find the counties corresponding to the spatial zones of the 5 clusters.
 top5_counties <- top5$zone %>%
   purrr::map(get_zone, zones = zones) %>%
@@ -112,7 +109,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-feb=data.frame("Duração"=top5$duration[1],"Score"=top5$score[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+feb=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 #March
 
@@ -165,7 +162,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-march=data.frame("Duração"=top5$duration[1],"Score"=top5$score[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+march=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 #April
 
@@ -218,7 +215,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-april=data.frame("Duração"=top5$duration[1],"Score"=top5$score[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+april=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 #May
 
@@ -271,7 +268,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-may=data.frame("Duração"=top5$duration[1],"Score"=top5$score[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+may=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 #June
 
@@ -324,7 +321,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-june=data.frame("Duração"=top5$duration[1],"Score"=top5$score[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+june=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 #July
 
@@ -377,7 +374,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-july=data.frame("Duração"=top5$duration[1],"Score"=top5$score[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+july=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 #August
 
@@ -430,7 +427,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-august=data.frame("Duração"=top5$duration[1],"Score"=top5$score[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+august=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 
 #September
@@ -484,7 +481,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-sept=data.frame("Duração"=top5$duration[1],"Score"=top5$score[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+sept=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 
 #october
@@ -538,7 +535,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-oct=data.frame("Duração"=top5$duration[1],"Score"=top5$score[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+oct=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 #november
 
@@ -591,4 +588,4 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-nov=data.frame("Duração"=top5$duration[1],"Score"=top5$score[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+nov=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
