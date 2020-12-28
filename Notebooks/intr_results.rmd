@@ -60,6 +60,7 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
 
  Em busca de identificar *clusters* no espaço-tempo o método (continuar escrevendo...)
 
+
 ## Resultados
 
  A partir do mês de Abril, o número acumulado de mortes por habitante apresentou uma correlação espacial no índice de Moran global (IM>0,50; P-valor<0,05) que se manteve em um alto patamar de correlação até o mês de Julho. Referente ao índice de Moran calculado para o número mensal de mortes por habitante, no mês de Abril o índice de Moran global (IM=0,72; P-valor<0,05) apresentou um alto patamar de dependência **(Tabela - 1)**, apresentando uma leve queda nos meses subsequentes em relação a Abril.
