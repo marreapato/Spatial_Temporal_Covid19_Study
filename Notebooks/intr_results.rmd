@@ -58,7 +58,7 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
   
 #### A estatística de Scan Poisson
 
- Em busca de identificar *clusters* emergentes no espaço-tempo, o método retrospectivo proposto por Kulldorff, aqui (citação colocar traduzida kulldorff) "To detect emerging geographical clusters due to some suddenly occurring risk factor quickly can be of great public health importance. It can be used to detect previously unknown diseases, previously unknown risk factors for known diseases or the previously unknown local existence of known risk factors"(continuar escrevendo...)
+ Em busca de identificar *clusters* emergentes no espaço-tempo, o método retrospectivo proposto por Kulldorff, aqui utilizada supondo uma distribuição de probabilidade poisson (citação colocar traduzida kulldorff) "To detect emerging geographical clusters due to some suddenly occurring risk factor quickly can be of great public health importance. It can be used to detect previously unknown diseases, previously unknown risk factors for known diseases or the previously unknown local existence of known risk factors"(continuar escrevendo...)
 
 
 ## Resultados
