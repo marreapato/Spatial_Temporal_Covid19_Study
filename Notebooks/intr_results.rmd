@@ -230,3 +230,235 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 #### Conjunto de boxmaps do número de mortes mensal por habitante.
 ![](Fixed_boxmap.png)
 **Figura 23 -** Boxmaps da quantidade de mortes mensal por habitante.
+---
+title: "Covid-19 análise espaço-temporal."
+author: "Lucas Rabelo"
+output:
+  pdf_document:
+    toc: no
+    toc_depth: '6'
+    number_sections: no
+    keep_tex: yes
+    citation_package: natbib
+    pandoc_args: --listings
+    includes: null
+  word_document:
+    toc: no
+    toc_depth: '6'
+geometry: margin=1in
+fontsize: 12pt
+linestretch: 1.5
+documentclass: report
+---
+
+## Introdução {.tabset .tabset-fade .tabset-pills}
+
+ No final de 2019, o estado de contágio pela Covid-19 (Sars-CoV-2) já era considerado como epidêmico na cidade de Wuhan na China $\!\!^1$, apesar da dificuldade de identificar a origem do vírus, é possível que tanto pangolim como o morcego tenham sido hospedeiros iniciais, visto que tanto a síndrome respiratória aguda grave *(SARS)* quanto a síndrome respiratória do Oriente Médio *(MERS)* geralmente passam por hospedeiros intermediários $\!\!^2$. Apesar de anteriormente diversos orgãos públicos recomendarem cautela em relação a Covid-19, em 12 de março de 2020 o estado de pandemia foi reconhecido pela Organização Mundial da Saúde (OMS) $\!\!^3$.  
+
+ Devido a presença de infectados pela Covid-19 na maioria dos países do globo, é de suma importância que sejam realizados estudos sobre o caráter espaço-temporal da pandemia, identificando fatores como as políticas de contenção ao contágio adotadas pelos países de acordo com o tempo e a aceleração do crescimento de infectados em cada nação. Ao traçar um perfil sobre o comportamento espaço-temporal da Covid-19, estudos como esse poderão ser analisados para lidar com possíveis pandemias causadas por vírus que apresentem características similares a Sars-CoV-2.
+ 
+ O objetivo deste trabalho será portanto traçar um perfil sobre o comportamento espacial da pandemia causada pela Covid-19 ao utilizar de técnicas estatísticas para quantificação da dependência espacial como o cálculo do índice de Moran global e local $\!\!^4$, além de uma estatística de scan para identificação de *clusters* emergentes do número de casos no espaço-tempo, bem como analisar as políticas adotadas por cada país e o comportamento da pandemia ao longo do tempo.
+ 
+## Metodologia
+
+ Para implementação das técnicas estatísticas, cálculo da dependência espacial e uso do banco de dados foi utilizado o software R (versão 4.0.3), o qual contém a biblioteca COVID19 implementada pela *COVID-19 Data Hub* $\!\!^5$, responsável por providenciar um banco de dados unificado e constantemente atualizado, com início em Janeiro de 2020. O banco de dados disponibilizado pela *COVID-19 Data Hub* além de conter diversas fontes de informação diferentes para todos os países em que foi possível a obtenção de dados, também providencia as medidas políticas adotadas de acordo com o tempo durante a pandemia, no entanto há a presença de zeros no banco, mais precisamente na variável de casos recuperados, onde a China por exemplo permaneceu com o número zerado em todos os meses, o motivo não foi explicitado no site da *COVID-19 Data Hub*, no entanto supõe se a ausência ou inacessibilidade dessas informações para os países em que a incongruência ocorreu.
+ 
+ O número acumulado de mortes, casos confirmados e recuperados são disponibilizados pelo banco de dados da *COVID-19 Data Hub*, no entanto como apenas são disponibilizados a quantidade acumulada, foi necessário calcular a quantidade mensal, para cada uma das variáveis, dentre os meses de Janeiro a Outubro. No banco também é disponibilizada a quantidade de habitantes de cada país, portanto para melhor capturar o impacto do Covid-19 em cada localidade a quantidade de casos, recuperados e mortes foram calculadas de acordo com a razão pelo número de habitantes. 
+ 
+Uma análise exploratória foi conduzida sobre o banco da *COVID-19 Data Hub* para verificar o comportamento das infecções, mortes e políticas de restrição adotadas pelos países durante o período de Fevereiro de 2020 até Julho de 2020, sendo conduzidas em sua maioria pela análise de mapas referentes a essas variáveis, analisando diversos países diferentes isoladamente (todos os mapas podem ser encontrados no seguinte link: https://sites.google.com/view/data-journalbr/covid19/primeiro-semestre-2020?authuser=0), para posteriormente partir para uma análise mais geral referente ao comportamento em cada continente. As informações referentes ao número de casos, recuperados, mortes, casos por habitante, recuperados por habitante e mortes por habitante foram normalizadas tendo seu valor máximo como 1 e o mínimo como 0. Os países que não tiveram casos confirmados, ou que não estivessem no banco da *COVID-19 Data Hub*, não tiveram seus territórios presentes nos mapas.
+ 
+ Também foi utilizado um segundo banco de dados disponibilizado pela *Our World In Data* $\!\!^9$ (*OWID*), o banco provido pela *OWID* contém informações que foram utilizadas como complementares ao da *COVID-19 Data Hub*, dentre as quais o número diário de casos confirmados e mortes por Covid-19. O banco da *OWID* foi integrado ao da *COVID-19 Data Hub*, para calcular a média móvel semanal do número de casos e mortos pela Covid-19 por dia no mundo e dos continentes em que foi identificada correlação local, a estatística também foi computada para os continentes em que foi identificado dependência espacial local em alguma destas quantidades, no entanto ao computar para a América do Norte a América central também foi considerada.
+ 
+ Dentre as localidades (regionais, continentais ou mundo) em que foi identificada dependência espacial, foi feita uma análise sobre a quantidade relativa de países, calculando a razão dentre os que adotaram medidas de obrigatórias de fechamento ou restrição total e a quantidade de nações em cada localidade. Foi considerada uma quantidade de 195 países no mundo $\!\!^1$ $\!\!^0$, com um total de 193 membros da ONU e dois estados observadores, o Vaticano e a Palestina.
+
+#### Índice de Moran
+ 
+ Para avaliar a dependência espacial foi utilizado o método knn para ligar os polígonos e criar a matriz de vizinhança normalizada por linha, para que fossem calculados o Índice de Moran global e o local. O índice global é o método tradicionalmente usado e condensa a dependência espacial em apenas um número $\!\!^6$, no entanto o uso do indicador local de associação espacial (*LISA*) utilizado para identificar padrões espaciais, se faz útil pois de acordo com Maia, Gomes e Almeida (2018, p.930) enquanto o índice de Moran global pode sugerir que haja baixa correlação espacial nos dados, os valores do *LISA* podem identificar sub-regiões geográficas em que o agrupamento (*clustering*) negativo ou positivo ocorram $\!\!^7$.
+ 
+ O Índice global de Moran é calculado de tal maneira que temos $w$ como sendo a matriz de vizinhança, e $x$ os valores da variável de estudo e $n$ o número de polígonos identificados e $\overline x$ é a média:
+$$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x})w_{ij}}{W\sum_{i=1}^{n}(x_{i}-\overline{x})^2}$$
+ Onde W corresponde a:
+ $$W=\sum_{i=1}^{n}\sum_{j=1}^{n}w_{ij}$$
+ 
+ Os valores variam de 1 a -1, sendo que o 0 indica a ausência de correlação espacial, no entanto como valores dentre positivos e até 1 indicam correlação direta e positiva e negativos até -1 correlação inversa, por estarmos interessados na presença de dependência espacial positiva os testes de hipótese foram construídos com nível de confiança de 95%, seguindo a premissa de que a hipótese alternativa corresponde a um índice maior que zero, e a hipótese nula é de independência espacial, ou seja Ho=0 e H1>0. As quantidades mensais foram necessárias para contornar um possível efeito de não-estacionariedade, visto que como evidenciado em Cardoso (2007, p.3) "o índice perde sua validade ao ser calculado para dados não-estacionários", a validação do índice foi feita utilizando 10.000 simulações em um teste de permutações aleatórias $\!\!^8$.
+ 
+ Já o Índice de Moran local (*LISA*) é calculado pela seguinte equação:
+ $$I(i) = \frac{x_{i}-\overline x}{s^{2}_{i}}\sum_{j=1}^{n}w_{ij}(x_{j}-\overline{x}), i=1,...,n, j\neq i$$
+ Onde $s^{2}_{i}$ é a variância da variável de estudo $x_{i}$:
+  $$s^{2}(i) = \frac{\sum_{j=1}^{n}(x_{j}-\overline x)^{2}}{n-1}, i=1,...,n, j\neq i$$
+  Os mapas de correlação local de Moran, os *Boxmaps* e as tabelas de moran global, foram feitas para as variáveis (número de recuperados, casos ou mortes, por exemplo) que atingissem correlação global IM>0,50. Os *Boxmaps* são uma representação cartográfica dos quadrantes do gráfico de dispersão de Moran, onde temos que em Seffrin, Araujo e Bazzi (2018,p.28) os valores AA e BB significam respectivamente que essas áreas possuem valores altos rodeadas por áreas que apresentam valores também altos e valores baixos da variável de interesse, rodeadas por áreas que apresentam valores baixos, o valor BA representa áreas com valor baixo rodeada de outras áreas com valores altos, já o AB é o contrário, são regiões com valores altos próximas de locais com valores baixos.
+  
+#### A estatística de Scan Poisson
+
+ Em busca de identificar *clusters* emergentes no espaço-tempo, o método retrospectivo proposto por Kulldorff, aqui utilizada supondo uma distribuição de probabilidade poisson (citação colocar traduzida kulldorff) "To detect emerging geographical clusters due to some suddenly occurring risk factor quickly can be of great public health importance. It can be used to detect previously unknown diseases, previously unknown risk factors for known diseases or the previously unknown local existence of known risk factors"(continuar escrevendo...)
+
+
+## Resultados
+
+ A partir do mês de Abril, o número acumulado de mortes por habitante apresentou uma correlação espacial no índice de Moran global (IM>0,50; P-valor<0,05) que se manteve em um alto patamar de correlação até o mês de Julho. Referente ao índice de Moran calculado para o número mensal de mortes por habitante, no mês de Abril o índice de Moran global (IM=0,72; P-valor<0,05) apresentou um alto patamar de dependência **(Tabela - 1)**, apresentando uma leve queda nos meses subsequentes em relação a Abril.
+ 
+ Os índices locais de Moran para o número acumulado de mortes por habitante e para a quantidade mensal, dão um indicativo de uma grande dependência espacial entre a parte ocidental da Europa, América do Norte e América do Sul, havendo poucas diferenças entre os mapas de correlação local ao longo dos meses. 
+ 
+ A média móvel semanal da quantidade de casos por dia apresentou crescimento de Janeiro à Outubro, no mundo, na Europa e na América do Norte e Central, decaindo apenas na América do Sul, no entanto, a média semanal do número de mortes por dia apresentou uma variabilidade maior, porém com aumento em todas as localidades até o mês de outubro, sendo o aumento de maior impacto na Europa após uma brusca queda no número diário de falecidos pela Covid-19.
+ 
+ Até o mês de Julho referente ao número cumulativo de morte por quantidade de casos o Iémen foi o país com maior número de mortos por infectados, chegando a um falecimento de 29% dos contagiados pelo Covid-19, no geral as Américas, a África, a Europa, a Ásia e a Oceania agiram de maneiras muito similares no quesito referente ao fechamento internacional de fronteiras no começo da pandemia. Dentre os continentes em que foi identificada dependência espacial sobre o número mensal de mortes por habitantes, de Fevereiro a Julho, houve similaridades nas políticas de rastreamento de casos, obrigação para ficar em casa e restrição de multidões.
+ 
+## Discussão
+
+ Ainda no começo da pandemia no mês de Fevereiro, diversos países ainda não haviam adotado campanhas de informação sobre a Covid-19 **(Figura - 1)**, sendo a Ásia, a Europa (em sua maioria na parte ocidental), a América do Sul e a Oceania os continentes que mais alertaram sobre o vírus e começaram com campanhas coordenadas sobre a doença. A política de cancelamento de eventos **(Figura - 2)** começou com cancelamento obrigatório notável na Mongólia, China, Coréia do Sul, Irã, Itália e Espanha. O Japão (país sede das olimpíadas de 2020) apenas recomendou o cancelamento de eventos de Fevereiro a Julho, o afrouxamento da política de cancelamento começou a ocorrer em diversos países de Junho para Julho.
+ 
+ A China e a Mongólia começaram com a política de fechamento de transportes **(Figura - 3)** para tentar conter o contágio da doença, subsequentemente nos meses de Março e Abril resolveram afrouxar suas políticas de fechamento de transportes, porém a China decidiu realizar o fechamento obrigatório dos transportes novamente no mês de Maio. Diversos países não conseguiram obrigar o fechamento de transportes, apenas recomendando o fechamento ou não tomando medidas nessa área. 
+ 
+ Contrapondo o fechamento de transportes e o fechamento interno de fronteira dos países **(Figura - 4)**, o continente Europeu em que muitos países apenas recomendaram o fechamento dos transportes a partir do mês de Março até Maio, aderiu em grande parte a política de fechamento interno, na Ásia a China decidiu fechar internamente por dois meses em Fevereiro e Março e no mês de Abril decidiu afrouxar sua política de fechamento interno, reforçando no mês subsequente. Na América do Sul a Argentina decidiu afrouxar sua política de fechamento interno no mês de Abril reforçando no mês seguinte, enquanto o Paraguai decidiu afrouxar sua política no mês de Maio porém reforçando de novo em Junho.
+ 
+ No mês de Fevereiro nas américas apenas os EUA e a Guiana Francesa estavam exigindo quarentena para recém-chegados de regiões de alto risco, sendo que na América do Sul apenas a Guiana havia começado a tomar medidas de *screening* (medição de temperatura) para os chegados no país. A partir de Março diversos países começaram a realizar o fechamento obrigatório de fronteiras **(Figura - 5)** sendo em que todo o primeiro semestre e começo do segundo, Honduras foi o país da América Latina que não adotou o banimento para regiões de alto risco nem o fechamento total de fronteiras. O Brasil e o Equador decidiram adotar medidas de medição de temperatura a partir do final do primeiro semestre, enquanto o Uruguai e o Suriname optaram por quarentena para os recém-chegados de regiões de alto risco.
+
+ As medidas de restrição de multidão **(Figura - 6)** começaram a ser tomadas mais intensamente no mês de Março, porém nas Américas o Uruguai e Honduras não tomaram medidas referente a política de restrição de multidões, sendo poucos os países que decidiram por afrouxar as medidas de restrição de multidões. No continente africano os países preferiram por adotar políticas de restrições de multidões entre 10 a 100 pessoas.
+
+ No Oriente Médio o Irã apenas tomou medidas de restrição nos meses de Abril e Julho. A Somália apresentou um comportamento interessante que pode indicar que houve dificuldades para a implementação da política de restrição de multidões no país, pois em Março adotou medidas para restringir multidões de 10 a 100 pessoas, já em Maio parou de tomar medidas, para retomar em Julho de maneira mais branda restringindo apenas multidões de 100 a 1000 pessoas, e em Julho deixou de tomar medidas novamente.
+
+ Apesar de diversos países adotarem políticas de restrição de multidões, a adoção de política de rastreamento de casos **(Figura - 7)** não foi unânime para maioria dos países, no Canadá o rastreamento só foi feito para todos os casos no mês de Julho, sendo que na América do Sul os únicos países que mantiveram a política de rastreamento de casos de Março até Julho foram a Guiana, a Argentina e o Chile.
+
+ Houve uma preferência majoritária por adotar o fechamento total de escolas **(Figura - 8)** nos primeiros meses da pandemia, porém no Leste Europeu a Bielorrússia decidiu por não fechar, nem recomendar o fechamento de escolas em todo o primeiro semestre e começo do segundo, similarmente a Honduras na América Central, a Noruega e a Finlândia decidiram fechar as escolas no mês de Março e Abril, porém no mês de Maio afrouxaram a política de fechamento de escolas e as reabriram, o processo gradual de reabertura de escolas pode ser observado na Nova Zelândia que fechou todas as categorias no mês de Março, em Abril afrouxou sua política de fechamento e a partir do mês de Maio não tomou medidas de fechamento de escolas.
+
+ Em Fevereiro o primeiro país a recomendar o fechamento de locais de trabalho e o home-office **(Figura - 9)** nas Américas foi a Colômbia. Alguns dos países do continente que decidiram por apenas recomendar o fechamento ou home-office ou não tomar medidas foram Honduras e o Uruguai, em todo primeiro semestre e começo do segundo, o Brasil decidiu aplicar a polícia de fechamento obrigatório de Março até Maio, porém no mês de Maio a política foi afrouxada e apenas alguns setores foram fechados, no entanto no mês de Julho a política de fechamento foi reforçada.
+ 
+ Diversos países tentaram afrouxar as políticas de fechamento de locais de trabalho ao longo do tempo, Madagascar na África no mês de Abril apenas recomendou o fechamento de locais de trabalho e o home-office, porém decidiu voltar atrás nesta política em Maio, similarmente a Austrália que decidiu por afrouxar suas políticas em Maio e Junho e retomar as políticas de fechamento obrigatório em Julho. A Somália em Abril decidiu recomendar o Home-Office e o fechamento de locais de trabalho, porém houve uma aparente desistência, por não ter mais políticas de fechamento e recomendação de fechamento nos meses subsequentes.
+ 
+ Os países que começaram com políticas de isolamento social **(Figura - 10)** foram a Itália impondo uma quarentena com certos "limites", a China impondo uma quarentena rígida, a Índia e a Coréia do Sul com recomendações para que os cidadãos ficassem em casa. A Itália no mês de Março decidiu reforçar sua quarentena para relaxar nos meses subsequentes até deixar de tomar medidas em Julho, a maioria dos países da Europa decidiu por impor uma quarentena com "limitações", porém a Bielorrússia, a Ucrânia, a Noruega, a Suécia e a Finlândia decidiram por não adotar quarentena, e apenas recomendar que os cidadãos ficassem em casa ou não tomar medidas.
+
+ Desde Fevereiro a Coréia do Sul adotou política pública de testagem aberta **(Figura - 11)** até Julho, no mês de Março a América do Norte decidiu por adotar a testagem pública aberta juntamente com a China, as medidas de testagem pública aberta começaram a ser adotadas em sua maioria no mês de Abril, neste mesmo mês a Bielorrússia e a Alemanha adotaram políticas de testagem aberta, e a maioria dos países adotou uma política de testagem para Covid19. Na América do Sul apenas dois países adotaram a política de testagem aberta, a Venezuela e o Uruguai, a Colômbia sendo o primeiro país a realizar testes de uma maneira mais eficiente (sem atender critérios específicos) no mês de Fevereiro que superou grande parte do continente americano em suas políticas nesse mês.
+ 
+ Em Fevereiro o país com maior quantidade acumulada de testes proporcionalmente ao tamanho de sua população **(Figura - 12)** foi a Coréia do Sul, conseguindo manter uma proporção elevada (porém com uma diminuição na aceleração do crescimento) até Julho, em Março a Islândia era o país que mantinha a maior quantidade de testes em relação ao tamanho da sua população no mundo, no entanto a Noruega e Alemanha também mantinham altas quantidades seguidas pela Itália. Tanto a Bielorrússia quanto boa parte dos países bálticos tinham um número notável de testes proporcionalmente a população de suas nações, se mantendo com valores elevados de Abril a Julho. A Rússia em Maio era um dos países que mais testava no mundo superada pela Islândia e pelo Qatar (país com maior quantidade de testes proporcionalmente a sua população no mundo, mantendo liderança até Julho).
+ 
+ Em Fevereiro tanto a Alemanha como o Irã tinham uma elevada quantidade de recuperados por habitante **(Figura - 13)**, a Alemanha por vez chegou no número mais elevado de recuperados por habitante no mês de Março, seguida pela Islândia e Espanha em Abril e Maio, nas Américas o Chile foi o país com maior quantidade de recuperados por habitante de Maio a Julho, seguido pelo Brasil que superou os EUA e Peru, os quais tinham elevados números proporcionais de recuperados em Maio até Junho. A África do Sul apresentou um alto número de recuperados relativamente a sua população, e o Omã apresentou um dos maiores índices de recuperados por habitante no Oriente médio.
+ 
+ Em Fevereiro a China era o país com mais mortes por habitante no mundo **(Figura - 14)**, de Março a Julho a Europa Ocidental, juntamente com a Suécia apresentaram um elevado número de mortos por habitante no mundo, sendo a Europa o continente que mais concentrou altas quantidades de mortes por habitantes e apresentou um salto de Março a Abril, porém da Alemanha ao extremo Leste da Europa essa proporção de mortes foi menor, apesar de ser mais destacada em alguns países em relação a outros. Em Maio os EUA passou a ser o país com maior número de mortos por habitantes nas Américas sendo acompanhado pelo Brasil, Canadá, Equador, Chile e Peru até o mês de Julho, em que o Peru e o Chile se tornaram os países do continente com maior número de mortes por habitantes, com impactos similares aos da Suécia, e do oeste Europeu.
+ 
+Em Março o país com mais recuperados por número de casos **(Figura - 15)** foi a Alemanha, que conseguiu manter um alto patamar de recuperados até o mês de Julho, em Maio a Coréia do Sul cresceu em número de recuperados por casos, juntamente com a Islândia e a Nova Zelândia, no mês de Julho os países nórdicos, bálticos e a Bielorrússia também elevaram bastante o índice recuperados por casos. Nas Américas o Chile foi o pais com mais recuperados de Março a Julho por caso, seguido pelo Canadá no começo do segundo semestre, já o país que apresentou um dos menores índices de recuperados por casos foi Honduras na América Central, na Australia o número de recuperados por casos de Junho pra Julho diminuiu assim como na Papua Nova Guiné.
+
+ O país com mais mortes por quantidade de casos **(Figura - 16)** foi o Iémen liderando neste índice desde Abril até Julho, os EUA era o país com mais morte por quantidade de casos em Fevereiro nas Américas, porém foi superado pelo México e Canadá. De Maio a Junho a França teve um dos maiores números de mortos por quantidade de casos no mundo, o mês de Maio foi onde o continente Europeu apresentou a maior quantidade de morte por infectados, do Oeste Europeu até o Leste na Ucrânia.
+
+A partir do mês de Maio houve uma abrupta aceleração no crescimento da quantidade de casos acumulados por habitante em todos os continentes **(Figura - 17)**, sendo este mês o pico de contágio no primeiro semestre, se mantendo em um alto patamar até o mês de Julho. No entanto o crescimento do número de casos acumulados já é visível no mês de Abril em diversos continentes como na América do Norte, América do Sul, Ásia e Europa continente que apresentou dependência espacial no número cumulativo e mensal de mortes por habitantes já no mês de Abril apresentava uma dependência espacial local.
+
+ Dentre as medidas restritivas adotadas **(Figura - 18)**, tanto as medidas de fechamento total de fronteiras como grande parte das outras políticas restritivas, atingiram seu pico no mês de Abril no mundo, com uma maior quantidade de países adotando restrições totais. Traçando um paralelo com a média móvel semanal do número de casos **(Figura - 19)**, houve um período de maior estabilidade na estatística em quase todo o mês, voltando a crescer aceleradamente no mês de Junho, sendo que a maioria dos países já havia relaxado suas medidas restritvas em Maio. Já em Abril, a média móvel do número de mortes **(Figura - 20)** que crescia de maneira bastante acelerada, apresentou uma leve desaceleração no mundo, porém voltou a crescer no mesmo mês e atingiu seu pico, caindo aceleradamente após o evento neste mês e voltando a crescer a partir de Junho.
+ 
+ O Índice de Moran local sobre o número mensal de mortes por habitantes demonstrou uma forte dependência espacial na Europa de Abril até Maio, no mês de Junho e em seu subsequente a dependência local já não estava mais presente **(Figura - 20)**, enquanto o Índice sobre a quantidade acumulada **(Figura - 21)**, permaneceu por mais tempo. Em contrapartida a média móvel da quantidade de novos casos começou a cair a partir do mês de Abril no continente europeu, se mantendo em uma leve queda até o mês de Agosto. A dependência local se deu em todos os países com alto número de mortes por habitantes próximos a territórios que também tiveram alto número de mortes dentre seus cidadãos (AA e AA, ou AA e AB) **(Figura - 23)**.
+
+ Na América do Sul a média móvel de novos casos começou a subir a partir de Abril e nos meses subsequentes a dependência espacial referente ao número de mortes por habitantes é identificada em boa parte do continente. Nas Américas do Norte e Central a análise do comportamento dentre a média móvel dos novos casos e o índice de Moran local fica dificultada por apenas ter sido identificado dependência espacial local na América do Norte, porém no período de estabilidade dentre Maio e Junho é identificada a dependência espacial entre o Canadá e os Estados Unidos.
+
+ 
+## Conclusão
+
+ Portanto, há uma dependência espacial no número mensal de mortes por habitantes infectados pela Covid-19, que começou a registrar alto crescimento na média móvel semanal no mundo em Abril, sendo o mês que apresentou o maior Índice de Moran Global no primeiro semestre de 2020, registrando também crescimento acelerado na média móvel de novos casos no mesmo período.
+ 
+ A dependência local foi verificada apenas nos países da parte ocidental da Europa, na América do Sul e na América do Norte, havendo similaridades políticas referente as medidas de rastreamento de casos, a qual em maioria foi adotada apenas para casos específicos ou não foi adotada, obrigação para ficar em casa que foi pouco adotada sem ressalvas, e dentre a política de restrição de multidões que foi adotada restringindo aglomerações com mais de 10 pessoas.
+ 
+ Por conseguinte devido a presença de semelhanças dentre as políticas de isolamento social, restrição de multidões, rastreamento de casos e os aumentos no número de infectados pela Covid-19, nas regiões em que foi identificada correlação espacial local, existe a necessidade de determinar se as semelhanças, ou as diferenças dentre as medidas políticas, foram causas cruciais para o aumento da média móvel de casos no mundo, e para a presença de dependência espacial global e local, no número de mortes por habitantes nos continentes em que foi verificada.
+
+## Referências
+
+[1] - Muhammad Adnan Shereen, Suliman Khan, Abeer Kazmi, Nadia Bashir, Rabeea Siddique, COVID-19 infection: Origin, transmission, and characteristics of human coronaviruses, Journal of Advanced Research, Volume 24, 2020, Pages 91-98, ISSN 2090-1232, https://doi.org/10.1016/j.jare.2020.03.005.
+
+[2] - Tao Zhang, Qunfu Wu, Zhigang Zhang, Probable Pangolin Origin of SARS-CoV-2 Associated with the COVID-19 Outbreak, Current Biology, Volume 30, Issue 7, 2020, Pages 1346-1351.e2, ISSN 0960-9822, https://doi.org/10.1016/j.cub.2020.03.022.
+
+[3] - WHO announces COVID-19 outbreak a pandemic. World Health Organization Regional Office for Europe. [S.l.]. Publicado em: 12/03/2020. <https://www.euro.who.int/en/health-topics/health-emergencies/coronavirus-covid-19/news/news/2020/3/who-announces-covid-19-outbreak-a-pandemic>. Acesso em: 24/11/2020.
+
+[4] -CARDOSO, Carlos Eduardo de Paiva. Dependência Espacial, Setores Censitários, Zonas OD, Distritos, Sub Prefeituras e etc. [S.l]. Publicado em: 06/09/2007. <http://www.sinaldetransito.com.br/artigos/espacial.pdf>. Acesso em: 24/11/2020.
+
+[5] - Guidotti, E., Ardia, D., (2020), “COVID-19 Data Hub”, Journal of Open Source Software 5(51):2376, doi: 10.21105/joss.02376.
+
+[6] - BRAGA, Altemir da Silva. et al. Estudo de Dependência Espacial utilizando Análise de Dados de Área Aplicada na Mesorregião Metropolitana de Belo Horizonte por meio do Indicador Econômico PIB. 19ª SINAPE.  [S.l.]. 2010,  Disponível em: <http://www2.ime.unicamp.br/sinape/sites/default/files/Resumo%20expandido%20SINAPE.pdf>. Acesso em: 24/11/2020.
+
+[7] - MAIA, André Luis Santiago; GOMES, Gecynalda Soares da Silva; ALMEIDA, Isabelle Galdino de. SPATIAL STUDY OF INCIDENCE RATES OF OCCUPATIONAL ACCIDENTS IN BRAZIL FROM 2002 TO 2012. REVISTA BRASILEIRA DE BIOMETRIA, [S.l.], v. 36, n. 4, p. 927-941, dec. 2018. ISSN 1983-0823. Available at: <http://www.biometria.ufla.br/index.php/BBJ/article/view/322>. Date accessed: 24 nov. 2020. doi: https://doi.org/10.28951/rbb.v36i4.322.    
+
+[8] - SEFFRIN, R.; ARAUJO, E. C.; BAZZI, C. L.. Análise espacial de área aplicada a produtividade de soja na região oeste do Paraná utilizando o software R. R. bras. Geom., Curitiba, v. 6, n. 1, p. 23-43, jan/mar.2018. Disponível em: <https://periodicos.utfpr.edu.br/rbgeo/article/view/5912>. Acesso em: 24/11/2020.DOI: 10.3895/rbgeo.v6n1.5912
+
+[9] - Max Roser, Hannah Ritchie, Esteban Ortiz-Ospina and Joe Hasell (2020) - “Coronavirus Pandemic (COVID-19)”. Published online at OurWorldInData.org. Retrieved from: ‘https://ourworldindata.org/coronavirus’ [Online Resource]. Acesso em: 24/11/2020.
+
+[10] - Kulldorff, M. (2001). Prospective time periodic geographical disease surveillance using a scan statistic. Journal of the Royal Statistical Society: Series A (Statistics in Society), 164(1), 61–72. doi:10.1111/1467-985x.00186 
+
+## Apêndice
+
+![](information.png)
+**Figura 1 -** Políticas de Informação sobre a Covid-19 adotadas.
+
+
+![](cancel.png)
+**Figura 2 -** Políticas de cancelamento de eventos adotadas.
+
+
+![](transport.png)
+**Figura 3 -** Políticas de fechamento de transportes adotadas.
+
+
+![](internal.png)
+**Figura 4 -** Políticas de fechamento interno adotadas.
+
+![](international.png)
+**Figura 5 -** Políticas de fechamento internacional adotadas.
+
+![](gather.png)
+**Figura 6 -** Políticas de restrição de multidões adotadas.
+
+![](Tracing.png)
+**Figura 7 -** Políticas de rastreamento de caso adotadas.
+
+
+![](school.png)
+**Figura 8 -** Políticas de fechamento de escolas adotadas.
+
+
+![](workplace.png)
+**Figura 9 -** Políticas de fechamento de comércio adotadas.
+
+
+![](stayhome.png)
+**Figura 10 -** Políticas de isolamento social adotadas.
+
+
+![](workplace.png)
+**Figura 11 -** Políticas de fechamento de comèrcio adotadas.
+
+
+![](testpop.png)
+**Figura 12 -** Quantidade acumulada de testes por habitante.
+
+
+![](recovpop.png)
+**Figura 13 -** Quantidade de recuperados por habitante.
+
+
+![](deathspop.png)
+**Figura 14 -** Quantidade de mortes por habitante.
+
+
+![](recovconf.png)
+**Figura 15 -** Quantidade de recuperados por caso confirmado.
+
+
+![](deathconf.png)
+**Figura 16 -** Quantidade de mortes por caso confirmado.
+
+![](pop_cases.png)
+**Figura 17 -** Quantidade de casos por habitante.
+
+![](pol_meas.png)
+**Figura 18 -** Proporção de países que adotaram medidas restritivas.
+
+ 
+![](media_movel.png)
+**Figura 19 -** Média móvel semanal do número de novos casos da Covid-19.
+
+![](n_mortes.png)
+**Figura 20 -** Média móvel semanal do número de novas mortes pela Covid-19.
+
+![](cum_local_death.png)
+**Figura 21 -** Índice local de Moran do número acumulado de mortes por habitantes.
+
+![](local_moran_d.png)
+**Figura 22 -** Índice local de Moran do número mensal de mortes por habitantes.
+
+#### Conjunto de boxmaps do número de mortes mensal por habitante.
+![](Fixed_boxmap.png)
+**Figura 23 -** Boxmaps da quantidade de mortes mensal por habitante.
