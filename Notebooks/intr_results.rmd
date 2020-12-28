@@ -25,7 +25,7 @@ documentclass: report
 
  Devido a presença de infectados pela Covid-19 na maioria dos países do globo, é de suma importância que sejam realizados estudos sobre o caráter espaço-temporal da pandemia, identificando fatores como as políticas de contenção ao contágio adotadas pelos países de acordo com o tempo e a aceleração do crescimento de infectados em cada nação. Ao traçar um perfil sobre o comportamento espaço-temporal da Covid-19, estudos como esse poderão ser analisados para lidar com possíveis pandemias causadas por vírus que apresentem características similares a Sars-CoV-2.
  
- O objetivo deste trabalho será portanto traçar um perfil sobre o comportamento espacial da pandemia causada pela Covid-19 ao utilizar de técnicas estatísticas para quantificação da dependência espacial como o cálculo do índice de Moran global e local $\!\!^4$, bem como analisar as políticas adotadas por cada país e o comportamento da pandemia ao longo do tempo.
+ O objetivo deste trabalho será portanto traçar um perfil sobre o comportamento espacial da pandemia causada pela Covid-19 ao utilizar de técnicas estatísticas para quantificação da dependência espacial como o cálculo do índice de Moran global e local $\!\!^4$, além de estatísticas de scan para identificação de *clusters* emergentes do número de casos no espaço-tempo, bem como analisar as políticas adotadas por cada país e o comportamento da pandemia ao longo do tempo.
  
 ## Metodologia
 
@@ -142,6 +142,8 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 [8] - SEFFRIN, R.; ARAUJO, E. C.; BAZZI, C. L.. Análise espacial de área aplicada a produtividade de soja na região oeste do Paraná utilizando o software R. R. bras. Geom., Curitiba, v. 6, n. 1, p. 23-43, jan/mar.2018. Disponível em: <https://periodicos.utfpr.edu.br/rbgeo/article/view/5912>. Acesso em: 24/11/2020.DOI: 10.3895/rbgeo.v6n1.5912
 
 [9] - Max Roser, Hannah Ritchie, Esteban Ortiz-Ospina and Joe Hasell (2020) - “Coronavirus Pandemic (COVID-19)”. Published online at OurWorldInData.org. Retrieved from: ‘https://ourworldindata.org/coronavirus’ [Online Resource]. Acesso em: 24/11/2020.
+
+[10] - Kulldorff, M. (2001). Prospective time periodic geographical disease surveillance using a scan statistic. Journal of the Royal Statistical Society: Series A (Statistics in Society), 164(1), 61–72. doi:10.1111/1467-985x.00186 
 
 ## Apêndice
 
