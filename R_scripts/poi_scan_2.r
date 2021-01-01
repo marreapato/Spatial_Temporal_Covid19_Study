@@ -71,10 +71,20 @@ covi_geo <- data.frame("county"=covidatag$id,"lat"=covidatag$latitude,"long"=cov
 
 covi_pop <- data.frame("date"=covidata$date,"county"=covidata$id,"population"=covidata$population,"count"=covidata$confirmed)
 
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(1)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(42)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(72)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(100)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(131)]),]
+
+
 counts <- covi_pop %>% 
   df_to_matrix(time_col = "date", location_col = "county", value_col = "count")
 
 counts
+
+covidata$id[is.na(covidata$latitude)]
+covidata$id[is.na(covidata$longitude)]
 
 covi_geo <- na.omit(covi_geo)
 
@@ -88,12 +98,14 @@ zones <- covi_geo %>%
 z=scan_pb_poisson(counts,zones,n_mcsim = 999)
 z
 ?scan_pb_poisson
-counties <- as.character(covidatag$administrative_area_level_1)
-counties <- counties[-193]#Virgin Islands, U.S.
+
+counties <- as.character(covidatag$administrative_area_level_1[covidatag$id!=c("DPC")&covidatag$id!=c("PSE")&covidatag$id!=c("MSZ")&covidatag$id!=c("GPC")&covidatag$id!=c("CAC")])
+
+#counties <- counties[c(53,)]#Diamond-princess
 # Calculate scores and add column with county names
 county_scores <- score_locations(z, zones)
 #county_scores <- county_scores[-c(195:199),]
-county_scores %<>% mutate(counties=covidatag$administrative_area_level_1)
+county_scores %<>% mutate(counties=counties)
 
 ?score_locations
 ?top_clusters
@@ -109,8 +121,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-feb=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
-
+feb=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_in[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 #March
 
 covidatag <- covid19(start ="2020/03/31" ,end ="2020/03/31" ,raw = F)
@@ -120,6 +131,18 @@ covidata <- covid19(start ="2020/03/01" ,end ="2020/03/31" ,raw = F)
 covi_geo <- data.frame("county"=covidatag$id,"lat"=covidatag$latitude,"long"=covidatag$longitude)
 
 covi_pop <- data.frame("date"=covidata$date,"county"=covidata$id,"population"=covidata$population,"count"=covidata$confirmed)
+
+covidata$id[is.na(covidata$latitude)]
+covidata$id[is.na(covidata$longitude)]
+
+
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(1)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(42)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(72)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(100)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(131)]),]
+
+counties <- as.character(covidatag$administrative_area_level_1[covidatag$id!=c("DPC")&covidatag$id!=c("PSE")&covidatag$id!=c("MSZ")&covidatag$id!=c("GPC")&covidatag$id!=c("CAC")])
 
 counts <- covi_pop %>% 
   df_to_matrix(time_col = "date", location_col = "county", value_col = "count")
@@ -138,12 +161,10 @@ zones <- covi_geo %>%
 z=scan_pb_poisson(counts,zones,n_mcsim = 999)
 z
 ?scan_pb_poisson
-counties <- as.character(covidatag$administrative_area_level_1)
-counties <- counties[-193]#Virgin Islands, U.S.
 # Calculate scores and add column with county names
 county_scores <- score_locations(z, zones)
 #county_scores <- county_scores[-c(195:199),]
-county_scores %<>% mutate(counties=covidatag$administrative_area_level_1)
+county_scores %<>% mutate(counties=counties)
 
 ?score_locations
 ?top_clusters
@@ -162,7 +183,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-march=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+march=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_in[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 #April
 
@@ -174,6 +195,19 @@ covi_geo <- data.frame("county"=covidatag$id,"lat"=covidatag$latitude,"long"=cov
 
 covi_pop <- data.frame("date"=covidata$date,"county"=covidata$id,"population"=covidata$population,"count"=covidata$confirmed)
 
+covidata$id[is.na(covidata$latitude)]
+covidata$id[is.na(covidata$longitude)]
+
+
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(1)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(42)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(72)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(100)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(131)]),]
+
+counties <- as.character(covidatag$administrative_area_level_1[covidatag$id!=c("DPC")&covidatag$id!=c("PSE")&covidatag$id!=c("MSZ")&covidatag$id!=c("GPC")&covidatag$id!=c("CAC")])
+
+
 counts <- covi_pop %>% 
   df_to_matrix(time_col = "date", location_col = "county", value_col = "count")
 
@@ -191,12 +225,10 @@ zones <- covi_geo %>%
 z=scan_pb_poisson(counts,zones,n_mcsim = 999)
 z
 ?scan_pb_poisson
-counties <- as.character(covidatag$administrative_area_level_1)
-counties <- counties[-193]#Virgin Islands, U.S.
 # Calculate scores and add column with county names
 county_scores <- score_locations(z, zones)
 #county_scores <- county_scores[-c(195:199),]
-county_scores %<>% mutate(counties=covidatag$administrative_area_level_1)
+county_scores %<>% mutate(counties=counties)
 
 ?score_locations
 ?top_clusters
@@ -215,7 +247,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-april=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+april=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_in[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 #May
 
@@ -227,6 +259,20 @@ covi_geo <- data.frame("county"=covidatag$id,"lat"=covidatag$latitude,"long"=cov
 
 covi_pop <- data.frame("date"=covidata$date,"county"=covidata$id,"population"=covidata$population,"count"=covidata$confirmed)
 
+covidata$id[is.na(covidata$latitude)]
+covidata$id[is.na(covidata$longitude)]
+
+
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(1)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(42)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(72)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(100)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(131)]),]
+
+counties <- as.character(covidatag$administrative_area_level_1[covidatag$id!=c("DPC")&covidatag$id!=c("PSE")&covidatag$id!=c("MSZ")&covidatag$id!=c("GPC")&covidatag$id!=c("CAC")])
+
+
+
 counts <- covi_pop %>% 
   df_to_matrix(time_col = "date", location_col = "county", value_col = "count")
 
@@ -244,12 +290,10 @@ zones <- covi_geo %>%
 z=scan_pb_poisson(counts,zones,n_mcsim = 999)
 z
 ?scan_pb_poisson
-counties <- as.character(covidatag$administrative_area_level_1)
-counties <- counties[-193]#Virgin Islands, U.S.
 # Calculate scores and add column with county names
 county_scores <- score_locations(z, zones)
 #county_scores <- county_scores[-c(195:199),]
-county_scores %<>% mutate(counties=covidatag$administrative_area_level_1)
+county_scores %<>% mutate(counties=counties)
 
 ?score_locations
 ?top_clusters
@@ -268,7 +312,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-may=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+may=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_in[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 #June
 
@@ -280,6 +324,18 @@ covi_geo <- data.frame("county"=covidatag$id,"lat"=covidatag$latitude,"long"=cov
 
 covi_pop <- data.frame("date"=covidata$date,"county"=covidata$id,"population"=covidata$population,"count"=covidata$confirmed)
 
+covidata$id[is.na(covidata$latitude)]
+covidata$id[is.na(covidata$longitude)]
+
+
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(1)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(42)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(72)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(100)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(131)]),]
+
+counties <- as.character(covidatag$administrative_area_level_1[covidatag$id!=c("DPC")&covidatag$id!=c("PSE")&covidatag$id!=c("MSZ")&covidatag$id!=c("GPC")&covidatag$id!=c("CAC")])
+
 counts <- covi_pop %>% 
   df_to_matrix(time_col = "date", location_col = "county", value_col = "count")
 
@@ -297,12 +353,10 @@ zones <- covi_geo %>%
 z=scan_pb_poisson(counts,zones,n_mcsim = 999)
 z
 ?scan_pb_poisson
-counties <- as.character(covidatag$administrative_area_level_1)
-counties <- counties[-193]#Virgin Islands, U.S.
 # Calculate scores and add column with county names
 county_scores <- score_locations(z, zones)
 #county_scores <- county_scores[-c(195:199),]
-county_scores %<>% mutate(counties=covidatag$administrative_area_level_1)
+county_scores %<>% mutate(counties=counties)
 
 ?score_locations
 ?top_clusters
@@ -321,7 +375,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-june=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+june=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_in[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 #July
 
@@ -332,6 +386,17 @@ covidata <- covid19(start ="2020/07/01" ,end ="2020/07/31" ,raw = F)
 covi_geo <- data.frame("county"=covidatag$id,"lat"=covidatag$latitude,"long"=covidatag$longitude)
 
 covi_pop <- data.frame("date"=covidata$date,"county"=covidata$id,"population"=covidata$population,"count"=covidata$confirmed)
+covidata$id[is.na(covidata$latitude)]
+covidata$id[is.na(covidata$longitude)]
+
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(1)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(42)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(72)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(100)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(131)]),]
+
+counties <- as.character(covidatag$administrative_area_level_1[covidatag$id!=c("DPC")&covidatag$id!=c("PSE")&covidatag$id!=c("MSZ")&covidatag$id!=c("GPC")&covidatag$id!=c("CAC")])
+
 
 counts <- covi_pop %>% 
   df_to_matrix(time_col = "date", location_col = "county", value_col = "count")
@@ -350,12 +415,10 @@ zones <- covi_geo %>%
 z=scan_pb_poisson(counts,zones,n_mcsim = 999)
 z
 ?scan_pb_poisson
-counties <- as.character(covidatag$administrative_area_level_1)
-counties <- counties[-193]#Virgin Islands, U.S.
 # Calculate scores and add column with county names
 county_scores <- score_locations(z, zones)
 #county_scores <- county_scores[-c(195:199),]
-county_scores %<>% mutate(counties=covidatag$administrative_area_level_1)
+county_scores %<>% mutate(counties=counties)
 
 ?score_locations
 ?top_clusters
@@ -374,7 +437,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-july=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+july=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_in[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 #August
 
@@ -385,6 +448,18 @@ covidata <- covid19(start ="2020/08/01" ,end ="2020/08/31" ,raw = F)
 covi_geo <- data.frame("county"=covidatag$id,"lat"=covidatag$latitude,"long"=covidatag$longitude)
 
 covi_pop <- data.frame("date"=covidata$date,"county"=covidata$id,"population"=covidata$population,"count"=covidata$confirmed)
+covidata$id[is.na(covidata$latitude)]
+covidata$id[is.na(covidata$longitude)]
+
+
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(1)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(42)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(72)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(100)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(131)]),]
+
+counties <- as.character(covidatag$administrative_area_level_1[covidatag$id!=c("DPC")&covidatag$id!=c("PSE")&covidatag$id!=c("MSZ")&covidatag$id!=c("GPC")&covidatag$id!=c("CAC")])
+
 
 counts <- covi_pop %>% 
   df_to_matrix(time_col = "date", location_col = "county", value_col = "count")
@@ -403,12 +478,10 @@ zones <- covi_geo %>%
 z=scan_pb_poisson(counts,zones,n_mcsim = 999)
 z
 ?scan_pb_poisson
-counties <- as.character(covidatag$administrative_area_level_1)
-counties <- counties[-193]#Virgin Islands, U.S.
 # Calculate scores and add column with county names
 county_scores <- score_locations(z, zones)
 #county_scores <- county_scores[-c(195:199),]
-county_scores %<>% mutate(counties=covidatag$administrative_area_level_1)
+county_scores %<>% mutate(counties=counties)
 
 ?score_locations
 ?top_clusters
@@ -427,7 +500,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-august=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+august=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_in[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 
 #September
@@ -440,6 +513,18 @@ covi_geo <- data.frame("county"=covidatag$id,"lat"=covidatag$latitude,"long"=cov
 
 covi_pop <- data.frame("date"=covidata$date,"county"=covidata$id,"population"=covidata$population,"count"=covidata$confirmed)
 
+covidata$id[is.na(covidata$latitude)]
+covidata$id[is.na(covidata$longitude)]
+
+
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(1)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(42)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(72)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(100)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(131)]),]
+
+counties <- as.character(covidatag$administrative_area_level_1[covidatag$id!=c("DPC")&covidatag$id!=c("PSE")&covidatag$id!=c("MSZ")&covidatag$id!=c("GPC")&covidatag$id!=c("CAC")])
+
 counts <- covi_pop %>% 
   df_to_matrix(time_col = "date", location_col = "county", value_col = "count")
 
@@ -457,12 +542,10 @@ zones <- covi_geo %>%
 z=scan_pb_poisson(counts,zones,n_mcsim = 999)
 z
 ?scan_pb_poisson
-counties <- as.character(covidatag$administrative_area_level_1)
-counties <- counties[-193]#Virgin Islands, U.S.
 # Calculate scores and add column with county names
 county_scores <- score_locations(z, zones)
 #county_scores <- county_scores[-c(195:199),]
-county_scores %<>% mutate(counties=covidatag$administrative_area_level_1)
+county_scores %<>% mutate(counties=counties)
 
 ?score_locations
 ?top_clusters
@@ -481,7 +564,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-sept=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+sept=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_in[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 
 #october
@@ -494,6 +577,18 @@ covi_geo <- data.frame("county"=covidatag$id,"lat"=covidatag$latitude,"long"=cov
 
 covi_pop <- data.frame("date"=covidata$date,"county"=covidata$id,"population"=covidata$population,"count"=covidata$confirmed)
 
+covidata$id[is.na(covidata$latitude)]
+covidata$id[is.na(covidata$longitude)]
+
+
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(1)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(42)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(72)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(100)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(131)]),]
+
+counties <- as.character(covidatag$administrative_area_level_1[covidatag$id!=c("DPC")&covidatag$id!=c("PSE")&covidatag$id!=c("MSZ")&covidatag$id!=c("GPC")&covidatag$id!=c("CAC")])
+
 counts <- covi_pop %>% 
   df_to_matrix(time_col = "date", location_col = "county", value_col = "count")
 
@@ -511,12 +606,10 @@ zones <- covi_geo %>%
 z=scan_pb_poisson(counts,zones,n_mcsim = 999)
 z
 ?scan_pb_poisson
-counties <- as.character(covidatag$administrative_area_level_1)
-counties <- counties[-193]#Virgin Islands, U.S.
 # Calculate scores and add column with county names
 county_scores <- score_locations(z, zones)
 #county_scores <- county_scores[-c(195:199),]
-county_scores %<>% mutate(counties=covidatag$administrative_area_level_1)
+county_scores %<>% mutate(counties=counties)
 
 ?score_locations
 ?top_clusters
@@ -535,7 +628,7 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-oct=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+oct=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_in[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
 
 #november
 
@@ -546,6 +639,18 @@ covidata <- covid19(start ="2020/11/01" ,end ="2020/11/30" ,raw = F)
 covi_geo <- data.frame("county"=covidatag$id,"lat"=covidatag$latitude,"long"=covidatag$longitude)
 
 covi_pop <- data.frame("date"=covidata$date,"county"=covidata$id,"population"=covidata$population,"count"=covidata$confirmed)
+covidata$id[is.na(covidata$latitude)]
+covidata$id[is.na(covidata$longitude)]
+
+
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(1)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(42)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(72)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(100)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(131)]),]
+
+counties <- as.character(covidatag$administrative_area_level_1[covidatag$id!=c("DPC")&covidatag$id!=c("PSE")&covidatag$id!=c("MSZ")&covidatag$id!=c("GPC")&covidatag$id!=c("CAC")])
+
 
 counts <- covi_pop %>% 
   df_to_matrix(time_col = "date", location_col = "county", value_col = "count")
@@ -564,12 +669,10 @@ zones <- covi_geo %>%
 z=scan_pb_poisson(counts,zones,n_mcsim = 999)
 z
 ?scan_pb_poisson
-counties <- as.character(covidatag$administrative_area_level_1)
-counties <- counties[-193]#Virgin Islands, U.S.
 # Calculate scores and add column with county names
 county_scores <- score_locations(z, zones)
 #county_scores <- county_scores[-c(195:199),]
-county_scores %<>% mutate(counties=covidatag$administrative_area_level_1)
+county_scores %<>% mutate(counties=counties)
 
 ?score_locations
 ?top_clusters
@@ -588,4 +691,70 @@ top5_counties <- top5$zone %>%
 # Add the counties corresponding to the zones as a column
 top5 %<>% mutate(counties = top5_counties)
 
-nov=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_out[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+nov=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_in[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
+
+
+#December
+
+covidatag <- covid19(start ="2020/12/31" ,end ="2020/12/31" ,raw = F)
+
+covidata <- covid19(start ="2020/12/4" ,end ="2020/12/31" ,raw = F)
+
+covi_geo <- data.frame("county"=covidatag$id,"lat"=covidatag$latitude,"long"=covidatag$longitude)
+
+covi_pop <- data.frame("date"=covidata$date,"county"=covidata$id,"population"=covidata$population,"count"=covidata$confirmed)
+
+covidata$id[is.na(covidata$latitude)]
+covidata$id[is.na(covidata$longitude)]
+
+
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(1)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(32)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(62)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(92)]),]
+covi_pop<-covi_pop[!(covi_pop$county==covidata$id[is.na(covidata$latitude)][c(124)]),]
+
+counties <- as.character(covidatag$administrative_area_level_1[covidatag$id!=c("DPC")&covidatag$id!=c("PSE")&covidatag$id!=c("MSZ")&covidatag$id!=c("GPC")&covidatag$id!=c("CAC")])
+
+counts <- covi_pop %>% 
+  df_to_matrix(time_col = "date", location_col = "county", value_col = "count")
+
+
+covi_geo <- na.omit(covi_geo)
+
+
+zones <- covi_geo %>%
+  select(long, lat) %>%
+  as.matrix %>%
+  spDists(x = ., y = ., longlat = TRUE) %>%
+  dist_to_knn(k = 15) %>%
+  knn_zones
+
+#z=scan_eb_poisson(counts,zones,n_mcsim = 999,population = NULL)
+#exactly the same as the population based method
+z=scan_pb_poisson(counts,zones,n_mcsim = 999,population = NULL)
+z
+?scan_pb_poisson
+# Calculate scores and add column with county names
+county_scores <- score_locations(z, zones)
+#county_scores <- county_scores[-c(195:199),]
+county_scores %<>% mutate(counties=counties)
+
+?score_locations
+?top_clusters
+# Create a table for plotting
+
+top5 <- top_clusters(z, zones, k = 5, overlapping = FALSE)
+top5
+zones[[1623]]
+county_scores$counties[101]
+
+# Find the counties corresponding to the spatial zones of the 5 clusters.
+top5_counties <- top5$zone %>%
+  purrr::map(get_zone, zones = zones) %>%
+  purrr::map(function(x) counties[x])
+
+# Add the counties corresponding to the zones as a column
+top5 %<>% mutate(counties = top5_counties)
+
+decemb=data.frame("Duração"=top5$duration[1],"Risk"=top5$relrisk_in[1],"MC_pvalue"=top5$MC_pvalue[1],"Counties"=top5$counties[[1]])
