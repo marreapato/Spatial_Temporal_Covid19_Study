@@ -224,9 +224,9 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 ![](cum_local_death.png)
 **Figura 21 -** Índice local de Moran do número acumulado de mortes por habitantes.
 
-![](local_moran_d.png)
+![](men_local_deaths.png)
 **Figura 22 -** Índice local de Moran do número mensal de mortes por habitantes.
 
 #### Conjunto de boxmaps do número de mortes mensal por habitante.
-![](Fixed_boxmap.png)
+![](totally_fixed_boxmap.png)
 **Figura 23 -** Boxmaps da quantidade de mortes mensal por habitante.
