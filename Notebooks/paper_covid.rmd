@@ -148,3 +148,4 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 [9] - Max Roser, Hannah Ritchie, Esteban Ortiz-Ospina and Joe Hasell (2020) - “Coronavirus Pandemic (COVID-19)”. Published online at OurWorldInData.org. Retrieved from: ‘https://ourworldindata.org/coronavirus’ [Online Resource]. Acesso em: 24/11/2020.
 
 [10] - Kulldorff, M. (2001). Prospective time periodic geographical disease surveillance using a scan statistic. Journal of the Royal Statistical Society: Series A (Statistics in Society), 164(1), 61–72. doi:10.1111/1467-985x.00186 
+
