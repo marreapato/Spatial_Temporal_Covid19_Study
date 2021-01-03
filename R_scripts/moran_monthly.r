@@ -1601,6 +1601,41 @@ total$totaloct$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
 
 (case_oct=spplot(total$totaloct, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Outubro"))
 
+
+
+#boxmap cases in pop
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totaloct$m_case_pop_ratio - mean(total$totaloct$m_case_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- 4#AA  
+quadrant[m.qualification <0 & m.local<0] <- 1#BB      
+quadrant[m.qualification <0 & m.local>0] <- 2#BA
+quadrant[m.qualification >0 & m.local<0] <- 3#AB
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+
+# plot in r
+brks <- c(0,1,2,3,4)
+colors <- c("white","blue",rgb(0,0,1,alpha=0.4),rgb(1,0,0,alpha=0.4),"red")
+plot(total$totaloct,border="lightgray",col=colors[findInterval(quadrant,brks,all.inside=FALSE)],main="Outubro")
+box()  
+legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
+       fill=colors,bty="n")
+ocplot_case <- recordPlot()
+ocplot_case <- as_grob(ocplot_case)
+
+ocplot_case <- as.ggplot(ocplot_case)
+
+
 #death_pop
 moran.plot(total$totaloct$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totaloct$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
@@ -1714,6 +1749,39 @@ total$totalnov$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
 (case_nov=spplot(total$totalnov, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Novembro"))
 
 
+#boxmap cases in pop
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totalnov$m_case_pop_ratio - mean(total$totalnov$m_case_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- 4#AA  
+quadrant[m.qualification <0 & m.local<0] <- 1#BB      
+quadrant[m.qualification <0 & m.local>0] <- 2#BA
+quadrant[m.qualification >0 & m.local<0] <- 3#AB
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+
+# plot in r
+brks <- c(0,1,2,3,4)
+colors <- c("white","blue",rgb(0,0,1,alpha=0.4),rgb(1,0,0,alpha=0.4),"red")
+plot(total$totalnov,border="lightgray",col=colors[findInterval(quadrant,brks,all.inside=FALSE)],main="Novembro")
+box()  
+legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
+       fill=colors,bty="n")
+novplot_case <- recordPlot()
+novplot_case <- as_grob(novplot_case)
+
+novplot_case <- as.ggplot(novplot_case)
+
+
 #death_pop
 moran.plot(total$totalnov$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totalnov$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
@@ -1800,33 +1868,11 @@ total$totaldec$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
 
 (case_dec=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Dezembro"))
 
-
-#death_pop
-moran.plot(total$totaldec$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-moran.test(total$totaldec$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-moran.mc(nsim=10000,total$totaldec$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-#validated
-
-#death pop local
-local.mi.prod<-localmoran(total$totaldec$m_death_pop_ratio, PPV3.w)
-
-total$totaldec$lmi<-local.mi.prod[,1]
-
-total$totaldec$lmi.p<-local.mi.prod[,5]
-
-total$totaldec$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-
-
-(kc9=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Dezembro"))
-
-
-
-#boxmap deaths per habitant
+#boxmap cases in pop
 quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
 
 # centers the variable of interest around its mean
-m.qualification <- total$totaldec$m_death_pop_ratio - mean(total$totaldec$m_death_pop_ratio)     
+m.qualification <- total$totaldec$m_case_pop_ratio - mean(total$totaldec$m_case_pop_ratio)     
 
 # centers the local Moran's around the mean
 m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
@@ -1849,10 +1895,31 @@ plot(total$totaldec,border="lightgray",col=colors[findInterval(quadrant,brks,all
 box()  
 legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
        fill=colors,bty="n")
-decplot <- recordPlot()
-decplot <- as_grob(decplot)
+decplot_case <- recordPlot()
+decplot_case <- as_grob(decplot_case)
 
-decplot <- as.ggplot(decplot)
+decplot_case <- as.ggplot(decplot_case)
+
+
+#death_pop
+moran.plot(total$totaldec$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaldec$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaldec$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death pop local
+local.mi.prod<-localmoran(total$totaldec$m_death_pop_ratio, PPV3.w)
+
+total$totaldec$lmi<-local.mi.prod[,1]
+
+total$totaldec$lmi.p<-local.mi.prod[,5]
+
+total$totaldec$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+(kc9=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Dezembro"))
+
 
 
 #boxmap
