@@ -47,11 +47,13 @@ sep <-covid19(start ="2020-09-30" ,end ="2020-09-30",raw = F )
 
 oct <-covid19(start ="2020-10-31" ,end ="2020-10-31",raw = F ) 
 
-nov <-covid19(start ="2020-11-26" ,end ="2020-11-26",raw = F ) 
+nov <-covid19(start ="2020-11-30" ,end ="2020-11-30",raw = F ) 
+
+dec <-covid19(start ="2020-12-31" ,end ="2020-12-31",raw = F ) 
 
   #the right way to do it
 #list of datasets
-datasets <- list(jan20=jan,feb20=feb,march20=march,april20=april,may20=may,june20=june,july=july,aug20=aug,sep20=sep,oct20=oct,nov20=nov)
+datasets <- list(jan20=jan,feb20=feb,march20=march,april20=april,may20=may,june20=june,july=july,aug20=aug,sep20=sep,oct20=oct,nov20=nov,dec20=dec)
 
 #renaming a few cells in the datasets
 
@@ -115,7 +117,7 @@ for(i in 1:length(datasets)){
 
 #list of countries to rename in each dataset
 countries <- list(countriesjan=datasets$jan20,countriesf=datasets$feb20,countriesm=datasets$march20,countriesa=datasets$april20,countriesmay=datasets$may20,
-                  countriesjun=datasets$june20,countriesjul=datasets$july,countriesaug=datasets$aug20,countriessep=datasets$sep20,countriesoct=datasets$oct20,countriesnov=datasets$nov20)
+                  countriesjun=datasets$june20,countriesjul=datasets$july,countriesaug=datasets$aug20,countriessep=datasets$sep20,countriesoct=datasets$oct20,countriesnov=datasets$nov20,countriesdoc=datasets$dec20)
 #renaming a few countries
 
 for(i in 1:length(countries)){
@@ -131,7 +133,7 @@ for(i in 1:length(countries)){
 
 #full datasets of sf object
 
-total <- list(totalj=NULL,totalf=NULL,totalm=NULL,totala=NULL,totalma=NULL,totaljun=NULL,totaljul=NULL,totalaug=NULL,totalsep=NULL,totaloct=NULL,totalnov=NULL)
+total <- list(totalj=NULL,totalf=NULL,totalm=NULL,totala=NULL,totalma=NULL,totaljun=NULL,totaljul=NULL,totalaug=NULL,totalsep=NULL,totaloct=NULL,totalnov=NULL,totaldec=NULL)
 
 
 for(i in 1:length(total)){
@@ -256,6 +258,13 @@ moran.test(total$totalj$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na
 moran.mc(nsim=10000,total$totalj$death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 #validated
 
+
+#case_pop
+moran.plot(total$totalj$case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalj$case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalj$case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
 #death pop local
 local.mi.prod<-localmoran(total$totalj$death_pop_ratio, PPV3.w)
 
@@ -342,9 +351,10 @@ moran.test(total$totalf$recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = n
 moran.mc(nsim=10000,total$totalf$recov_case_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 #high corr
 
-#case_pop
-moran.plot(total$totalf$case_pop_ratio, PPV3.w, zero.policy=TRUE)
-moran.test(total$totalf$case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#m_case_pop
+moran.plot(total$totalf$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalf$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalf$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 
 #death_pop
 moran.plot(total$totalf$death_pop_ratio, PPV3.w, zero.policy=TRUE)
@@ -638,7 +648,7 @@ require("RColorBrewer")
 #require("sp")
 
 spplot(total$totala, "lmi", at=summary(total$totala$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-ck1=spplot(total$totala, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Abril")
+(ck1=spplot(total$totala, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Abril"))
 ?spplot
 
 
@@ -737,7 +747,7 @@ total$totala$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
 #require("sp")
 
 spplot(total$totala, "lmi", at=summary(total$totala$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-kc1=spplot(total$totala, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Abril")
+(kc1=spplot(total$totala, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Abril"))
 ?spplot
 
 
@@ -948,7 +958,7 @@ total$totalma$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
 #require("sp")
 
 spplot(total$totalma, "lmi", at=summary(total$totalma$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-kc2=spplot(total$totalma, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Maio")
+(kc2=spplot(total$totalma, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Maio"))
 ?spplot
 
 
@@ -1151,7 +1161,7 @@ total$totaljun$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
 #require("sp")
 
 spplot(total$totaljun, "lmi", at=summary(total$totaljul$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-kc3=spplot(total$totaljun, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Junho")
+(kc3=spplot(total$totaljun, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Junho"))
 ?spplot
 
 #boxmap
@@ -1356,7 +1366,7 @@ total$totaljul$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
 #require("sp")
 
 spplot(total$totaljul, "lmi", at=summary(total$totaljul$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-kc4=spplot(total$totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Julho")
+(kc4=spplot(total$totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Julho"))
 ?spplot
 
 #boxmap
@@ -1426,6 +1436,13 @@ plot(PPV3.w, coordinates(total$totalaug), col='red', lwd=2, add=TRUE)#links
 #lots of variables missing
 
 #monthly
+
+#case_pop
+moran.plot(total$totalaug$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalaug$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalaug$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
 #death_pop
 moran.plot(total$totalaug$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totalaug$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
@@ -1493,6 +1510,12 @@ plot(PPV3.w, coordinates(total$totalsep), col='red', lwd=2, add=TRUE)#links
 #lots of variables missing
 
 #monthly
+#case_pop
+moran.plot(total$totalsep$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalsep$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalsep$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
 #death_pop
 moran.plot(total$totalsep$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totalsep$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
@@ -1559,6 +1582,25 @@ plot(PPV3.w, coordinates(total$totaloct), col='red', lwd=2, add=TRUE)#links
 #lots of variables missing
 
 #monthly
+#case_pop
+moran.plot(total$totaloct$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaloct$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaloct$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#case pop local
+local.mi.prod<-localmoran(total$totaloct$m_case_pop_ratio, PPV3.w)
+
+total$totaloct$lmi<-local.mi.prod[,1]
+
+total$totaloct$lmi.p<-local.mi.prod[,5]
+
+total$totaloct$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+(case_oct=spplot(total$totaloct, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Outubro"))
+
 #death_pop
 moran.plot(total$totaloct$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totaloct$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
@@ -1578,12 +1620,71 @@ total$totaloct$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
 
 (kc7=spplot(total$totaloct, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Outubro"))
 
+#boxmap
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totaloct$m_death_pop_ratio - mean(total$totaloct$m_death_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- 4#AA  
+quadrant[m.qualification <0 & m.local<0] <- 1#BB      
+quadrant[m.qualification <0 & m.local>0] <- 2#BA
+quadrant[m.qualification >0 & m.local<0] <- 3#AB
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+
+# plot in r
+brks <- c(0,1,2,3,4)
+colors <- c("white","blue",rgb(0,0,1,alpha=0.4),rgb(1,0,0,alpha=0.4),"red")
+plot(total$totaloct,border="lightgray",col=colors[findInterval(quadrant,brks,all.inside=FALSE)],main="Outubro")
+box()  
+legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
+       fill=colors,bty="n")
+ocplot <- recordPlot()
+ocplot <- as_grob(ocplot)
+
+ocplot <- as.ggplot(ocplot)
+
+#https://rpubs.com/quarcs-lab/spatial-autocorrelation
+#install.packages("cowplot")
+library(gridGraphics)
+library(cowplot)
+
+janfe=grid.arrange(jplot,fplot,top="Índice de Moran local sobre o número cumulativo \n de mortes por habitantes.",widths=c(0.3,0.3))
+
+grid.arrange(jplot,fplot, ncol = 2, main = "Main title")
+dev.off()
+layout(matrix(c(1,1), nrow = 1, ncol = 1, byrow = TRUE))                              
+janfe
+jplot
+fplot
+library("ggpubr")
+ggarrange(plotlist = list(jplot,fplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
+ggarrange(plotlist = list(mplot,aplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
+ggarrange(plotlist = list(maplot,junplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
+ggarrange(plotlist = list(julplot,augplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
+ggarrange(plotlist = list(sepplot,ocplot),widths = c(0.2,0.2),heights=c(0.1,0.1))
+#width=1366&height=678
+janfe=grid.arrange(jplot,fplot,widths=c(0.3,0.3))
+mara=grid.arrange(mplot,aplot,widths=c(0.3,0.3))
+majun=grid.arrange(maplot,junplot,widths=c(0.3,0.3))
+julaug=grid.arrange(julplot,augplot,widths=c(0.3,0.3))
+sepoc=grid.arrange(sepplot,ocplot,widths=c(0.3,0.3))
+
+#width=1366&height=678
 #merge here
 #https://onlineconvertfree.com/merge-image/png-merge/
 
 grid.arrange(kc1,kc2,kc3,kc4,kc5,kc6,kc7,top="Índice de Moran local sobre o número mensal \n de mortes por habitantes.")
 
-#october
+#november
 coor <- coordinates(total$totalnov)
 cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
 cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalnov$name)
@@ -1594,10 +1695,29 @@ plot(PPV3.w, coordinates(total$totalnov), col='red', lwd=2, add=TRUE)#links
 #lots of variables missing
 
 #monthly
+#case_pop
+moran.plot(total$totalnov$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalnov$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalnov$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#case pop local
+local.mi.prod<-localmoran(total$totalnov$m_case_pop_ratio, PPV3.w)
+
+total$totalnov$lmi<-local.mi.prod[,1]
+
+total$totalnov$lmi.p<-local.mi.prod[,5]
+
+total$totalnov$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+(case_nov=spplot(total$totalnov, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Novembro"))
+
+
 #death_pop
 moran.plot(total$totalnov$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
 moran.test(total$totalnov$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-moran.mc(nsim=10000,total$totaloct$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalnov$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
 #validated
 
 #death pop local
@@ -1612,3 +1732,130 @@ total$totalnov$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
 
 
 (kc8=spplot(total$totalnov, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Novembro"))
+
+
+
+#boxmap
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totalnov$m_death_pop_ratio - mean(total$totalnov$m_death_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- 4#AA  
+quadrant[m.qualification <0 & m.local<0] <- 1#BB      
+quadrant[m.qualification <0 & m.local>0] <- 2#BA
+quadrant[m.qualification >0 & m.local<0] <- 3#AB
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+
+# plot in r
+brks <- c(0,1,2,3,4)
+colors <- c("white","blue",rgb(0,0,1,alpha=0.4),rgb(1,0,0,alpha=0.4),"red")
+plot(total$totalnov,border="lightgray",col=colors[findInterval(quadrant,brks,all.inside=FALSE)],main="Novembro")
+box()  
+legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
+       fill=colors,bty="n")
+novplot <- recordPlot()
+novplot <- as_grob(novplot)
+
+novplot <- as.ggplot(novplot)
+
+
+grid.arrange(case_oct,case_nov,top="Índice de Moran local sobre o número mensal \n de casos por habitantes.")
+
+
+#december
+coor <- coordinates(total$totaldec)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaldec$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totaldec, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totaldec), col='red', lwd=2, add=TRUE)#links
+#lots of variables missing
+
+#monthly
+#case_pop
+moran.plot(total$totaldec$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaldec$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaldec$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#case pop local
+local.mi.prod<-localmoran(total$totaldec$m_case_pop_ratio, PPV3.w)
+
+total$totaldec$lmi<-local.mi.prod[,1]
+
+total$totaldec$lmi.p<-local.mi.prod[,5]
+
+total$totaldec$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+(case_dec=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Dezembro"))
+
+
+#death_pop
+moran.plot(total$totaldec$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaldec$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaldec$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death pop local
+local.mi.prod<-localmoran(total$totaldec$m_death_pop_ratio, PPV3.w)
+
+total$totaldec$lmi<-local.mi.prod[,1]
+
+total$totaldec$lmi.p<-local.mi.prod[,5]
+
+total$totaldec$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+(kc9=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Dezembro"))
+
+
+
+#boxmap
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totaldec$m_death_pop_ratio - mean(total$totaldec$m_death_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- 4#AA  
+quadrant[m.qualification <0 & m.local<0] <- 1#BB      
+quadrant[m.qualification <0 & m.local>0] <- 2#BA
+quadrant[m.qualification >0 & m.local<0] <- 3#AB
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+
+# plot in r
+brks <- c(0,1,2,3,4)
+colors <- c("white","blue",rgb(0,0,1,alpha=0.4),rgb(1,0,0,alpha=0.4),"red")
+plot(total$totaldec,border="lightgray",col=colors[findInterval(quadrant,brks,all.inside=FALSE)],main="Dezembro")
+box()  
+legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
+       fill=colors,bty="n")
+decplot <- recordPlot()
+decplot <- as_grob(decplot)
+
+decplot <- as.ggplot(decplot)
+
+
+#width=1366&height=678&scale=1
+grid.arrange(kc1,kc2,kc3,kc4,kc5,kc6,kc7,kc8,kc9,top="Índice de Moran local sobre o número mensal \n de mortes por habitantes.")
+grid.arrange(case_oct,case_nov,case_dec,top="Índice de Moran local sobre o número mensal \n de casos por habitantes.")
+novdec=grid.arrange(novplot,decplot,widths=c(0.3,0.3))
