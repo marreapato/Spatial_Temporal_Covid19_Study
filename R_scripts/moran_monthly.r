@@ -1959,3 +1959,5 @@ decplot <- as.ggplot(decplot)
 grid.arrange(kc1,kc2,kc3,kc4,kc5,kc6,kc7,kc8,kc9,top="Índice de Moran local sobre o número mensal \n de mortes por habitantes.")
 grid.arrange(case_oct,case_nov,case_dec,top="Índice de Moran local sobre o número mensal \n de casos por habitantes.")
 novdec=grid.arrange(novplot,decplot,widths=c(0.3,0.3))
+
+ocnov_case=grid.arrange(ocplot_case,novplot_case,decplot_case,widths=c(0.3,0.3))
