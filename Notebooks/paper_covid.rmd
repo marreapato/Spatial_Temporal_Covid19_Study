@@ -23,7 +23,7 @@ documentclass: report
    
  At the end of 2019, the situation of infections by Covid-19 *(Sars-Cov-2)* was already a cause for concern, being considered as an epidemic in the city of Wuhan in China $\!\!^1$, although it was difficult at first to identify the virus' origin, it's known that the Severe Acute Respiratory Syndrome *(SARS)* and the Middle East Respiratory Syndrome *(MERS)* usually need intermediate hosts $\!\!^2$, there is a possibility that bats and pangolins were the first carriers. After several public organizations called for caution relating to Covid-19, on March 12 of 2020 the pandemic state was recognized by the World Health Organization *(WHO)* $\!\!^3$.
  
- With the whole world being affected by the pandemic, it's a matter of great importance that studies about the Spatio-temporal aspects of the Covid-19 pandemic should be conducted, by evaluating the number of cases and deaths in different countries accordingly to time in the year of 2020 we can contribute with methods to analyze Spatio-temporal behavior in future disease outbreaks.
+ With the whole world being affected by the pandemic, it's a matter of great importance that studies about the Spatio-temporal aspects of the Covid-19 pandemic should be conducted, by evaluating the number of cases and deaths in different countries accordingly to time in the year 2020 we can contribute with methods to analyze Spatio-temporal behavior in future disease outbreaks.
  
  Ao traçar um perfil sobre o comportamento espaço-temporal da Covid-19, estudos como esse poderão ser analisados para lidar com possíveis pandemias causadas por vírus que apresentem características similares a Sars-CoV-2.
  
