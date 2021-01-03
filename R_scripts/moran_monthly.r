@@ -1822,6 +1822,39 @@ total$totaldec$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
 
 
 
+#boxmap deaths per habitant
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totaldec$m_death_pop_ratio - mean(total$totaldec$m_death_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- 4#AA  
+quadrant[m.qualification <0 & m.local<0] <- 1#BB      
+quadrant[m.qualification <0 & m.local>0] <- 2#BA
+quadrant[m.qualification >0 & m.local<0] <- 3#AB
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+
+# plot in r
+brks <- c(0,1,2,3,4)
+colors <- c("white","blue",rgb(0,0,1,alpha=0.4),rgb(1,0,0,alpha=0.4),"red")
+plot(total$totaldec,border="lightgray",col=colors[findInterval(quadrant,brks,all.inside=FALSE)],main="Dezembro")
+box()  
+legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
+       fill=colors,bty="n")
+decplot <- recordPlot()
+decplot <- as_grob(decplot)
+
+decplot <- as.ggplot(decplot)
+
+
 #boxmap
 quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
 
