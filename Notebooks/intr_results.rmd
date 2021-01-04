@@ -58,7 +58,7 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
   
 #### A estatística de Scan Poisson
 
- Em busca de identificar *clusters* emergentes no espaço-tempo, o método prospectivo proposto por Kulldorff foi utilizado supondo uma distribuição de probabilidade poisson. Em contrapartida ao método puramente espacial $\!\!^1$ $\!\!^1$, em que a estatística de scan cria diversas janelas circulares em localidades no mapa, cada uma com diferentes grupos de áreas vizinhas para  
+ Em busca de identificar *clusters* emergentes no espaço-tempo, o método prospectivo proposto por Kulldorff foi utilizado supondo uma distribuição de probabilidade poisson. No método puramente espacial $\!\!^1$ $\!\!^1$, a estatística de scan cria diversas janelas circulares em diversas localidades no mapa, cada uma com diferentes grupos de áreas vizinhas, sendo cada uma dessas janelas circulares flexíveis em tamanho e localidade e possivelmente um *cluster* de eventos.  para  
  
  segundo Kulldorff (citação colocar traduzida kulldorff) "The method strives to detect only those clusters that are still alive', meaning that the excess risk is still present during the last time period for which data are available. It can detect clusters irrespective of the cluster's `age', including long-existing clusters with moderately excess risk as well as recently emerged clusters with a high excess risk."(continuar escrevendo...)
 
