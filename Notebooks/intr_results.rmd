@@ -121,13 +121,13 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
  
 ## Conclusão
 
- Portanto, há uma dependência espacial no número mensal de mortes por habitantes infectados pela Covid-19, que começou a registrar alto crescimento na média móvel semanal no mundo em Abril, sendo o mês que apresentou o maior Índice de Moran Global no primeiro semestre de 2020, registrando também crescimento acelerado na média móvel de novos casos no mesmo período.
+ Portanto, há dependência espacial no número mensal de mortes por habitantes infectados pela Covid-19, que começou a registrar alto crescimento na média móvel semanal no mundo em Abril, sendo este o mês que apresentou o maior Índice de Moran Global no primeiro semestre de 2020, registrando também crescimento acelerado na média móvel de novos casos no mesmo período.
  
  A dependência local foi verificada apenas nos países da parte ocidental da Europa, na América do Sul e na América do Norte, havendo similaridades políticas referente as medidas de rastreamento de casos, a qual em maioria foi adotada apenas para casos específicos ou não foi adotada, obrigação para ficar em casa que foi pouco adotada sem ressalvas, e dentre a política de restrição de multidões que foi adotada restringindo aglomerações com mais de 10 pessoas.
  
  As estatísticas de scan se mostraram mais computacionalmente exigentes que o índice de Moran, sendo necessário recorrer ao uso da estatística prospectiva de scan espaço-temporal por ter sido a menos computacionalmente exigente. No entanto os resultados se demonstraram satisfatórios, identificando vários *clusters* ativos que continham áreas também identificadas pelo índice local de Moran.
  
- Por conseguinte devido a presença de semelhanças dentre as políticas de isolamento social, restrição de multidões, rastreamento de casos e os aumentos no número de infectados pela Covid-19, nas regiões em que foi identificada correlação espacial local, existe a necessidade de determinar se as semelhanças, ou as diferenças dentre as medidas políticas, foram causas cruciais para o aumento da média móvel de casos no mundo, e para a presença de dependência espacial global e local, no número de mortes por habitantes nos continentes em que foi verificada.
+ Por conseguinte devido a presença de semelhanças dentre as políticas de isolamento social, restrição de multidões, rastreamento de casos e os aumentos no número de infectados pela Covid-19, nas regiões em que foram verificados *clusters* ativos ou correlação espacial local, existe a necessidade de determinar se as semelhanças, ou as diferenças dentre as medidas políticas, foram causas cruciais para o aumento da média móvel de casos no mundo, e para a presença de dependência espacial global e local, no número de mortes e casos por habitantes nos localidades em que foi verificada.
 
 ## Referências
 
