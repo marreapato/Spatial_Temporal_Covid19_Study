@@ -58,7 +58,9 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
   
 #### A estatística de Scan Poisson
 
- Em busca de identificar *clusters* emergentes no espaço-tempo, o método retrospectivo proposto por Kulldorff, aqui utilizada supondo uma distribuição de probabilidade poisson (citação colocar traduzida kulldorff) "To detect emerging geographical clusters due to some suddenly occurring risk factor quickly can be of great public health importance. It can be used to detect previously unknown diseases, previously unknown risk factors for known diseases or the previously unknown local existence of known risk factors"(continuar escrevendo...)
+ Em busca de identificar *clusters* emergentes no espaço-tempo, o método prospectivo proposto por Kulldorff foi utilizado supondo uma distribuição de probabilidade poisson. Neste método, apesar da razão de verossimilhança ser calculada da mesma maneira que o método puramente espacial $\!\!^1$ $\!\!^1$, 
+ 
+ segundo Kulldorff (citação colocar traduzida kulldorff) "The method strives to detect only those clusters that are still alive', meaning that the excess risk is still present during the last time period for which data are available. It can detect clusters irrespective of the cluster's `age', including long-existing clusters with moderately excess risk as well as recently emerged clusters with a high excess risk."(continuar escrevendo...)
 
 
 ## Resultados
@@ -147,6 +149,8 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 [9] - Max Roser, Hannah Ritchie, Esteban Ortiz-Ospina and Joe Hasell (2020) - “Coronavirus Pandemic (COVID-19)”. Published online at OurWorldInData.org. Retrieved from: ‘https://ourworldindata.org/coronavirus’ [Online Resource]. Acesso em: 24/11/2020.
 
 [10] - Kulldorff, M. (2001). Prospective time periodic geographical disease surveillance using a scan statistic. Journal of the Royal Statistical Society: Series A (Statistics in Society), 164(1), 61–72. doi:10.1111/1467-985x.00186 
+
+[11] - Kulldorff, M. (1997). A spatial scan statistic. Communications in Statistics - Theory and Methods, 26(6), 1481–1496. doi:10.1080/03610929708831995 
 
 ## Apêndice
 
