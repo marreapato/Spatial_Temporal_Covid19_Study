@@ -25,6 +25,8 @@ documentclass: report
  
  With the whole world being affected by the pandemic, it's a matter of great importance that studies about the Spatio-temporal aspects of the Covid-19 pandemic should be conducted, by evaluating the number of cases and deaths in different countries accordingly to time in the year 2020, we can contribute with methods to analyze Spatio-temporal behavior in future disease outbreaks.
  
+ The main goal of this paper is to present methods used to identify spatial and  spatio-temporal dependence, by using 
+ 
  O objetivo deste trabalho será portanto traçar um perfil sobre o comportamento espacial da pandemia causada pela Covid-19 ao utilizar de técnicas estatísticas para quantificação da dependência espacial como o cálculo do índice de Moran global e local $\!\!^4$, além de uma estatística de scan para identificação de *clusters* emergentes do número de casos no espaço-tempo, bem como analisar as políticas adotadas por cada país e o comportamento da pandemia ao longo do tempo.
  
 ## Metodologia
