@@ -25,7 +25,7 @@ documentclass: report
  
  With the whole world being affected by the pandemic, it's a matter of great importance that studies about the Spatio-temporal aspects of the Covid-19 pandemic should be conducted, by evaluating the number of cases and deaths in different countries accordingly to time in the year 2020, we can contribute with methods to analyze Spatio-temporal behavior in future disease outbreaks.
  
- The main goal of this paper is to present methods used to identify spatial and spatio-temporal dependence by using the Global Moran's I and the Local Moran's I $\!\!^4$, which is also known as a LISA statistic (Local Indicator of Spatial Association), both being used as indicators of spatial association. Spatio-temporal association was evaluated by computing a spatio-temporal poisson scan statistic proposed by Kulldorff (place reference here) to identify emerging or "alive" *clusters* in space and time.
+ The main goal of this paper is to present methods used to identify spatial and spatio-temporal dependence in the number of infections and deaths caused by COVID-19, so they can be used in future or hypothetical situations where is necessary to investigate the behavior of an pathogen agent in space and time. The spatial method was calculated by using the Global Moran's I and the Local Moran's I $\!\!^4$, which is also known as a LISA statistic (Local Indicator of Spatial Association), both being used as indicators of spatial association. Spatio-temporal association was evaluated by computing a spatio-temporal poisson scan statistic, proposed by Kulldorff (place reference here) to identify emerging or "alive" *clusters* in space and time.
  
 ## Metodologia
  
