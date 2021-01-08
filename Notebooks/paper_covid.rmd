@@ -39,7 +39,7 @@ Uma análise exploratória foi conduzida sobre o banco da *COVID-19 Data Hub* pa
  
  Também foi utilizado um segundo banco de dados disponibilizado pela *Our World In Data* $\!\!^9$ (*OWID*), o banco provido pela *OWID* contém informações que foram utilizadas como complementares ao da *COVID-19 Data Hub*, dentre as quais o número diário de casos confirmados e mortes por Covid-19. O banco da *OWID* foi integrado ao da *COVID-19 Data Hub*, para calcular a média móvel semanal do número de casos e mortos pela Covid-19 por dia no mundo e dos continentes em que foi identificada correlação local, a estatística também foi computada para os continentes em que foi identificado dependência espacial local em alguma destas quantidades, no entanto ao computar para a América do Norte a América central também foi considerada.
  
- Dentre as localidades (regionais, continentais ou mundo) em que foi identificada dependência espacial, foi feita uma análise sobre a quantidade relativa de países, calculando a razão dentre os que adotaram medidas de obrigatórias de fechamento ou restrição total e a quantidade de nações em cada localidade. Foi considerada uma quantidade de 195 países no mundo $\!\!^1$ $\!\!^0$, com um total de 193 membros da ONU e dois estados observadores, o Vaticano e a Palestina.
+ Dentre as localidades (regionais, continentais ou mundo) em que foi identificada dependência espacial, foi feita uma análise sobre a quantidade relativa de países, calculando a razão dentre os que adotaram medidas de obrigatórias de fechamento ou restrição total e a quantidade de nações em cada localidade. Foi considerada uma quantidade de 195 países no mundo, com um total de 193 membros da ONU e dois estados observadores, o Vaticano e a Palestina.
 
 #### Índice de Moran
  
@@ -60,7 +60,7 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
   
 #### A estatística de Scan Poisson
 
- Em busca de identificar *clusters* emergentes no espaço-tempo, o método retrospectivo proposto por Kulldorff, aqui utilizada supondo uma distribuição de probabilidade poisson (citação colocar traduzida kulldorff) "To detect emerging geographical clusters due to some suddenly occurring risk factor quickly can be of great public health importance. It can be used to detect previously unknown diseases, previously unknown risk factors for known diseases or the previously unknown local existence of known risk factors"(continuar escrevendo...)
+ Em busca de identificar *clusters* emergentes no espaço-tempo, o método retrospectivo proposto por Kulldorff, aqui utilizada supondo uma distribuição de probabilidade poisson $\!\!^1\!^0$ (citação colocar traduzida kulldorff) "To detect emerging geographical clusters due to some suddenly occurring risk factor quickly can be of great public health importance. It can be used to detect previously unknown diseases, previously unknown risk factors for known diseases or the previously unknown local existence of known risk factors"(continuar escrevendo...)
 
 
 ## Resultados
