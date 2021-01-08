@@ -25,7 +25,7 @@ documentclass: report
  
  With the whole world being affected by the pandemic, it's a matter of great importance that studies about the Spatio-temporal aspects of the Covid-19 pandemic should be conducted, by evaluating the number of cases and deaths in different countries accordingly to time in the year 2020, we can contribute with methods to analyze Spatio-temporal behavior in future disease outbreaks.
  
- The main goal of this paper is to present methods used to identify spatial and spatio-temporal dependence in the number of infections and deaths caused by COVID-19, so they can be used in future or hypothetical situations where is necessary to investigate the behavior of a pathogen agent in space and time. The spatial method was calculated by using the Global Moran's I and the Local Moran's I $\!\!^4$, which is also known as a LISA statistic (Local Indicator of Spatial Association), both being used as indicators of spatial association. Spatio-temporal association was evaluated by computing a spatio-temporal Poisson scan statistic, proposed by Kulldorff (place reference here) to identify emerging or "alive" *clusters* in space and time.
+ The main goal of this paper is to present methods used to identify spatial and spatio-temporal dependence in the number of infections and deaths caused by COVID-19, so they can be used in future or hypothetical situations where is necessary to investigate the behavior of a pathogen agent in space and time. The spatial method was calculated by using the Global Moran's I and the Local Moran's I $\!\!^4$, which is also known as a LISA statistic (Local Indicator of Spatial Association), both being used as indicators of spatial association. Spatio-temporal association was evaluated by computing a spatio-temporal Poisson scan statistic, proposed by Kulldorff $\!\!^5$ to identify emerging or "alive" *clusters* in space and time.
  
 ## Metodologia
  
@@ -134,7 +134,7 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 
 [4] -CARDOSO, Carlos Eduardo de Paiva. Dependência Espacial, Setores Censitários, Zonas OD, Distritos, Sub Prefeituras e etc. [S.l]. Publicado em: 06/09/2007. <http://www.sinaldetransito.com.br/artigos/espacial.pdf>. Acesso em: 24/11/2020.
 
-[5] - Guidotti, E., Ardia, D., (2020), “COVID-19 Data Hub”, Journal of Open Source Software 5(51):2376, doi: 10.21105/joss.02376.
+[10] - Guidotti, E., Ardia, D., (2020), “COVID-19 Data Hub”, Journal of Open Source Software 5(51):2376, doi: 10.21105/joss.02376.
 
 [6] - BRAGA, Altemir da Silva. et al. Estudo de Dependência Espacial utilizando Análise de Dados de Área Aplicada na Mesorregião Metropolitana de Belo Horizonte por meio do Indicador Econômico PIB. 19ª SINAPE.  [S.l.]. 2010,  Disponível em: <http://www2.ime.unicamp.br/sinape/sites/default/files/Resumo%20expandido%20SINAPE.pdf>. Acesso em: 24/11/2020.
 
@@ -144,4 +144,4 @@ A partir do mês de Maio houve uma abrupta aceleração no crescimento da quanti
 
 [9] - Max Roser, Hannah Ritchie, Esteban Ortiz-Ospina and Joe Hasell (2020) - “Coronavirus Pandemic (COVID-19)”. Published online at OurWorldInData.org. Retrieved from: ‘https://ourworldindata.org/coronavirus’ [Online Resource]. Acesso em: 24/11/2020.
 
-[10] - Kulldorff, M. (2001). Prospective time periodic geographical disease surveillance using a scan statistic. Journal of the Royal Statistical Society: Series A (Statistics in Society), 164(1), 61–72. doi:10.1111/1467-985x.00186 
+[5] - Kulldorff, M. (2001). Prospective time periodic geographical disease surveillance using a scan statistic. Journal of the Royal Statistical Society: Series A (Statistics in Society), 164(1), 61–72. doi:10.1111/1467-985x.00186 
