@@ -25,12 +25,12 @@ documentclass: report
  
  With the whole world being affected by the pandemic, it's a matter of great importance that studies about the Spatio-temporal aspects of the Covid-19 pandemic should be conducted, by evaluating the number of cases and deaths in different countries accordingly to time in the year 2020, we can contribute with methods to analyze Spatio-temporal behavior in future disease outbreaks.
  
- The main goal of this paper is to present methods used to identify spatial and  spatio-temporal dependence, by using 
+ The main goal of this paper is to present methods used to identify spatial and spatio-temporal dependence by using the Global Moran's I and the Local Moran's I, which is also known as a LISA statistic (Local Indicator of Spatial Association), both being used as indicators of spatial association.
  
  O objetivo deste trabalho será portanto traçar um perfil sobre o comportamento espacial da pandemia causada pela Covid-19 ao utilizar de técnicas estatísticas para quantificação da dependência espacial como o cálculo do índice de Moran global e local $\!\!^4$, além de uma estatística de scan para identificação de *clusters* emergentes do número de casos no espaço-tempo, bem como analisar as políticas adotadas por cada país e o comportamento da pandemia ao longo do tempo.
  
 ## Metodologia
-
+ 
  Para implementação das técnicas estatísticas, cálculo da dependência espacial e uso do banco de dados foi utilizado o software R (versão 4.0.3), o qual contém a biblioteca COVID19 implementada pela *COVID-19 Data Hub* $\!\!^5$, responsável por providenciar um banco de dados unificado e constantemente atualizado, com início em Janeiro de 2020. O banco de dados disponibilizado pela *COVID-19 Data Hub* além de conter diversas fontes de informação diferentes para todos os países em que foi possível a obtenção de dados, também providencia as medidas políticas adotadas de acordo com o tempo durante a pandemia, no entanto há a presença de zeros no banco, mais precisamente na variável de casos recuperados, onde a China por exemplo permaneceu com o número zerado em todos os meses, o motivo não foi explicitado no site da *COVID-19 Data Hub*, no entanto supõe se a ausência ou inacessibilidade dessas informações para os países em que a incongruência ocorreu.
  
  O número acumulado de mortes, casos confirmados e recuperados são disponibilizados pelo banco de dados da *COVID-19 Data Hub*, no entanto como apenas são disponibilizados a quantidade acumulada, foi necessário calcular a quantidade mensal, para cada uma das variáveis, dentre os meses de Janeiro a Outubro. No banco também é disponibilizada a quantidade de habitantes de cada país, portanto para melhor capturar o impacto do Covid-19 em cada localidade a quantidade de casos, recuperados e mortes foram calculadas de acordo com a razão pelo número de habitantes. 
