@@ -19,7 +19,7 @@ linestretch: 1.5
 documentclass: report
 ---
 
-## Introdução {.tabset .tabset-fade .tabset-pills}
+## Introduction {.tabset .tabset-fade .tabset-pills}
    
  At the end of 2019, the situation of infections by Covid-19 *(Sars-Cov-2)* was already being considered an epidemic in the city of Wuhan in China $\!\!^1$, although it was difficult at first to identify the virus' origin, it's known that the Severe Acute Respiratory Syndrome *(SARS)* and the Middle East Respiratory Syndrome *(MERS)* usually need intermediate hosts $\!\!^2$, there is a possibility that bats and pangolins were the first carriers. After several public organizations called for caution relating to Covid-19, on March 12 of 2020 the pandemic state was recognized by the World Health Organization *(WHO)* $\!\!^3$.
  
@@ -29,9 +29,9 @@ documentclass: report
  
 ## Metodologia
  
- The statistical software R (Version 4.0.3) was used to calculate the spatial and the spatio-temporal association, the Covid-19 database used in the study is also available in R, in a package called "COVID19" built by the *COVID-19 Data Hub* $\!\!^1\!^0$...
+ The statistical software R (Version 4.0.3) was used to calculate the spatial and the spatio-temporal association, the Covid-19 database used in the study is also available in R, in a package called "COVID19" built by the *COVID-19 Data Hub* $\!\!^1\!^0$, the database begins in January 2020 and is constantly updated, it also gathers data from various sources of information for all countries in which it was possible to obtain data...
  
- Para implementação das técnicas estatísticas, cálculo da dependência espacial e uso do banco de dados foi utilizado o software R (versão 4.0.3), o qual contém a biblioteca COVID19 implementada pela *COVID-19 Data Hub* $\!\!^5$, responsável por providenciar um banco de dados unificado e constantemente atualizado, com início em Janeiro de 2020. O banco de dados disponibilizado pela *COVID-19 Data Hub* além de conter diversas fontes de informação diferentes para todos os países em que foi possível a obtenção de dados, também providencia as medidas políticas adotadas de acordo com o tempo durante a pandemia, no entanto há a presença de zeros no banco, mais precisamente na variável de casos recuperados, onde a China por exemplo permaneceu com o número zerado em todos os meses, o motivo não foi explicitado no site da *COVID-19 Data Hub*, no entanto supõe se a ausência ou inacessibilidade dessas informações para os países em que a incongruência ocorreu.
+  que foi possível a obtenção de dados, também providencia as medidas políticas adotadas de acordo com o tempo durante a pandemia, no entanto há a presença de zeros no banco, mais precisamente na variável de casos recuperados, onde a China por exemplo permaneceu com o número zerado em todos os meses, o motivo não foi explicitado no site da *COVID-19 Data Hub*, no entanto supõe se a ausência ou inacessibilidade dessas informações para os países em que a incongruência ocorreu.
  
  O número acumulado de mortes, casos confirmados e recuperados são disponibilizados pelo banco de dados da *COVID-19 Data Hub*, no entanto como apenas são disponibilizados a quantidade acumulada, foi necessário calcular a quantidade mensal, para cada uma das variáveis, dentre os meses de Janeiro a Outubro. No banco também é disponibilizada a quantidade de habitantes de cada país, portanto para melhor capturar o impacto do Covid-19 em cada localidade a quantidade de casos, recuperados e mortes foram calculadas de acordo com a razão pelo número de habitantes. 
  
