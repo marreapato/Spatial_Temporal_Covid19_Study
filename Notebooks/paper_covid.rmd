@@ -27,7 +27,7 @@ documentclass: report
  
  The spatial method was calculated by using the Global Moran's I and the Local Moran's I $\!\!^4$, which is also known as a LISA statistic (Local Indicator of Spatial Association), both being used as indicators of spatial association. Spatio-temporal association was evaluated by computing a spatio-temporal Poisson scan statistic, proposed by Kulldorff $\!\!^5$ to identify emerging or "alive" *clusters* in space and time.(later i'll add a few more things regarding two other studies i've found)
  
-## Metodologia
+## Methods
  
  The statistical software R (Version 4.0.3) was used to calculate the spatial and the spatio-temporal association, the Covid-19 database used in the study is also available in R, in a package called "COVID19" built by the *COVID-19 Data Hub* $\!\!^1\!^0$, the database begins in January 2020 and is constantly updated, it also gathers data from various sources of information for all countries in which it was possible to obtain data. The database provides data about political measures adopted by each country during the pandemic, even though that information is not available for all countries included, which is one of the limitations of the database, that lack of data is also be seen in variables such as the number of recovered cases, where China for instance had no recovered cases during the analysis' period of time, since the reason for this was not explicit in the website of *COVID-19 Data Hub*, this paper supposes it was not possible to access data for countries which the information was lacking in the unified database.
 
