@@ -46,11 +46,11 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
  $$W=\sum_{i=1}^{n}\sum_{j=1}^{n}w_{ij}$$
  
 
- The values range from -1 to 1, with the 0 value indicating an absence of spatial autocorrelation, positive values are indicators of positive spatial association, while negative values mean there is an inverse association, since this work seeks to find positive spatial association, the hypothesis tests were built within a 95% confidence level, so that the alternative hypothesis (H1) corresponds to an index higher than zero and the null hypothesis (Ho) to a lack of spatial association, both of which can be written mathematically as Ho=0 and H1>0. The monthly quantities calculated were important to avoid problems of non-stationarity when computing the Global Moran's I, according to Cardoso (2007, p.3, translated from portuguese) "The index loses its validity when calculated for non-stationary data.", in order to validate the index 10,000 simulations were computed in a test of random permutations (*Monte-Carlo*) $\!\!^8$.
+ The values range from -1 to 1, with the 0 value indicating an absence of spatial autocorrelation, positive values are indicators of positive spatial association, while negative values mean there is an inverse association, since this work seeks to find positive spatial association, the hypothesis tests were built within a 95% confidence level, so that the alternative hypothesis (H1) corresponds to an index higher than zero and the null hypothesis (Ho) to a lack of spatial association, both of which can be written mathematically as Ho=0 and H1>0. The monthly quantities were important to avoid problems of non-stationarity when computing the Global Moran's I, according to Cardoso (2007, p.3, translated from portuguese) "The index loses its validity when calculated for non-stationary data.", in order to validate the index 10,000 simulations were computed in a test of random permutations (*Monte-Carlo*) $\!\!^8$.
  
  Whereas the Local Moran's I (*LISA*) is calculated by the following equation (**Equation 2**):
- 
- Já o Índice de Moran local (*LISA*) é calculado pela seguinte equação:
+
+**Equation 2**
  $$I(i) = \frac{x_{i}-\overline x}{s^{2}_{i}}\sum_{j=1}^{n}w_{ij}(x_{j}-\overline{x}), i=1,...,n, j\neq i$$
  Onde $s^{2}_{i}$ é a variância da variável de estudo $x_{i}$:
   $$s^{2}(i) = \frac{\sum_{j=1}^{n}(x_{j}-\overline x)^{2}}{n-1}, i=1,...,n, j\neq i$$
