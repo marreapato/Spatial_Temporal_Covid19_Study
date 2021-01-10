@@ -37,7 +37,7 @@ documentclass: report
  
  To evaluate spatial association during the pandemic, a knn method was used to create spatial polygons and to build spatial weight matrices, which are necessary to calculate the Global Moran's I and the *LISA*. The Global Moran's I is widely used and gathers all spatial dependence in one value $\!\!^6$, while the use of the Local Moran's I is important to identify patterns of spatial association, hence the *LISA* should be used with the Global Moran's I, as it's stated by Maia, Gomes and Almeida (2019, p.930) "while the global Moran's I may suggest, in general, that there is little spatial autocorrelation in the data, LISA values can identify smaller geographic areas where positive or negative clustering occurs." $\!\!^7$.
  
- The Global Moran's I is calculated by the following manner **(Equation 1)**, with $w$ as the spatial weight matrix, $x$ as the values of the studied variable, $n$ as the number of identified polygons and $\overline x$ as the mean or average:
+ The Global Moran's I is calculated as shown in **(Equation 1)**, with $w$ as the spatial weight matrix, $x$ as the values of the studied variable, $n$ as the number of identified polygons and $\overline x$ as the mean or average:
 
 **Equation 1**
 
@@ -52,9 +52,11 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
 
 **Equation 2**
  $$I(i) = \frac{x_{i}-\overline x}{s^{2}_{i}}\sum_{j=1}^{n}w_{ij}(x_{j}-\overline{x}), i=1,...,n, j\neq i$$
- Onde $s^{2}_{i}$ é a variância da variável de estudo $x_{i}$:
+ Where $s^{2}_{i}$ is the variance of the studied variable $x_{i}$:
   $$s^{2}(i) = \frac{\sum_{j=1}^{n}(x_{j}-\overline x)^{2}}{n-1}, i=1,...,n, j\neq i$$
-  Os mapas de correlação local de Moran, os *Boxmaps* e as tabelas de moran global, foram feitas para as variáveis (número de recuperados, casos ou mortes, por exemplo) que atingissem correlação global IM>0,50. Os *Boxmaps* são uma representação cartográfica dos quadrantes do gráfico de dispersão de Moran, onde temos que em Seffrin, Araujo e Bazzi (2018,p.28) os valores AA e BB significam respectivamente que essas áreas possuem valores altos rodeadas por áreas que apresentam valores também altos e valores baixos da variável de interesse, rodeadas por áreas que apresentam valores baixos, o valor BA representa áreas com valor baixo rodeada de outras áreas com valores altos, já o AB é o contrário, são regiões com valores altos próximas de locais com valores baixos.
+  The maps for the Local Moran's I, *Boxmaps* and Global Moran's I tables, were built for variables (number of cases and deaths) which achieved a global index IM>0.50.
+  
+   Os *Boxmaps* são uma representação cartográfica dos quadrantes do gráfico de dispersão de Moran, onde temos que em Seffrin, Araujo e Bazzi (2018,p.28) os valores AA e BB significam respectivamente que essas áreas possuem valores altos rodeadas por áreas que apresentam valores também altos e valores baixos da variável de interesse, rodeadas por áreas que apresentam valores baixos, o valor BA representa áreas com valor baixo rodeada de outras áreas com valores altos, já o AB é o contrário, são regiões com valores altos próximas de locais com valores baixos.
   
 #### A estatística de Scan Poisson
 
