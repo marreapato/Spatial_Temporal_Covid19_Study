@@ -55,13 +55,16 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
  Where $s^{2}_{i}$ is the variance of the studied variable $x_{i}$:
   $$s^{2}(i) = \frac{\sum_{j=1}^{n}(x_{j}-\overline x)^{2}}{n-1}, i=1,...,n, j\neq i$$
   
-  Maps for the Local Moran's I, *Boxmaps* and Global Moran's I tables, were built for variables (number of cases and deaths) which achieved a global index IM>0.50. Boxmaps are cartographic representations of the Moran scatter plot, in which according to Seffrin, Araujo e Bazzi (2018,p.28) the HH means that the identified locations have high index values and are neighboring other areas of high value, the LL values means that areas identified with low values are surrounding areas with low values...
+  Maps for the Local Moran's I, *Boxmaps* and Global Moran's I tables, were built for variables (number of cases and deaths) which achieved a global index IM>0.50. Boxmaps are cartographic representations of the Moran scatter plot, in which according to Seffrin, Araujo e Bazzi (2018,p.28) the HH means that the identified locations have high index values and are close to other areas of high value, the LL value means that areas identified with low values are surrounded by areas with low values, the LH value represents areas with a low value surrounded by other areas with high values, while HL is the opposite, they are regions with high values close to locations with low values.
   
- os valores AA e BB significam respectivamente que essas áreas possuem valores altos rodeadas por áreas que apresentam valores também altos e valores baixos da variável de interesse, rodeadas por áreas que apresentam valores baixos, o valor BA representa áreas com valor baixo rodeada de outras áreas com valores altos, já o AB é o contrário, são regiões com valores altos próximas de locais com valores baixos.
-  
-#### A estatística de Scan Poisson
+#### The Scan Poisson statistc
 
- Em busca de identificar *clusters* emergentes no espaço-tempo, o método retrospectivo proposto por Kulldorff, aqui utilizada supondo uma distribuição de probabilidade poisson $\!\!^1\!^0$ (citação colocar traduzida kulldorff) "To detect emerging geographical clusters due to some suddenly occurring risk factor quickly can be of great public health importance. It can be used to detect previously unknown diseases, previously unknown risk factors for known diseases or the previously unknown local existence of known risk factors"(continuar escrevendo...)
+ 
+ Em busca de identificar *clusters* emergentes no espaço-tempo, o método prospectivo proposto por Kulldorff $\!\!^5$ foi utilizado supondo uma distribuição de probabilidade poisson. A estatística de scan puramente espacial $\!\!^1\!^1$, cria várias janelas circulares em diversas localidades no mapa, cada uma com diferentes grupos de áreas vizinhas, sendo cada uma dessas janelas circulares flexíveis em suas duas dimensões de tamanho e localidade, podendo ou não conter um *cluster* de eventos. A estatística de scan é definida como a razão de verossimilhança sobre todos os possíveis círculos e ao ser maximizada identifica o que constitui o *cluster* mais provável, o *p*-valor é obtido pelo teste de hipótese de *Monte-Carlo*.
+ 
+ Em contrapartida a estatística de scan puramente espacial a estatística de scan espaço-temporal cria janelas cilíndricas em três dimensões, onde a altura do cilindro representa o tempo, os cilindros são flexíveis em suas bases circulares e em suas datas de início, portanto para cada janela circular uma possível data para o início do *cluster* é considerada, em que apenas os *clusters* ativos, ou seja, os cilindros que chegarem ao final do período de estudo são considerados, o teste da razão de máxima verossimilhança é calculado da mesma maneira que na estatística puramente espacial. 
+ 
+ O uso da estatística de scan espaço temporal é indicado, pois para identificar *clusters* emergentes a estatística puramente espacial pode apresentar limitações, como evidenciado em Kulldorff (2001, p. 66) se fizermos uma análise puramente especial por um período extensivo de tempo, nós temos pouco poder para detectar *clusters* emergentes, a solução portanto seria usar uma estatística de scan espaço-temporal.
 
 
 ## Resultados
