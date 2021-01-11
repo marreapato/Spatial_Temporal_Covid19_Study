@@ -25,7 +25,7 @@ documentclass: report
  
  With the whole world being affected by the pandemic, it's a matter of great importance that studies about the spatio-temporal aspects of the Covid-19 pandemic should be conducted, the main goal of this paper is to present methods used to identify spatial and spatio-temporal dependence in the number of infections and deaths caused by Sars-Cov-2 in different countries according to time in 2020, so these techniques may be used in future or hypothetical situations where is necessary to investigate the behavior of a pathogen agent in space and time.
  
- The spatial method was calculated by using the Global Moran's I and the Local Moran's I $\!\!^4$, which is also known as a LISA statistic (Local Indicator of Spatial Association), both being used as indicators of spatial association. Spatio-temporal association was evaluated by computing a spatio-temporal Poisson scan statistic, proposed by Kulldorff $\!\!^5$ to identify emerging or "alive" *clusters* in space and time.(later i'll add a few more things regarding two other studies i've found)
+ The spatial method was calculated by using the Global Moran's I and the Local Moran's I $\!\!^4$, which is also known as a LISA statistic (Local Indicator of Spatial Association), both being used as indicators of spatial association. Spatio-temporal association was evaluated by computing a spatio-temporal Poisson scan statistic, proposed by Kulldorff $\!\!^5$ to identify emerging or "alive" *clusters* in space and time.
  
 ## Methods
  
@@ -63,12 +63,9 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
  
  In opposition to the purely spatial scan statistic, the spatio-temporal scan statistic creates cylindrical windows in three dimensions, where the height is a representation of time, the cylinders are flexible in their circular bases and initial dates, hence only "alive" *clusters*, the ones which cylinders achieved the end of the study period are considered, the maximum likelihood ratio tests are conducted the same way as they are in the purely spatial scan statistic.
  
- The use of a spatio-temporal scan statistic is useful to identify emerging *clusters*, since the purely spatial scan statistic has a few limitations as it's pointed by Kulldorff (2001, p. 66), by conducting a purely spatial analysis for a long period of time
- 
-  (2001, p. 66) se fizermos uma análise puramente especial por um período extensivo de tempo, nós temos pouco poder para detectar *clusters* emergentes, a solução portanto seria usar uma estatística de scan espaço-temporal.
+ Spatio-temporal scan statistics are useful to identify emerging *clusters*, since purely spatial scan statistics have a few limitations as it's pointed by Kulldorff (2001, p. 66), there is little power to detect emerging *clusters* when conducting a purely spatial analysis for a long period of time, therefore the solution would be to use a spatio-temporal scan statistic. 
 
-
-## Resultados
+## Results
 
  A partir do mês de Abril, o número acumulado de mortes por habitante apresentou uma correlação espacial no índice de Moran global (IM>0,50; P-valor<0,05) que se manteve em um alto patamar de correlação até o mês de Julho. Referente ao índice de Moran calculado para o número mensal de mortes por habitante, no mês de Abril o índice de Moran global (IM=0,72; P-valor<0,05) apresentou um alto patamar de dependência **(Tabela - 1)**, apresentando uma leve queda nos meses subsequentes em relação a Abril.
  
@@ -109,3 +106,6 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
 [5] - Kulldorff, M. (2001). Prospective time periodic geographical disease surveillance using a scan statistic. Journal of the Royal Statistical Society: Series A (Statistics in Society), 164(1), 61–72. doi:10.1111/1467-985x.00186 
 
 ( Os países que não tiveram casos confirmados, ou que não estivessem no banco da *COVID-19 Data Hub*, não tiveram seus territórios presentes nos mapas.)-> vou usar
+
+(later i'll add a few more things regarding two other studies i've found)
+ 
