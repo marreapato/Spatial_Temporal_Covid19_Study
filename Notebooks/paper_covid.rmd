@@ -71,7 +71,7 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
  
  Considering the number of deaths per inhabitant, when identifying local spatial autocorrelation with the Local Moran's I  **(Picture 1)** after April, month with the highest Global Moran's I, spatial dependence was strong in Europe, South America and North America, with little difference in maps throughout the year. For the number of infections per inhabitant, after October, which was the first month with a high global dependence, local association was strong in Europe until the end of the year.
  
- The Spatio-Temporal Scan statistic was only computed for the number of cumulative cases during the pandemic, the method to calculate spatio-temporal *clusters* showed itself to be way more computer intensive than the calculation of the Global Moran's I and the *Lisa*. But the Spatio-Temporal Scan statistic also was efficient to identify emerging *clusters* in space and time, with most of the locations in October and November also identified in the Local Moran's I for these months.
+ The Spatio-Temporal Scan statistic was only computed for the number of cumulative cases during the pandemic, the method to calculate spatio-temporal *clusters* showed itself to be way more computer intensive than the calculation of the Global Moran's I and the *LISA*. But the Spatio-Temporal Scan statistic also was efficient to identify emerging *clusters* in space and time, with most of the locations in October and November also identified in the Local Moran's I for these months.
  
 ## Discussion
 (here)
@@ -101,5 +101,3 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
 [9] - Max Roser, Hannah Ritchie, Esteban Ortiz-Ospina and Joe Hasell (2020) - “Coronavirus Pandemic (COVID-19)”. Published online at OurWorldInData.org. Retrieved from: ‘https://ourworldindata.org/coronavirus’ [Online Resource]. Acesso em: 24/11/2020.
 
 [5] - Kulldorff, M. (2001). Prospective time periodic geographical disease surveillance using a scan statistic. Journal of the Royal Statistical Society: Series A (Statistics in Society), 164(1), 61–72. doi:10.1111/1467-985x.00186 
-
- 
