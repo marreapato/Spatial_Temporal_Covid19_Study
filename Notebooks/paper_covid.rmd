@@ -1,5 +1,5 @@
 ---
-title: "Covid-19 A Spatio-Temporal Investigation."
+title: "Applying Spatio-temporal Scan Statistics and Spatial Autocorrelation Statistics to identify Covid-19 clusters in the world."
 author: "Lucas Rabelo"
 output:
   pdf_document:
@@ -68,12 +68,10 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
 ## Results
 
  When calculated for the number of deaths per inhabitant in each country **(Table 1)**, the highest index of global spatial association was achieved in April (IM=0.72; P-value<0.05), other months identified with high Global Moran's I values were November (IM=0.69; P-value<0.05) and December (IM=0.70; P-value<0.05). Whereas when computed for the number of infections per inhabitant caused by Covid-19 **(Table 2)**, the highest values for the Global Moran's I were found in October (IM=0.60; P-value<0.05), November (IM=0.67; P-value<0.05) and December (IM=0.58; P-value<0.05).
-
- Os índices locais de Moran para o número acumulado de mortes por habitante e para a quantidade mensal, dão um indicativo de uma grande dependência espacial entre a parte ocidental da Europa, América do Norte e América do Sul, havendo poucas diferenças entre os mapas de correlação local ao longo dos meses. 
  
- A média móvel semanal da quantidade de casos por dia apresentou crescimento de Janeiro à Outubro, no mundo, na Europa e na América do Norte e Central, decaindo apenas na América do Sul, no entanto, a média semanal do número de mortes por dia apresentou uma variabilidade maior, porém com aumento em todas as localidades até o mês de outubro, sendo o aumento de maior impacto na Europa após uma brusca queda no número diário de falecidos pela Covid-19.
+ Considering the number of deaths per inhabitant, when identifying local spatial autocorrelation with the Local Moran's I  **(Picture 1)** after April, month with the highest Global Moran's I, spatial dependence was strong in Europe, South America and North America, with little difference in maps throughout the year. For the number of infections per inhabitant, after October, which was the first month with a high global dependence, local association was strong in Europe until the end of the year.
  
- Até o mês de Julho referente ao número cumulativo de morte por quantidade de casos o Iémen foi o país com maior número de mortos por infectados, chegando a um falecimento de 29% dos contagiados pelo Covid-19, no geral as Américas, a África, a Europa, a Ásia e a Oceania agiram de maneiras muito similares no quesito referente ao fechamento internacional de fronteiras no começo da pandemia. Dentre os continentes em que foi identificada dependência espacial sobre o número mensal de mortes por habitantes, de Fevereiro a Julho, houve similaridades nas políticas de rastreamento de casos, obrigação para ficar em casa e restrição de multidões.
+ 
  
 ## Discussão
 
