@@ -54,7 +54,8 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
  $$I(i) = \frac{x_{i}-\overline x}{s^{2}_{i}}\sum_{j=1}^{n}w_{ij}(x_{j}-\overline{x}), i=1,...,n, j\neq i$$
  Where $s^{2}_{i}$ is the variance of the studied variable $x_{i}$:
   $$s^{2}(i) = \frac{\sum_{j=1}^{n}(x_{j}-\overline x)^{2}}{n-1}, i=1,...,n, j\neq i$$
-  The maps for the Local Moran's I, *Boxmaps* and Global Moran's I tables, were built for variables (number of cases and deaths) which achieved a global index IM>0.50.
+  
+  Maps for the Local Moran's I, *Boxmaps* and Global Moran's I tables, were built for variables (number of cases and deaths) which achieved a global index IM>0.50. Boxmaps are cartographic representations of the Moran scatter plot, in which according to Seffrin, Araujo e Bazzi (2018,p.28) 
   
    Os *Boxmaps* são uma representação cartográfica dos quadrantes do gráfico de dispersão de Moran, onde temos que em Seffrin, Araujo e Bazzi (2018,p.28) os valores AA e BB significam respectivamente que essas áreas possuem valores altos rodeadas por áreas que apresentam valores também altos e valores baixos da variável de interesse, rodeadas por áreas que apresentam valores baixos, o valor BA representa áreas com valor baixo rodeada de outras áreas com valores altos, já o AB é o contrário, são regiões com valores altos próximas de locais com valores baixos.
   
