@@ -75,8 +75,9 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
  
 ## Discussion
   
-  In April global cases of Covid-19 reached 1 million, in the same month the world also reached 3 million cases $\!\!^1\!^0$, with an exponential growth in the number of infections, the Global Moran's I was also very high for the number of deaths per inhabitant, while local spatial association was strong only in Europe, the boxmap **(Picture 3)** shows that all areas identified with local dependence for the number of deaths per inhabitant were either HH (High-High) clusters in April or HL (High-Low) clusters after April, which means that generally locations with a high number of deaths were close to other areas that also had a high number of deaths.
+  In April global cases of Covid-19 reached 1 million, in the same month the world also reached 3 million cases $\!\!^3$, with an exponential growth in the number of infections, the Global Moran's I was also very high for the number of deaths per inhabitant, while local spatial association was strong only in Europe, the boxmap **(Picture 3)** shows that all areas identified with local dependence for the number of deaths per inhabitant were either HH (High-High) clusters in April or HL (High-Low) clusters after April, which means that in general locations with a high number of deaths were close to other areas that also had a high number of deaths.
 
+  
 
 ## Conclusion
  
@@ -86,7 +87,8 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
 
 [2] - Tao Zhang, Qunfu Wu, Zhigang Zhang, Probable Pangolin Origin of SARS-CoV-2 Associated with the COVID-19 Outbreak, Current Biology, Volume 30, Issue 7, 2020, Pages 1346-1351.e2, ISSN 0960-9822, https://doi.org/10.1016/j.cub.2020.03.022.
 
-[3] - WHO announces COVID-19 outbreak a pandemic. World Health Organization Regional Office for Europe. [S.l.]. Publicado em: 12/03/2020. <https://www.euro.who.int/en/health-topics/health-emergencies/coronavirus-covid-19/news/news/2020/3/who-announces-covid-19-outbreak-a-pandemic>. Acesso em: 24/11/2020.
+[3] -  Brodeur, *et al*. (2020): A Literature Review of the Economics of COVID-19, GLO Discussion Paper, No. 601, GlobalLabor Organization (GLO), Essen. Available at: http://hdl.handle.net/10419/222316
+
 
 [4] -CARDOSO, Carlos Eduardo de Paiva. Dependência Espacial, Setores Censitários, Zonas OD, Distritos, Sub Prefeituras e etc. [S.l]. Publicado em: 06/09/2007. <http://www.sinaldetransito.com.br/artigos/espacial.pdf>. Acesso em: 24/11/2020.
 
@@ -100,4 +102,4 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
 
 [9] - SEFFRIN, R.; ARAUJO, E. C.; BAZZI, C. L.. Análise espacial de área aplicada a produtividade de soja na região oeste do Paraná utilizando o software R. R. bras. Geom., Curitiba, v. 6, n. 1, p. 23-43, jan/mar.2018. Disponível em: <https://periodicos.utfpr.edu.br/rbgeo/article/view/5912>. Acesso em: 24/11/2020.DOI: 10.3895/rbgeo.v6n1.5912
 
-[10] - Brodeur, *et al*. (2020): A Literature Review of the Economics of COVID-19, GLO Discussion Paper, No. 601, GlobalLabor Organization (GLO), Essen. Available at: http://hdl.handle.net/10419/222316
+[10] -
