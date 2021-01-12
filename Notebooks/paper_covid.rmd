@@ -71,7 +71,7 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
  
  Considering the number of deaths per inhabitant, when identifying local spatial autocorrelation with the Local Moran's I  **(Picture 1)** after April, month with the highest Global Moran's I, spatial dependence was strong in Europe, South America and North America, with little difference in maps throughout the year. For the number of infections per inhabitant, after October, which was the first month with a high global dependence, local association was strong in Europe until the end of the year **(Picture 2)**.
  
- The Spatio-Temporal Scan statistic was only computed for the number of cumulative cases during the pandemic, the method to calculate spatio-temporal *clusters* showed itself to be way more computer intensive than the calculation of the Global Moran's I and the *LISA*. But the Spatio-Temporal Scan statistic also was efficient to identify emerging *clusters* in space and time, with most of the locations in October and November also identified in the Local Moran's I for these months.
+ The Spatio-Temporal Scan statistic was only computed for the number of cumulative cases during the pandemic **(Table 3)**, the method to calculate spatio-temporal *clusters* showed itself to be way more computer intensive than the calculation of the Global Moran's I and the *LISA*. But the Spatio-Temporal Scan statistic also was efficient to identify emerging *clusters* in space and time, with most of the locations in October and November also identified in the Local Moran's I for these months.
  
 ## Discussion
   
