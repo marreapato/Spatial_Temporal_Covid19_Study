@@ -21,7 +21,7 @@ documentclass: report
 
 ## Introduction {.tabset .tabset-fade .tabset-pills}
    
- At the end of 2019, the situation of infections by Covid-19 *(Sars-Cov-2)* was already being considered an epidemic in the city of Wuhan in China $\!\!^1$, although it was difficult at first to identify the virus' origin, it's known that the Severe Acute Respiratory Syndrome *(SARS)* and the Middle East Respiratory Syndrome *(MERS)* usually need intermediate hosts $\!\!^2$, there is a possibility that bats and pangolins were the first carriers. After several public organizations called for caution relating to Covid-19, on March 12 of 2020 the pandemic state was recognized by the World Health Organization *(WHO)* $\!\!^3$.
+ At the end of 2019, the situation of infections by Covid-19 *(Sars-Cov-2)* was already being considered an epidemic in the city of Wuhan in China $\!\!^1$, although it was difficult at first to identify the virus' origin, it's known that the Severe Acute Respiratory Syndrome *(SARS)* and the Middle East Respiratory Syndrome *(MERS)* usually need intermediate hosts $\!\!^2$, there is a possibility that bats and pangolins were the first carriers. After several public organizations called for caution relating to Covid-19, on March 11 of 2020 the pandemic state was recognized by the World Health Organization *(WHO)* $\!\!^3$.
  
  With the whole world being affected by the pandemic, it's a matter of great importance that studies about the spatio-temporal aspects of the Covid-19 pandemic should be conducted, the main goal of this paper is to present methods used to identify spatial and spatio-temporal dependence in the number of infections and deaths caused by Sars-Cov-2 in different countries according to time in 2020, so these techniques may be used in future or hypothetical situations where is necessary to investigate the behavior of a pathogen agent in space and time.
  
@@ -59,7 +59,7 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
   
 #### The Poisson Scan Statistc
 
-  The prospective scan statistic proposed by Kulldorff $\!\!^5$ was chosen to identify emerging spatio-temporal *clusters* in the cumulative number of cases for each month, to apply the technique it was considered that the data follows a Poisson distribution. The purely spatial scan statistic $\!\!^1\!^1$ creates a wide variety of circular windows in different locations throughout the map, each one with a specific group of neighboring areas, all of these circular windows are also flexible in their two dimensions, size and locality, and may or not contain a *cluster* of events. A scan statistic is defined as the likelihood ratio over all possible circles and when maximized identifies the one which constitutes the most likely *cluster*, the *p*-value is obtained through the *Monte-Carlo* hypothesis test.
+  The prospective scan statistic proposed by Kulldorff $\!\!^5$ was chosen to identify emerging spatio-temporal *clusters* in the cumulative number of cases for each month, to apply the technique it was considered that the data follows a Poisson distribution. The purely spatial scan statistic creates a wide variety of circular windows in different locations throughout the map, each one with a specific group of neighboring areas, all of these circular windows are also flexible in their two dimensions, size and locality, and may or not contain a *cluster* of events. A scan statistic is defined as the likelihood ratio over all possible circles and when maximized identifies the one which constitutes the most likely *cluster*, the *p*-value is obtained through the *Monte-Carlo* hypothesis test.
  
  In opposition to the purely spatial scan statistic, the spatio-temporal scan statistic creates cylindrical windows in three dimensions, where the height is a representation of time, the cylinders are flexible in their circular bases and initial dates, hence only "alive" *clusters*, the ones which cylinders achieved the end of the study period are considered, the maximum likelihood ratio tests are conducted the same way as they are in the purely spatial scan statistic.
  
@@ -74,11 +74,11 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
  The Spatio-Temporal Scan statistic was only computed for the number of cumulative cases during the pandemic, the method to calculate spatio-temporal *clusters* showed itself to be way more computer intensive than the calculation of the Global Moran's I and the *LISA*. But the Spatio-Temporal Scan statistic also was efficient to identify emerging *clusters* in space and time, with most of the locations in October and November also identified in the Local Moran's I for these months.
  
 ## Discussion
-(here)
+  
+  In April global cases of Covid-19 reached 1 million, in the same month the world also reached 3 million cases $\!\!^1\!^0$, with an exponential growth in the number of infections, the Global Moran's I was also very high for the number of deaths per inhabitant, while local spatial association was strong only in Europe, the boxmap **(Picture 3)** shows that all areas identified with local dependence for the number of deaths per inhabitant were either HH (High-High) clusters in April or HL (High-Low) clusters after April, which means that generally locations with a high number of deaths were close to other areas that also had a high number of deaths.
+
 
 ## Conclusion
-
- (Here)
  
 ## Referências
 
@@ -94,8 +94,10 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
 
 [6] - Guidotti, E., Ardia, D., (2020), “COVID-19 Data Hub”, Journal of Open Source Software 5(51):2376, doi: 10.21105/joss.02376.
 
-[7] - BRAGA, Altemir da Silva. et al. Estudo de Dependência Espacial utilizando Análise de Dados de Área Aplicada na Mesorregião Metropolitana de Belo Horizonte por meio do Indicador Econômico PIB. 19ª SINAPE.  [S.l.]. 2010,  Disponível em: <http://www2.ime.unicamp.br/sinape/sites/default/files/Resumo%20expandido%20SINAPE.pdf>. Acesso em: 24/11/2020.
+[7] - BRAGA, Altemir da Silva.*et al*. Estudo de Dependência Espacial utilizando Análise de Dados de Área Aplicada na Mesorregião Metropolitana de Belo Horizonte por meio do Indicador Econômico PIB. 19ª SINAPE.  [S.l.]. 2010,  Disponível em: <http://www2.ime.unicamp.br/sinape/sites/default/files/Resumo%20expandido%20SINAPE.pdf>. Acesso em: 24/11/2020.
 
 [8] - MAIA, André Luis Santiago; GOMES, Gecynalda Soares da Silva; ALMEIDA, Isabelle Galdino de. SPATIAL STUDY OF INCIDENCE RATES OF OCCUPATIONAL ACCIDENTS IN BRAZIL FROM 2002 TO 2012. REVISTA BRASILEIRA DE BIOMETRIA, [S.l.], v. 36, n. 4, p. 927-941, dec. 2018. ISSN 1983-0823. Available at: <http://www.biometria.ufla.br/index.php/BBJ/article/view/322>. Date accessed: 24 nov. 2020. doi: https://doi.org/10.28951/rbb.v36i4.322.    
 
 [9] - SEFFRIN, R.; ARAUJO, E. C.; BAZZI, C. L.. Análise espacial de área aplicada a produtividade de soja na região oeste do Paraná utilizando o software R. R. bras. Geom., Curitiba, v. 6, n. 1, p. 23-43, jan/mar.2018. Disponível em: <https://periodicos.utfpr.edu.br/rbgeo/article/view/5912>. Acesso em: 24/11/2020.DOI: 10.3895/rbgeo.v6n1.5912
+
+[10] - Brodeur, *et al*. (2020): A Literature Review of the Economics of COVID-19, GLO Discussion Paper, No. 601, GlobalLabor Organization (GLO), Essen. Available at: http://hdl.handle.net/10419/222316
