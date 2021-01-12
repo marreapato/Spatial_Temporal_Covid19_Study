@@ -75,13 +75,13 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
  
 ## Discussion
   
-  In April global cases of Covid-19 reached 1 million, in the same month the world also reached 3 million cases $\!\!^3$, with an exponential growth in the number of infections, the Global Moran's I was also very high for the number of deaths per inhabitant, while local spatial association was strong only in Europe, the boxmap **(Picture 3)** shows that all areas identified with local dependence for the number of deaths per inhabitant were either HH (High-High) clusters in April or HL (High-Low) clusters after April, which means that in general locations with a high number of deaths were close to other areas that also had a high number of deaths.
+  In April global cases of Covid-19 reached 1 million, in the same month the world also reached 3 million cases $\!\!^3$, with an exponential growth in the number of infections, the Global Moran's I was also very high for the number of deaths per inhabitant, while local spatial association was strong only in Europe, the boxmap **(Picture 3)** shows that all areas identified with local dependence for the number of deaths per inhabitant were either HH (High-High) clusters in April or HL (High-Low) clusters after April, which means that in general locations with a high number of deaths were close to other areas that also had a high number of deaths. Even though April was a very concerning month to the international community, global spatial autocorrelation on the number of cases per inhabitant only started to grow higher than IM>0.50 in October,
 
   
 
 ## Conclusion
  
-## Referências
+## Bibliography
 
 [1] - Muhammad Adnan Shereen, Suliman Khan, Abeer Kazmi, Nadia Bashir, Rabeea Siddique, COVID-19 infection: Origin, transmission, and characteristics of human coronaviruses, Journal of Advanced Research, Volume 24, 2020, Pages 91-98, ISSN 2090-1232, https://doi.org/10.1016/j.jare.2020.03.005.
 
