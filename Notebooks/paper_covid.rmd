@@ -83,7 +83,7 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
 
 ## Conclusion
 
- Both the Poisson Scan Statistic proposed by Kulldorff, the Global and the Local Moran's I were already used before in studies about spatial and Spatio-temporal characteristics of Sars-CoV-2, whereas the Scan Statistic for instance was used once in studies about the Spatio-temporal behavior of Covid-19 in the state of Sergipe in Brazil, while both the Global Moran's I and the LISA were used in Chinese studies regarding the spatial characteristics of the pandemic in China, in this paper these methods showed themselves to be useful when there is a need to study spatial and Spatio-temporal characteristics of a virus.
+ Both the Poisson Scan Statistic proposed by Kulldorff, the Global and the Local Moran's I were already used before in studies about spatial and Spatio-temporal characteristics of Sars-CoV-2, whereas the Scan Statistic for instance was used once in studies about the Spatio-temporal behavior of Covid-19 in the state of Sergipe in Brazil $\!\!^1\!^0$, while both the Global Moran's I and the LISA were used in Chinese studies regarding the spatial characteristics of the pandemic in China  $\!\!^1\!^1$, in this paper these methods showed themselves to be useful when there is a need to study spatial and Spatio-temporal characteristics of a virus.
  
  While the Global Moran's I could be used with great success to identify the spatial association in smaller areas affected by the virus and help in decision making while dealing with local outbreaks, the LISA would be useful not only to identify with more precision where the spatial association is occurring but it also should be used when the goal is to control Covid-19 outbreaks in larger areas. The Spatio-Temporal Scan Statistic should be used when trying to identify "alive" clusters and their initial date, therefore it would be a great tool in decision making when dealing not only with Covid-19 but with other disease outbreaks.
   
@@ -108,3 +108,9 @@ $$Im = \frac{n\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{i}-\overline{x})(x_{j}-\overline{x
 [8] - MAIA, André Luis Santiago; GOMES, Gecynalda Soares da Silva; ALMEIDA, Isabelle Galdino de. SPATIAL STUDY OF INCIDENCE RATES OF OCCUPATIONAL ACCIDENTS IN BRAZIL FROM 2002 TO 2012. REVISTA BRASILEIRA DE BIOMETRIA, [S.l.], v. 36, n. 4, p. 927-941, dec. 2018. ISSN 1983-0823. Available at: <http://www.biometria.ufla.br/index.php/BBJ/article/view/322>. Date accessed: 24 nov. 2020. doi: https://doi.org/10.28951/rbb.v36i4.322.    
 
 [9] - SEFFRIN, R.; ARAUJO, E. C.; BAZZI, C. L.. Análise espacial de área aplicada a produtividade de soja na região oeste do Paraná utilizando o software R. R. bras. Geom., Curitiba, v. 6, n. 1, p. 23-43, jan/mar.2018. Disponível em: <https://periodicos.utfpr.edu.br/rbgeo/article/view/5912>. Acesso em: 24/11/2020.DOI: 10.3895/rbgeo.v6n1.5912
+
+[10] - ANDRADE, Lucas Almeida et al. Surveillance of the first cases of COVID-19 in Sergipe using a prospective spatiotemporal analysis: the spatial dispersion and its public health implications. Rev. Soc. Bras. Med. Trop. [online]. 2020, vol.53 [cited  2021-01-13], e20200287. Available from: <http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0037-86822020000100641&lng=en&nrm=iso>.  Epub June 01, 2020. ISSN 1678-9849.  https://doi.org/10.1590/0037-8682-0287-2020
+
+[11] - Dayun Kang, Hyunho Choi, Jong-Hun Kim, Jungsoon Choi,
+Spatial epidemic dynamics of the COVID-19 outbreak in China,
+International Journal of Infectious Diseases, Volume 94, 2020, Pages 96-102, ISSN 1201-9712, Available at: <https://www.sciencedirect.com/science/article/pii/S1201971220302095>. https://doi.org/10.1016/j.ijid.2020.03.076.
