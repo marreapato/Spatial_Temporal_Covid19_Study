@@ -94,6 +94,9 @@ nacovid <- nacovid %>% filter(vaccines>=1)
 #Vacina efeito de longo tempo
 cor.test(nacovid$vaccines,nacovid$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
+can <- ggplot(nacovid, aes(nacovid$Daily_cases, nacovid$vaccines)) + geom_point() +theme_few() +
+  labs(title="Canada \n(cor = -0.8718; CI = (-0.9360,-0.7517); p<0.0001)",x="",y="")
+can
 
 #Paises
 
