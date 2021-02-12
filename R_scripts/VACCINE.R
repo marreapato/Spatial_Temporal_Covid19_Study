@@ -1,7 +1,9 @@
 install.packages("COVID19")
 install.packages("tidyverse")
+install.packages("ggthemes")
 library(COVID19)
 library(tidyverse)
+library(ggthemes)
 
 covid <- covid19(raw=F)
 #27218 <- one
@@ -52,10 +54,13 @@ ncovid <- cbind(covid,"Daily_cases"=case_daily,"Daily_deaths"=deaths_daily,"Dail
 #Tests
 nacovid <- ncovid %>% filter(id=="GBR")
 nacovid <- nacovid %>% filter(vaccines>=1)
-
+options(scipen=999)
 #Vacina efeito de longo tempo
 cor.test(nacovid$vaccines,nacovid$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
+uk <- ggplot(nacovid, aes(nacovid$Daily_cases, nacovid$vaccines)) + geom_point() +theme_few() +
+  labs(title="United Kingdom",x="",y="")
+uk
 
 #Paises
 
@@ -66,6 +71,9 @@ nacovid <- nacovid %>% filter(vaccines>=1)
 cor.test(nacovid$vaccines,nacovid$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
 
+us <- ggplot(nacovid, aes(nacovid$Daily_cases, nacovid$vaccines)) + geom_point() +theme_few() +
+  labs(title="United States \n(cor = -0.7638; CI = (-0.8557,-0.6253); p<0.0001)",x="",y="")
+us
 #Paises
 
 nacovid <- ncovid %>% filter(id=="RUS")
@@ -104,13 +112,15 @@ plot(nacovid$Daily_cases~nacovid$vaccines)
 
 #Paises
 
-nacovid <- ncovid %>% filter(id=="LVA")
+nacovid <- ncovid %>% filter(id=="IND")
 nacovid <- nacovid %>% filter(vaccines>=1)
 
 #Vacina efeito de longo tempo
 cor.test(nacovid$vaccines,nacovid$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
 
+#owid data
 
+data <- read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv")
 
-
+#OS DADOS DIARIOS SAO OS MESMOS.
