@@ -133,7 +133,8 @@ nacovid <- nacovid %>% filter(vaccines>=1)
 cor.test(nacovid$vaccines,nacovid$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
 
-grid.arrange(uk,us,can,rus,irl,ltu,top="Correlação entre vacinados e casos diários",nrow=2,ncol=3)
+#grid.arrange(uk,us,can,rus,irl,ltu,top="Correlação entre vacinados e casos diários",nrow=2,ncol=3)
+
 
 #owid data
 
