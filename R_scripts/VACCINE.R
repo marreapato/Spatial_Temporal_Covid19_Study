@@ -59,7 +59,7 @@ options(scipen=999)
 cor.test(nacovid$vaccines,nacovid$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
 uk <- ggplot(nacovid, aes(nacovid$Daily_cases, nacovid$vaccines)) + geom_point() +theme_few() +
-  labs(title="United Kingdom",x="",y="")
+  labs(title="United Kingdom \n(cor = -0.6688; CI = (-0.7871,-0.5031); p<0.0001)",x="",y="")
 uk
 
 #Paises
@@ -82,6 +82,9 @@ nacovid <- nacovid %>% filter(vaccines>=1)
 #Vacina efeito de longo tempo
 cor.test(nacovid$vaccines,nacovid$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
+rus <- ggplot(nacovid, aes(nacovid$Daily_cases, nacovid$vaccines)) + geom_point() +theme_few() +
+  labs(title="Russia \n(cor = -0.8032; CI = (-0.8780,-0.6900); p<0.0001)",x="",y="")
+rus
 
 #Paises
 
