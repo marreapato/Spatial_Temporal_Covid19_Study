@@ -106,6 +106,9 @@ nacovid <- nacovid %>% filter(vaccines>=1)
 #Vacina efeito de longo tempo
 cor.test(nacovid$vaccines,nacovid$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
+irl <- ggplot(nacovid, aes(nacovid$Daily_cases, nacovid$vaccines)) + geom_point() +theme_few() +
+  labs(title="Ireland \n(cor = -0.7967; CI = (-0.8844,-0.6546); p<0.0001)",x="",y="")
+irl
 
 #Paises
 
@@ -115,6 +118,9 @@ nacovid <- nacovid %>% filter(vaccines>=1)
 #Vacina efeito de longo tempo
 cor.test(nacovid$vaccines,nacovid$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
+ltu <- ggplot(nacovid, aes(nacovid$Daily_cases, nacovid$vaccines)) + geom_point() +theme_few() +
+  labs(title="Lithuania \n(cor = -0.7626; CI = (-0.8603,-0.6108); p<0.0001)",x="",y="")
+ltu
 
 #Paises
 
