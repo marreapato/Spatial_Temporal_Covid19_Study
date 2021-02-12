@@ -1,10 +1,12 @@
 install.packages("COVID19")
 install.packages("tidyverse")
 install.packages("ggthemes")
+install.packages("gridExtra")
+library(gridExtra)
 library(COVID19)
 library(tidyverse)
 library(ggthemes)
-
+library(ggarrange)
 covid <- covid19(raw=F)
 #27218 <- one
 #recomendou fechar (1) e n fechou (0) serao 0
@@ -63,7 +65,7 @@ uk <- ggplot(nacovid, aes(nacovid$Daily_cases, nacovid$vaccines)) + geom_point()
 uk
 
 #Paises
-
+par(mfrow=c(4,2))
 nacovid <- ncovid %>% filter(id=="USA")
 nacovid <- nacovid %>% filter(vaccines>=1)
 
@@ -130,6 +132,8 @@ nacovid <- nacovid %>% filter(vaccines>=1)
 #Vacina efeito de longo tempo
 cor.test(nacovid$vaccines,nacovid$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
+
+grid.arrange(uk,us,can,rus,irl,ltu,top="Correlação entre vacinados e casos diários",nrow=2,ncol=3)
 
 #owid data
 
