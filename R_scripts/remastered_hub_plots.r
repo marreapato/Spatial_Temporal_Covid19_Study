@@ -345,7 +345,7 @@ total$totaljul$school_closing <- factor(total$totaljul$school_closing,levels=c("
 #school closures
 (d_plots$fev$school <- ggplot(data = total$totalf) +
     geom_sf(aes(fill = school_closing)) +
-    scale_fill_manual(values=c("#9EF635","#00FFF3","#E53535")) +
+    scale_fill_manual(values=c("#9EF635","#00FFF3","#ECEC2A","#E53535")) +
     theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Fevereiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
@@ -373,16 +373,34 @@ total$totaljul$school_closing <- factor(total$totaljul$school_closing,levels=c("
     theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Junho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
+(d_plots$jun$school <- ggplot(data = total$totaljun) +
+    geom_sf(aes(fill = school_closing)) +
+    scale_fill_manual(values=c("#9EF635","#00FFF3","#ECEC2A","#E53535")) +
+    theme(legend.position="top", legend.box = "horizontal",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Junho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
 (d_plots$jul$school <- ggplot(data = total$totaljul) +
     geom_sf(aes(fill = school_closing)) +
     scale_fill_manual(values=c("#00FFF3","#9EF635","#ECEC2A","#E53535")) +
-    theme(legend.position =c(-0.295,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+    theme(legend.position =c(-0.295,2), legend.box = "horizontal",
+          axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-#school
+(d_plots$jul$school <- ggplot(data = total$totaljul) +
+    geom_sf(aes(fill = school_closing)) +
+    scale_fill_manual(values=c("#00FFF3","#9EF635","#ECEC2A","#E53535")) +
+    theme(legend.position="none",# legend.box = "horizontal",
+          axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-grid.arrange(d_plots$fev$school,d_plots$mar$school,d_plots$apr$school,d_plots$may$school,d_plots$jun$school,d_plots$jul$school,top="Política de fechamento de escolas",ncol=2,nrow=3)
+#school width=1366&height=678
+tiff("test.tiff", units="in", width=10, height=8, res=300)
+grid.arrange(d_plots$fev$school,d_plots$mar$school,d_plots$apr$school,d_plots$may$school,d_plots$jun$school,d_plots$jul$school,ncol=2,nrow=3)#,top="Política de fechamento de escolas"
+dev.off()
 
+tiff("test.png", units="in", width=8, height=5, res=450)
+grid.arrange(d_plots$fev$school,d_plots$mar$school,d_plots$apr$school,d_plots$may$school,d_plots$jun$school,d_plots$jul$school,ncol=2,nrow=3)#,top="Política de fechamento de escolas"
+dev.off()
 ###################################################
 #stay home
 
