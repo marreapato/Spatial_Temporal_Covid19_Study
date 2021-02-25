@@ -877,7 +877,7 @@ library("ggplotify")
   #require("sp")
   
   spplot(total$totalma, "lmi", at=summary(total$totalma$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-  ck2=spplot(total$totalma, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Maio")
+  ck2=spplot(total$totalma, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Maio",colorkey=FALSE)
   ?spplot
   
   
@@ -958,7 +958,7 @@ library("ggplotify")
   #require("sp")
   
   spplot(total$totalma, "lmi", at=summary(total$totalma$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-  (kc2=spplot(total$totalma, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Maio"))
+  (kc2=spplot(total$totalma, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "May",colorkey=FALSE))
   ?spplot
   
   
@@ -1161,7 +1161,7 @@ library("ggplotify")
   #require("sp")
   
   spplot(total$totaljun, "lmi", at=summary(total$totaljul$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-  (kc3=spplot(total$totaljun, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Junho"))
+  (kc3=spplot(total$totaljun, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "June",colorkey=FALSE))
   ?spplot
   
   #boxmap
@@ -1366,7 +1366,7 @@ library("ggplotify")
   #require("sp")
   
   spplot(total$totaljul, "lmi", at=summary(total$totaljul$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-  (kc4=spplot(total$totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Julho"))
+  (kc4=spplot(total$totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "July",colorkey=FALSE))
   ?spplot
   
   #boxmap
@@ -1462,7 +1462,7 @@ library("ggplotify")
   
   
   spplot(total$totalaug, "lmi", at=summary(total$totaljul$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-  (kc5=spplot(total$totalaug, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Agosto"))
+  (kc5=spplot(total$totalaug, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "August",colorkey=FALSE))
   
   #boxmap
   quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
@@ -1535,7 +1535,7 @@ library("ggplotify")
   
   
   spplot(total$totaljul, "lmi", at=summary(total$totaljul$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-  (kc6=spplot(total$totalsep, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Setembro"))
+  (kc6=spplot(total$totalsep, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "September",colorkey=FALSE))
   
   #boxmap
   quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
@@ -1653,7 +1653,7 @@ library("ggplotify")
                                              ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
   
   
-  (kc7=spplot(total$totaloct, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Outubro"))
+  (kc7=spplot(total$totaloct, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "October",colorkey=FALSE))
   
   #boxmap
   quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
@@ -1799,7 +1799,7 @@ library("ggplotify")
                                              ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
   
   
-  (kc8=spplot(total$totalnov, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Novembro"))
+  (kc8=spplot(total$totalnov, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "November",colorkey=FALSE))
   
   
   
@@ -1918,7 +1918,7 @@ library("ggplotify")
                                              ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
   
   
-  (kc9=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Dezembro"))
+  (kc9=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "December"))
   
   
   
@@ -1956,7 +1956,8 @@ library("ggplotify")
   
   
   #width=1366&height=678&scale=1
-  grid.arrange(kc1,kc2,kc3,kc4,kc5,kc6,kc7,kc8,kc9,top="Índice de Moran local sobre o número mensal \n de mortes por habitantes.")
+  grid.arrange(kc1,kc2,kc3,kc4,kc5,kc6,kc7,kc8,kc9)#top="Índice de Moran local sobre o número mensal \n de mortes por habitantes.
+  
   grid.arrange(case_oct,case_nov,case_dec,top="Índice de Moran local sobre o número mensal \n de casos por habitantes.")
   novdec=grid.arrange(novplot,decplot,widths=c(0.3,0.3))
   
