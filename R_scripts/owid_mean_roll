@@ -199,7 +199,7 @@ wo=ggplot(data = df_w, mapping = aes(x = data, y =val,colour=serie)) +
 
 wo
 ############################################
-tiff("test.tiff", units="in", width=12, height=8, res=400)
+tiff("Moving_average.tiff", units="in", width=12, height=8, res=400)
 grid.arrange(wo,eu,na,sa,af,oc,ncol=3,nrow=2)
 dev.off()
 #countries
