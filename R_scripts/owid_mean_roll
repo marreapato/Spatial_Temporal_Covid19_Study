@@ -10,6 +10,8 @@ library(zoo) # pacote com função para médias móveis
 data <- read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv")
 options(scipen = 999)
 #asia
+data <- data %>% filter(date<="2020-12-31")
+
 data_as <- data %>% filter(continent=="Asia")
 #df_dados <- data_as
 #preciso somar
@@ -32,11 +34,12 @@ gm
 
 df_as <- data.frame('data'=df_as$`data_as$date`,'serie'=df_as$Séries,'val'=df_as$Valor)
 
-ggplot(data = df_as, mapping = aes(x = data, y =val,colour=serie, fill = serie)) +
-  geom_line(stat = "identity")+
-  labs(x="",y="Número de novos casos")#+
-#  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
-
+as=ggplot(data = df_as, mapping = aes(x = data, y =val,colour=serie, fill = serie)) +
+  geom_line(size=1.1)+
+  labs(title="Asia.",x="",y="Daily Cases",colour="Series")+theme(legend.position = "none")+ 
+  scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
+  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")
+as
 ###
 
 #europe
@@ -59,10 +62,10 @@ df_eu=df_eu %>%
 df_eu <- data.frame('data'=df_eu$`data_eu$date`,'serie'=df_eu$Séries,'val'=df_eu$Valor)
 
 eu=ggplot(data = df_eu, mapping = aes(x = data, y =val,colour=serie)) +
-  geom_line(stat = "identity",size=1.1)+
-  labs(title="Na Europa.",x="",y="Número de novos casos",colour="Série")+ 
-  scale_color_manual(labels = c("Novos casos", "Média Móvel"),values =c("green","red") )+
-  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
+  geom_line(stat = "identity",size=1.1)+theme(legend.position = "none")+
+  labs(title="Europe.",x="",y="Daily Cases",colour="Series")+ 
+  scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
+  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")
 eu
 ###
 
@@ -85,10 +88,12 @@ df_af=df_af %>%
 
 df_af <- data.frame('data'=df_af$`data_af$date`,'serie'=df_af$Séries,'val'=df_af$Valor)
 
-ggplot(data = df_af, mapping = aes(x = data, y =val,colour=serie, fill = serie)) +
-  geom_line(stat = "identity",size=1.1)+#+
-  labs(x="",y="Número de novos casos")#scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
-
+af=ggplot(data = df_af, mapping = aes(x = data, y =val,colour=serie, fill = serie)) +
+  geom_line(stat = "identity",size=1.1)+theme(legend.position = "none")+
+  labs(title="Africa.",x="",y="Daily Cases",colour="Series")+ 
+  scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
+  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")
+af  
 ###
 
 #South America
@@ -108,10 +113,10 @@ df_sa=df_sa %>%
 df_sa <- data.frame('data'=df_sa$`data_sa$date`,'serie'=df_sa$Séries,'val'=df_sa$Valor)
 
 sa=ggplot(data = df_sa, mapping = aes(x = data, y =val,colour=serie)) +
-  geom_line(stat = "identity",size=1.1)+
-  labs(title="Na América do Sul.",x="",y="Número de novos casos",colour="Série")+ 
-  scale_color_manual(labels = c("Novos casos", "Média Móvel"),values =c("green","red") )+
-  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
+  geom_line(stat = "identity",size=1.1)+theme(legend.position = "none")+
+  labs(title="South America.",x="",y="Daily Cases",colour="Series")+ 
+  scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
+  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")
 sa
 ###
 
@@ -131,10 +136,10 @@ df_na=df_na %>%
 df_na <- data.frame('data'=df_na$`data_na$date`,'serie'=df_na$Séries,'val'=df_na$Valor)
 
 na=ggplot(data = df_na, mapping = aes(x = data, y =val,colour=serie)) +
-  geom_line(stat = "identity",size=1.1)+
-  labs(title="Nas Américas do norte e central.",x="",y="Número de novos casos",colour="Série")+ 
-  scale_color_manual(labels = c("Novos casos", "Média Móvel"),values =c("green","red") )+
-  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
+  geom_line(stat = "identity",size=1.1)+theme(legend.position = "none")+
+  labs(title="North and Central America",x="",y="Daily Cases",colour="Series")+ 
+  scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
+  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")
 #  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
 na
 table(data$continent)
@@ -157,10 +162,14 @@ df_oc=df_oc %>%
 
 df_oc <- data.frame('data'=df_oc$`data_oc$date`,'serie'=df_oc$Séries,'val'=df_oc$Valor)
 
-ggplot(data = df_oc, mapping = aes(x = data, y =val,colour=serie, fill = serie)) +
-  geom_line(stat = "identity",size=1.1)#+
-#  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
-
+oc=ggplot(data = df_oc, mapping = aes(x = data, y =val,colour=serie, fill = serie)) +
+  geom_line(stat = "identity",size=1.1)+
+  labs(title="Oceania.",x="",y="Daily Cases",colour="Series")+ 
+  scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
+  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")+
+  theme(legend.position=c(0.82, 0.8), 
+        legend.background = element_rect(fill=alpha('grey', 0.4)))
+oc
 
 ###
 
@@ -183,153 +192,16 @@ df_w=df_w %>%
 df_w <- data.frame('data'=df_w$`data_w$date`,'serie'=df_w$Séries,'val'=df_w$Valor)
 
 wo=ggplot(data = df_w, mapping = aes(x = data, y =val,colour=serie)) +
-  geom_line(stat = "identity",size=1.1)+
-  labs(title="No mundo",x="",y="Número de novos casos",colour="Série")+ 
-  scale_color_manual(labels = c("Novos casos", "Média móvel"),values =c("green","red") )+
-  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")#  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
+  geom_line(stat = "identity",size=1.1)+theme(legend.position = "none")+
+  labs(title="World.",x="",y="Daily Cases",colour="Series")+ 
+  scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
+  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")#  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
 
 wo
 ############################################
-
-grid.arrange(wo,eu,na,sa,top="Média móvel de novos casos.",ncol=2,nrow=2)
-
+tiff("test.tiff", units="in", width=12, height=8, res=400)
+grid.arrange(wo,eu,na,sa,af,oc,ncol=3,nrow=2)
+dev.off()
 #countries
 #width=1366&height=678
 ###
-
-#Brazil
-data_eu <- data %>% filter(location=="Brazil")
-
-#df_dados <- data_as
-#preciso somar
-
-df_dados <- data_eu%>%group_by(data_eu$date)%>%
-  summarise_if(is.numeric,sum,na.rm=T)
-
-df_dados=df_dados %>%
-  mutate('roll_mean'=rollapply(df_dados$new_cases,7,mean,align='right',fill=NA))
-
-#grouping
-df_dados=df_dados %>%
-  gather(c("new_cases","roll_mean"),key="Séries", value="Valor")
-
-gm=ggplot(df_dados,aes(x=df_dados$`data_eu$date`,y=Valor,fill=Séries, colour=Séries))+
-  geom_line(size=1.1)+
-  labs(x="",y="Número de novos casos")
-gm
-
-####################################
-
-#deaths
-
-###
-
-#europe
-data_eu <- data %>% filter(continent=="Europe")
-
-#df_dados <- data_as
-#preciso somar
-
-df_eu <- data_eu%>%group_by(data_eu$date)%>%
-  summarise_if(is.numeric,sum,na.rm=T)
-
-df_eu=df_eu %>%
-  mutate('roll_mean'=rollapply(df_eu$new_deaths,7,mean,align='right',fill=NA))
-
-#grouping
-df_eu=df_eu %>%
-  gather(c("new_cases","roll_mean"),key="Séries", value="Valor")
-
-
-df_eu <- data.frame('data'=df_eu$`data_eu$date`,'serie'=df_eu$Séries,'val'=df_eu$Valor)
-
-eu=ggplot(data = df_eu, mapping = aes(x = data, y =val,colour=serie)) +
-  geom_line(stat = "identity",size=1.1)+
-  labs(title="Na Europa.",x="",y="Número de novas mortes",colour="Série")+ 
-  scale_color_manual(labels = c("Novas mortes", "Média Móvel"),values =c("green","red") )+
-  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
-eu
-###
-
-
-###
-
-#South America
-data_sa <- data %>% filter(continent=="South America")
-
-df_sa <- data_sa%>%group_by(data_sa$date)%>%
-  summarise_if(is.numeric,sum,na.rm=T)
-#?rollapply
-df_sa=df_sa %>%
-  mutate('roll_mean'=rollapply(df_sa$new_deaths,7,mean,align='right',fill=NA))
-
-#grouping
-df_sa=df_sa %>%
-  gather(c("new_cases","roll_mean"),key="Séries", value="Valor")
-
-
-df_sa <- data.frame('data'=df_sa$`data_sa$date`,'serie'=df_sa$Séries,'val'=df_sa$Valor)
-
-sa=ggplot(data = df_sa, mapping = aes(x = data, y =val,colour=serie)) +
-  geom_line(stat = "identity",size=1.1)+
-  labs(title="Na América do Sul.",x="",y="Número de novas mortes",colour="Série")+ 
-  scale_color_manual(labels = c("Novas mortes", "Média Móvel"),values =c("green","red") )+
-  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
-sa
-###
-
-###
-
-#North America
-data_na <- data %>% filter(continent=="North America")
-
-df_na <- data_na%>%group_by(data_na$date)%>%
-  summarise_if(is.numeric,sum,na.rm=T)
-
-df_na=df_na %>%
-  mutate('roll_mean'=rollapply(df_na$new_deaths,7,mean,align='right',fill=NA))
-
-#grouping
-df_na=df_na %>%
-  gather(c("new_cases","roll_mean"),key="Séries", value="Valor")
-
-df_na <- data.frame('data'=df_na$`data_na$date`,'serie'=df_na$Séries,'val'=df_na$Valor)
-
-na=ggplot(data = df_na, mapping = aes(x = data, y =val,colour=serie)) +
-  geom_line(stat = "identity",size=1.1)+
-  labs(title="Nas Américas do norte e central.",x="",y="Número de novas mortes",colour="Série")+ 
-  scale_color_manual(labels = c("Novas mortes", "Média Móvel"),values =c("green","red") )+
-  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
-#  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
-na
-
-###
-
-#World
-data_w <- data 
-
-df_w <- data_w%>%group_by(data_w$date)%>%
-  summarise_if(is.numeric,sum,na.rm=T)
-#df_w <- data_w
-#df_w <- df_w[!is.na(df_w$new_cases),]
-
-df_w=df_w %>%
-  mutate('roll_mean'=rollapply(new_deaths,7,mean,align='right',fill=NA))
-
-#grouping
-df_w=df_w %>%
-  gather(c("new_cases","roll_mean"),key="Séries", value="Valor")
-
-
-df_w <- data.frame('data'=df_w$`data_w$date`,'serie'=df_w$Séries,'val'=df_w$Valor)
-
-wo=ggplot(data = df_w, mapping = aes(x = data, y =val,colour=serie)) +
-  geom_line(stat = "identity",size=1.1)+
-  labs(title="No mundo",x="",y="Número de novas mortes",colour="Série")+ 
-  scale_color_manual(labels = c("Novas mortes", "Média Móvel"),values =c("green","red") )+
-  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")#  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
-
-wo
-############################################
-grid.arrange(wo,eu,na,sa,top="Média móvel de novas mortes.",ncol=2,nrow=2)
-#width=1366&height=678
