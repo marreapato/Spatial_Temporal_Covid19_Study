@@ -1599,7 +1599,7 @@ library("ggplotify")
                                              ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
   
   
-  (case_oct=spplot(total$totaloct, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Outubro"))
+  (case_oct=spplot(total$totaloct, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "October",colorkey=F))
   
   
   
@@ -1746,7 +1746,7 @@ library("ggplotify")
                                              ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
   
   
-  (case_nov=spplot(total$totalnov, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Novembro"))
+  (case_nov=spplot(total$totalnov, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "November",colorkey=F))
   
   
   #boxmap cases in pop
@@ -1866,7 +1866,7 @@ library("ggplotify")
                                              ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
   
   
-  (case_dec=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Dezembro"))
+  (case_dec=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "December"))
   
   #boxmap cases in pop
   quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
@@ -1959,8 +1959,11 @@ library("ggplotify")
   tiff("moran_death.tiff", units="in", width=20, height=10, res=400)
   grid.arrange(kc1,kc2,kc3,kc4,kc5,kc6,kc7,kc8,kc9)#top="Índice de Moran local sobre o número mensal \n de mortes por habitantes.
   dev.off()
-    
-  grid.arrange(case_oct,case_nov,case_dec,top="Índice de Moran local sobre o número mensal \n de casos por habitantes.")
+  
+  tiff("moran_cases.tiff", units="in", width=20, height=8, res=400)
+  grid.arrange(case_oct,case_nov,case_dec,ncol=3)#,top="Índice de Moran local sobre o número mensal \n de casos por habitantes."
+  dev.off()
+  
   novdec=grid.arrange(novplot,decplot,widths=c(0.3,0.3))
   
   ocnov_case=grid.arrange(ocplot_case,novplot_case,decplot_case,widths=c(0.3,0.3))
