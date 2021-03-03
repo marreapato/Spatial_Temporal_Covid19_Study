@@ -1284,7 +1284,7 @@ library("ggplotify")
   #require("sp")
   
   spplot(total$totaljul, "lmi", at=summary(total$totaljul$lmi), col.regions=brewer.pal(5,"RdBu"), main="Local Moran's")
-  ck4=spplot(total$totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Julho")
+  (ck4=spplot(total$totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "July",colorkey=F))
   ?spplot
   
   
@@ -1918,7 +1918,7 @@ library("ggplotify")
                                              ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
   
   
-  (kc9=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "December"))
+  (kc9=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "December",with.legend = "bottom", legend.prop = 0.15))
   
   
   
@@ -1956,8 +1956,10 @@ library("ggplotify")
   
   
   #width=1366&height=678&scale=1
+  tiff("moran_death.tiff", units="in", width=20, height=10, res=400)
   grid.arrange(kc1,kc2,kc3,kc4,kc5,kc6,kc7,kc8,kc9)#top="Índice de Moran local sobre o número mensal \n de mortes por habitantes.
-  
+  dev.off()
+    
   grid.arrange(case_oct,case_nov,case_dec,top="Índice de Moran local sobre o número mensal \n de casos por habitantes.")
   novdec=grid.arrange(novplot,decplot,widths=c(0.3,0.3))
   
