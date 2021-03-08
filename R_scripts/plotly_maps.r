@@ -60,3 +60,17 @@ fig <- fig %>% layout(
 fig
 
 ?plot_ly
+
+df <- covid19(start = Sys.Date(),end = Sys.Date(),raw = F)
+
+#plotly includes data from Natural Earth
+
+fig <- plot_ly(df, type='choropleth', locations=df$id, z=df$vaccines, text=paste("Cases =",df$confirmed,"\nVaccines =",df$vaccines,"\nDeaths =",df$deaths,sep = " "), colorscale="Red")
+
+fig <- fig %>% colorbar(title = 'Number of Vaccines')#naming the colorbar
+
+fig <- fig %>% layout(
+  title = paste('Number of vaccinated people until',Sys.Date(),'<br>Source:<a href="https://covid19datahub.io/">COVID-19 Data Hub</a>',sep = ' ')
+)
+
+fig
