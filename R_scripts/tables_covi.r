@@ -46,36 +46,36 @@ datasets <- list(jan20=jan,feb20=feb,march20=march,april20=april,may20=may,june2
 for(i in 1:length(datasets)){
   
   datasets[[i]]$school_closing <- gsub(0, 0, datasets[[i]]$school_closing)
-  datasets[[i]]$school_closing <- gsub(1, 0, datasets[[i]]$school_closing)
-  datasets[[i]]$school_closing <- gsub(2, 0, datasets[[i]]$school_closing)
+  datasets[[i]]$school_closing <- gsub(1, 1, datasets[[i]]$school_closing)
+  datasets[[i]]$school_closing <- gsub(2, 1, datasets[[i]]$school_closing)
   datasets[[i]]$school_closing <- gsub(3, 1, datasets[[i]]$school_closing)
   
   datasets[[i]]$workplace_closing <- gsub(0,0, datasets[[i]]$workplace_closing)
-  datasets[[i]]$workplace_closing <- gsub(1, 0, datasets[[i]]$workplace_closing)
-  datasets[[i]]$workplace_closing <- gsub(2, 0, datasets[[i]]$workplace_closing)
+  datasets[[i]]$workplace_closing <- gsub(1, 1, datasets[[i]]$workplace_closing)
+  datasets[[i]]$workplace_closing <- gsub(2, 1, datasets[[i]]$workplace_closing)
   datasets[[i]]$workplace_closing <- gsub(3, 1, datasets[[i]]$workplace_closing)
   
   datasets[[i]]$cancel_events<- gsub(0, 0, datasets[[i]]$cancel_events)
-  datasets[[i]]$cancel_events <- gsub(1, 0, datasets[[i]]$cancel_events)
+  datasets[[i]]$cancel_events <- gsub(1, 1, datasets[[i]]$cancel_events)
   datasets[[i]]$cancel_events <- gsub(2, 1, datasets[[i]]$cancel_events)
   
   datasets[[i]]$transport_closing<- gsub(0,0, datasets[[i]]$transport_closing)
-  datasets[[i]]$transport_closing<- gsub(1, 0, datasets[[i]]$transport_closing)
+  datasets[[i]]$transport_closing<- gsub(1, 1, datasets[[i]]$transport_closing)
   datasets[[i]]$transport_closing<- gsub(2, 1, datasets[[i]]$transport_closing)
   
   datasets[[i]]$stay_home_restrictions<- gsub(0, 0, datasets[[i]]$stay_home_restrictions)
-  datasets[[i]]$stay_home_restrictions<- gsub(1, 0, datasets[[i]]$stay_home_restrictions)
-  datasets[[i]]$stay_home_restrictions<- gsub(2, 0, datasets[[i]]$stay_home_restrictions)
+  datasets[[i]]$stay_home_restrictions<- gsub(1, 1, datasets[[i]]$stay_home_restrictions)
+  datasets[[i]]$stay_home_restrictions<- gsub(2, 1, datasets[[i]]$stay_home_restrictions)
   datasets[[i]]$stay_home_restrictions<- gsub(3, 1, datasets[[i]]$stay_home_restrictions)
   
   datasets[[i]]$internal_movement_restrictions<- gsub(0, 0, datasets[[i]]$internal_movement_restrictions)
-  datasets[[i]]$internal_movement_restrictions<- gsub(1, 0, datasets[[i]]$internal_movement_restrictions)
+  datasets[[i]]$internal_movement_restrictions<- gsub(1, 1, datasets[[i]]$internal_movement_restrictions)
   datasets[[i]]$internal_movement_restrictions<- gsub(2, 1, datasets[[i]]$internal_movement_restrictions)
   
   datasets[[i]]$international_movement_restrictions<- gsub(0, 0, datasets[[i]]$international_movement_restrictions)
-  datasets[[i]]$international_movement_restrictions<- gsub(1, 0, datasets[[i]]$international_movement_restrictions)
-  datasets[[i]]$international_movement_restrictions<- gsub(2, 0, datasets[[i]]$international_movement_restrictions)
-  datasets[[i]]$international_movement_restrictions<- gsub(3, 0, datasets[[i]]$international_movement_restrictions)
+  datasets[[i]]$international_movement_restrictions<- gsub(1, 1, datasets[[i]]$international_movement_restrictions)
+  datasets[[i]]$international_movement_restrictions<- gsub(2, 1, datasets[[i]]$international_movement_restrictions)
+  datasets[[i]]$international_movement_restrictions<- gsub(3, 1, datasets[[i]]$international_movement_restrictions)
   datasets[[i]]$international_movement_restrictions<- gsub(4, 1, datasets[[i]]$international_movement_restrictions)
   
   names(datasets[[i]])[names(datasets[[i]]) == "iso_alpha_3"] <- "iso_code"
