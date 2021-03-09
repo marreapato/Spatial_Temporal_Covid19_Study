@@ -15,9 +15,11 @@ owid_sep <- owid %>% filter(date=="2020-09-30")
 owid_oct <- owid %>% filter(date=="2020-10-31")
 owid_nov <- owid %>% filter(date=="2020-11-30")
 owid_dec <- owid %>% filter(date=="2020-12-31")
+owid_jan21 <- owid %>% filter(date=="2021-01-31")
+owid_feb21 <- owid %>% filter(date=="2021-02-28")
 
 owid_list=list(jan20=owid_jan,feb20=owid_feb,march20=owid_mar,april20=owid_ap,may20=owid_may,june20=owid_jun,july=owid_jul,
-               ag=owid_ag,sep=owid_sep,oct=owid_oct,no=owid_nov,de=owid_dec)
+               ag=owid_ag,sep=owid_sep,oct=owid_oct,no=owid_nov,de=owid_dec,jan21=owid_jan21,feb21=owid_feb21)
 
 
 
@@ -34,9 +36,10 @@ sep <- covid19(start ="2020-09-30" ,end ="2020-09-30",raw = F )
 oct <- covid19(start ="2020-10-31" ,end ="2020-10-31",raw = F ) 
 nov <-covid19(start ="2020-11-30" ,end ="2020-11-30",raw = F ) 
 dec <-covid19(start ="2020-12-31" ,end ="2020-12-31",raw = F ) 
-
+jan21<-covid19(start ="2021-01-31" ,end ="2021-01-31",raw = F ) 
+feb21<-covid19(start ="2021-02-28" ,end ="2021-02-28",raw = F ) 
 #list of datasets
-datasets <- list(jan20=jan,feb20=feb,march20=march,april20=april,may20=may,june20=june,july=july,ag20=ag,sep20=sep,oc20=oct,nov20=nov,dec20=dec)
+datasets <- list(jan20=jan,feb20=feb,march20=march,april20=april,may20=may,june20=june,july=july,ag20=ag,sep20=sep,oc20=oct,nov20=nov,dec20=dec,jan21=jan21,feb21=feb21)
 
 #renaming a few cells in the datasets
 
@@ -158,4 +161,4 @@ for(i in 1:length(datasets)){
 continents$na$international[[10]]#october
 
 
-continents$na$international[[9]]
+continents$na$international[[12]]
