@@ -10,7 +10,12 @@ library(zoo) # pacote com função para médias móveis
 data <- read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv")
 options(scipen = 999)
 #asia
-data <- data %>% filter(date<="2020-12-31")
+
+
+#FIRST GET DAILY CASES IN THE WORLD DF_W
+
+
+#data <- data %>% filter(date<="2020-12-31")
 
 data_as <- data %>% filter(continent=="Asia")
 #df_dados <- data_as
@@ -38,7 +43,7 @@ as=ggplot(data = df_as, mapping = aes(x = data, y =val,colour=serie, fill = seri
   geom_line(size=1.1)+
   labs(title="Asia.",x="",y="Daily Cases",colour="Series")+theme(legend.position = "none")+ 
   scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
-  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")
+  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")+ ylim(0, max(df_w$val,na.rm = T))
 as
 ###
 
@@ -65,7 +70,7 @@ eu=ggplot(data = df_eu, mapping = aes(x = data, y =val,colour=serie)) +
   geom_line(stat = "identity",size=1.1)+theme(legend.position = "none")+
   labs(title="Europe.",x="",y="Daily Cases",colour="Series")+ 
   scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
-  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")
+  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")+ ylim(0, max(df_w$val,na.rm = T))
 eu
 ###
 
@@ -92,7 +97,7 @@ af=ggplot(data = df_af, mapping = aes(x = data, y =val,colour=serie, fill = seri
   geom_line(stat = "identity",size=1.1)+theme(legend.position = "none")+
   labs(title="Africa.",x="",y="Daily Cases",colour="Series")+ 
   scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
-  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")
+  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")+ ylim(0, max(df_w$val,na.rm = T))
 af  
 ###
 
@@ -116,9 +121,10 @@ sa=ggplot(data = df_sa, mapping = aes(x = data, y =val,colour=serie)) +
   geom_line(stat = "identity",size=1.1)+theme(legend.position = "none")+
   labs(title="South America.",x="",y="Daily Cases",colour="Series")+ 
   scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
-  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")
+  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")+ ylim(0, max(df_w$val,na.rm = T))
 sa
 ###
+max(df_na$val,na.rm = T)>max(df_eu$val,na.rm = T)
 
 #North America
 data_na <- data %>% filter(continent=="North America")
@@ -139,7 +145,7 @@ na=ggplot(data = df_na, mapping = aes(x = data, y =val,colour=serie)) +
   geom_line(stat = "identity",size=1.1)+theme(legend.position = "none")+
   labs(title="North and Central America",x="",y="Daily Cases",colour="Series")+ 
   scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
-  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")
+  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")+ ylim(0, max(df_w$val,na.rm = T))
 #  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
 na
 table(data$continent)
@@ -168,7 +174,7 @@ oc=ggplot(data = df_oc, mapping = aes(x = data, y =val,colour=serie, fill = seri
   scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
   scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")+
   theme(legend.position=c(0.82, 0.8), 
-        legend.background = element_rect(fill=alpha('grey', 0.4)))
+        legend.background = element_rect(fill=alpha('grey', 0.4)))+ ylim(0, max(df_w$val,na.rm = T))
 oc
 
 ###
@@ -195,7 +201,7 @@ wo=ggplot(data = df_w, mapping = aes(x = data, y =val,colour=serie)) +
   geom_line(stat = "identity",size=1.1)+theme(legend.position = "none")+
   labs(title="World.",x="",y="Daily Cases",colour="Series")+ 
   scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
-  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")#  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
+  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")#+ ylim(0, max(data$new_cases,na.rm = T))#  scale_x_date(date_breaks = "2 month",date_labels = "%m/%Y")
 
 wo
 ############################################
