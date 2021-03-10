@@ -158,7 +158,7 @@ for(i in 1:length(datasets)){
   
 }
 
-continents$na$international[[10]]#october
+continents$w$sc[[1]]#october
 
 
 continents$na$international[[12]]
