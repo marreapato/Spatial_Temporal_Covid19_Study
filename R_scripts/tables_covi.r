@@ -185,3 +185,35 @@ world = data.frame("date"=date,"school"=school,"work"=work,"events"=events,"tran
                    "home"=home,"internal"=internal,"international"=international,"location"=place)
 
 continents$na$international[[12]]
+
+#south america
+#school
+continents$sa$sc[[1]]
+continents$sa$sc[[2]]
+continents$sa$sc[[14]]
+#work
+continents$sa$work
+#events
+continents$sa$events
+
+
+school = c(11,9,rep(12,times = 12))
+work = c(11,9,11,11,11,12,11,11,12,12,12,12,11,11)
+events = c(11,9,12,12,12,11,11,12,12,12,12,12,11,11)
+transp = as.vector(NA)
+home = as.vector(NA)
+internal = as.vector(NA)
+international = as.vector(NA)
+place = as.vector(NA)
+#building table world
+for(i in 1:length(continents$w$sc)){
+  
+  school[i] = continents$sa$sc[[i]]$Freq[[2]]
+  work[i] = continents$sa$work[[i]]$Freq[[2]]
+  events[i] = continents$sa$events[[i]]$Freq[[2]]
+  transp[i] = continents$sa$transp[[i]]$Freq[[2]]
+  home[i] = continents$sa$home[[i]]$Freq[[2]]
+  internal[i] = continents$sa$internal[[i]]$Freq[[2]]
+  international[i] = continents$sa$international[[i]]$Freq[[2]]
+  place[i] = "south america"
+}
