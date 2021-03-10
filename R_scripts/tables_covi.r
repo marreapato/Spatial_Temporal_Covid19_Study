@@ -158,7 +158,30 @@ for(i in 1:length(datasets)){
   
 }
 
-continents$w$sc[[1]]#october
+continents$w$international[[3]]#october
+school = as.vector(NA)
+work = as.vector(NA)
+events = as.vector(NA)
+transp = as.vector(NA)
+home = as.vector(NA)
+internal = as.vector(NA)
+international = as.vector(NA)
+place = as.vector(NA)
+date = c("01-2020","02-2020","03-2020","04-2020","05-2020","06-2020","07-2020","08-2020","09-2020","10-2020","11-2020","12-2020","01-2021","02-2021")
+#building table world
+for(i in 1:length(continents$w$sc)){
+  
+ school[i] = continents$w$sc[[i]]$Freq[[2]]
+ work[i] = continents$w$work[[i]]$Freq[[2]]
+ events[i] = continents$w$events[[i]]$Freq[[2]]
+ transp[i] = continents$w$transp[[i]]$Freq[[2]]
+ home[i] = continents$w$home[[i]]$Freq[[2]]
+ internal[i] = continents$w$internal[[i]]$Freq[[2]]
+ international[i] = continents$w$international[[i]]$Freq[[2]]
+ place[i] = "world"
+}
 
+world = data.frame("date"=date,"school"=school,"work"=work,"events"=events,"transp"=transp,
+                   "home"=home,"internal"=internal,"international"=international,"location"=place)
 
 continents$na$international[[12]]
