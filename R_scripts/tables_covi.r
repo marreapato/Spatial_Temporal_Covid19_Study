@@ -42,7 +42,6 @@ feb21<-covid19(start ="2021-02-28" ,end ="2021-02-28",raw = F )
 datasets <- list(jan20=jan,feb20=feb,march20=march,april20=april,may20=may,june20=june,july=july,ag20=ag,sep20=sep,oc20=oct,nov20=nov,dec20=dec,jan21=jan21,feb21=feb21)
 
 #renaming a few cells in the datasets
-
 for(i in 1:length(datasets)){
   
   datasets[[i]]$school_closing <- gsub(0, 0, datasets[[i]]$school_closing)
@@ -204,17 +203,64 @@ continents$sa$internal
 #international
 continents$sa$international
 
-school = c(11,9,rep(12,times = 12))
-work = c(11,9,11,11,11,12,11,11,12,12,12,12,11,11)
-events = c(11,9,12,12,12,11,11,12,12,12,12,12,11,11)
-transp = c(11,9,8,10,10,11,11,10,8,8,8,6,8,8)
-home = c(11,9,12,12,12,12,11,11,10,10,10,12,11,11)
-internal = c(1,9,12,12,12,11,11,11,9,8,8,9,7,8)
-international = c(11,9,rep(12,times = 12))
+#n of countries
+table(datasets$june20$continent)
+
+school = c(0,0,rep(12,times = 12))
+work = c(0,0,11,11,11,12,11,11,12,12,12,12,11,11)
+events = c(0,0,12,12,12,11,11,12,12,12,12,12,11,11)
+transp = c(0,0,8,10,10,11,11,10,8,8,8,6,8,8)
+home = c(0,0,12,12,12,12,11,11,10,10,10,12,11,11)
+internal = c(0,0,12,12,12,11,11,11,9,8,8,9,7,8)
+international = c(0,0,rep(12,times = 12))
 place = as.vector(rep("South America",times = 14))
 
 southam = data.frame("date"=date,"school"=school,"work"=work,"events"=events,"transp"=transp,
                    "home"=home,"internal"=internal,"international"=international,"location"=place)
+#europe
+table(datasets$june20$continent)
+#school
+continents$eu$sc
+#work
+continents$eu$work[1]
+#events
+continents$eu$events[1]
+#transports
+continents$eu$transp[3]
+#home
+continents$eu$home[1]
+#internal
+continents$eu$internal[1]
+#international
+continents$eu$international[1]
+
+school = c(0)
+work = c(0)
+transp = c(0,0)
+#building table world
+for(i in 2:length(continents$w$sc)){
+  
+  school[i] = continents$eu$sc[[i]]$Freq[[2]]
+  work[i] = continents$eu$work[[i]]$Freq[[2]]
+  events[i] = continents$eu$events[[i]]$Freq[[2]]
+  home[i] = continents$eu$home[[i]]$Freq[[2]]
+  internal[i] = continents$eu$internal[[i]]$Freq[[2]]
+ 
+}
+
+for(i in 1:length(continents$w$sc)){
+  international[i] = continents$eu$international[[i]]$Freq[[2]]
+  place[i] = "Europe"
+  
+}
+for(i in 3:length(continents$w$sc)){
+  transp[i] = continents$eu$transp[[i]]$Freq[[2]]
+  
+}
+
+
+europe = data.frame("date"=date,"school"=school,"work"=work,"events"=events,"transp"=transp,
+                     "home"=home,"internal"=internal,"international"=international,"location"=place)
 
 
 #building table world
