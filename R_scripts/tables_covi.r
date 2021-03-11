@@ -195,16 +195,28 @@ continents$sa$sc[[14]]
 continents$sa$work
 #events
 continents$sa$events
-
+#transports
+continents$sa$transp
+#home
+continents$sa$home
+#internal
+continents$sa$internal
+#international
+continents$sa$international
 
 school = c(11,9,rep(12,times = 12))
 work = c(11,9,11,11,11,12,11,11,12,12,12,12,11,11)
 events = c(11,9,12,12,12,11,11,12,12,12,12,12,11,11)
-transp = as.vector(NA)
-home = as.vector(NA)
-internal = as.vector(NA)
-international = as.vector(NA)
-place = as.vector(NA)
+transp = c(11,9,8,10,10,11,11,10,8,8,8,6,8,8)
+home = c(11,9,12,12,12,12,11,11,10,10,10,12,11,11)
+internal = c(1,9,12,12,12,11,11,11,9,8,8,9,7,8)
+international = c(11,9,rep(12,times = 12))
+place = as.vector(rep("South America",times = 14))
+
+southam = data.frame("date"=date,"school"=school,"work"=work,"events"=events,"transp"=transp,
+                   "home"=home,"internal"=internal,"international"=international,"location"=place)
+
+
 #building table world
 for(i in 1:length(continents$w$sc)){
   
