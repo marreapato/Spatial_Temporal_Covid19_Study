@@ -252,6 +252,12 @@ total$totaljul$stay_home_restrictions <- as.factor(total$totaljul$stay_home_rest
 levels(total$totaljul$stay_home_restrictions)
 #total$totaljul$stay_home_restrictions <- factor(total$totaljul$stay_home_restrictions,levels=c("Fechamento obrigatório para todos os níveis" ,"Fechamento obrigatório\n(apenas alguns níveis ou categorias)","Recomendou fechamento","Sem medidas"))
 
+(d_plots$jan$stay <- ggplot(data = total$totaljan) +
+    geom_sf(aes(fill = stay_home_restrictions)) +
+    scale_fill_manual(values=c("#ECEC2A","#E53535")) +
+    theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Janeiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
 
 (d_plots$fev$stay <- ggplot(data = total$totalf) +
     geom_sf(aes(fill = stay_home_restrictions)) +
@@ -285,11 +291,22 @@ levels(total$totaljul$stay_home_restrictions)
 
 (d_plots$jul$stay <- ggplot(data = total$totaljul) +
     geom_sf(aes(fill = stay_home_restrictions)) +
+    scale_fill_manual(values=c("#00FFF3","#9EF635","#ECEC2A","#E53535")) +theme(legend.position =c(1.5,0.55),legend.title=element_text(size=14),legend.text=element_text(size=15),legend.direction = "horizontal",
+                                                                                legend.spacing.x = unit(0.2, 'cm'),
+                                                                                axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+                                                                                panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+mylegend<-g_legend(d_plots$jul$stay)
+
+    
+
+(d_plots$jul$stay <- ggplot(data = total$totaljul) +
+    geom_sf(aes(fill = stay_home_restrictions)) +
     scale_fill_manual(values=c("#00FFF3","#9EF635","#ECEC2A","#E53535")) +
-    theme(legend.position =c(-0.295,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+    theme(legend.position ="none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-grid.arrange(d_plots$fev$stay,d_plots$mar$stay,d_plots$apr$stay,d_plots$may$stay,d_plots$jun$stay,d_plots$jul$stay,top="Política de isolamento social",ncol=2,nrow=3)
+grid.arrange(d_plots$jan$stay,d_plots$fev$stay,d_plots$mar$stay,d_plots$apr$stay,d_plots$may$stay,d_plots$jun$stay,mylegend,ncol=3,nrow=3)
 
 ###################################################
 #workplace closing
@@ -674,5 +691,3 @@ total$totaljul$contact_tracing <- factor(total$totaljul$contact_tracing,levels=c
           panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
 grid.arrange(d_plots$fev$contact_tracing,d_plots$mar$contact_tracing,d_plots$apr$contact_tracing,d_plots$may$contact_tracing,d_plots$jun$contact_tracing,d_plots$jul$contact_tracing,top="Política de rastreamento.",ncol=2,nrow=3)
-
-                      
