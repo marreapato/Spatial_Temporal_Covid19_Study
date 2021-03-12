@@ -524,6 +524,13 @@ grid.arrange(d_plots$jul$cancel,d_plots$aug$cancel,d_plots$sep$cancel,d_plots$oc
 ###################################################
 #gatherings_restrictions
 
+(d_plots$jan$gatherings_restrictions <- ggplot(data = total$totaljan) +
+   geom_sf(aes(fill = gatherings_restrictions)) +
+   scale_fill_manual(values=c("grey","#9EF635","#E53535")) +
+   theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+         panel.border = element_rect(fill = NA))+labs(title ="Janeiro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+
 (d_plots$fev$gatherings_restrictions <- ggplot(data = total$totalf) +
    geom_sf(aes(fill = gatherings_restrictions)) +
    scale_fill_manual(values=c("grey","#9EF635","#ECEC2A","#E53535")) +
@@ -556,11 +563,58 @@ grid.arrange(d_plots$jul$cancel,d_plots$aug$cancel,d_plots$sep$cancel,d_plots$oc
 
 (d_plots$jul$gatherings_restrictions <- ggplot(data = total$totaljul) +
     geom_sf(aes(fill = gatherings_restrictions)) +
-    scale_fill_manual(values=c("grey","#00FFF3","#9EF635","#ECEC2A","#E53535")) +
-    theme(legend.position = c(-0.295,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+    scale_fill_manual(values=c("grey","#00FFF3","#9EF635","#ECEC2A","#E53535")) +theme(legend.position =c(1.5,0.55),legend.title=element_text(size=14),legend.text=element_text(size=15),legend.direction = "horizontal",
+                                                                                       legend.spacing.x = unit(0.2, 'cm'),
+                                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+                                                                                       panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+mylegend<-g_legend(d_plots$jul$gatherings_restrictions)
+
+grid.arrange(d_plots$jan$gatherings_restrictions,d_plots$fev$gatherings_restrictions,d_plots$mar$gatherings_restrictions,d_plots$apr$gatherings_restrictions,d_plots$may$gatherings_restrictions,d_plots$jun$gatherings_restrictions,mylegend,ncol=3,nrow=3)
+
+(d_plots$jul$gatherings_restrictions <- ggplot(data = total$totaljul) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("grey","#00FFF3","#9EF635","#ECEC2A","#E53535"))+
+    theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
           panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
 
-grid.arrange(d_plots$fev$gatherings_restrictions,d_plots$mar$gatherings_restrictions,d_plots$apr$gatherings_restrictions,d_plots$may$gatherings_restrictions,d_plots$jun$gatherings_restrictions,d_plots$jul$gatherings_restrictions,top="Política de restrição de multidões.",ncol=2,nrow=3)
+
+(d_plots$aug$gatherings_restrictions <- ggplot(data = total$totalaug) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("grey","#00FFF3","#9EF635","#ECEC2A","#E53535"))+
+    theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Agosto.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+
+(d_plots$sep$gatherings_restrictions <- ggplot(data = total$totalsep) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("grey","#00FFF3","#9EF635","#ECEC2A","#E53535"))+
+    theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Setembro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+
+(d_plots$oc$gatherings_restrictions <- ggplot(data = total$totaloc) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("grey","#00FFF3","#9EF635","#ECEC2A","#E53535"))+
+    theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Outubro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+
+(d_plots$nov$gatherings_restrictions <- ggplot(data = total$totalnov) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("grey","#00FFF3","#9EF635","#ECEC2A","#E53535"))+
+    theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Novembro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+
+(d_plots$dec$gatherings_restrictions <- ggplot(data = total$totaldec) +
+    geom_sf(aes(fill = gatherings_restrictions)) +
+    scale_fill_manual(values=c("grey","#00FFF3","#9EF635","#ECEC2A","#E53535"))+
+    theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(fill = NA))+labs(title ="Dezembro.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+
+
+grid.arrange(d_plots$jul$gatherings_restrictions,d_plots$aug$gatherings_restrictions,d_plots$sep$gatherings_restrictions,d_plots$oc$gatherings_restrictions,d_plots$nov$gatherings_restrictions,d_plots$dec$gatherings_restrictions,mylegend,ncol=3,nrow=3)
 
 ###################################################
 #transport_closing
