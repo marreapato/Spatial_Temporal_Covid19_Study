@@ -777,30 +777,27 @@ grid.arrange(c_plots$jan$zdeathpop,c_plots$fev$zdeathpop,c_plots$mar$zdeathpop,c
 #deaths2
 grid.arrange(c_plots$jul$zdeathpop,c_plots$aug$zdeathpop,c_plots$sep$zdeathpop,c_plots$oc$zdeathpop,c_plots$nov$zdeathpop,c_plots$dec$zdeathpop,mylegend,ncol=3,nrow=3)
 
-#deaths
-grid.arrange(c_plots$jul$zdeathpop,c_plots$aug$zdeathpop,c_plots$sep$zdeathpop,c_plots$oc$zdeathpop,c_plots$nov$zdeathpop,c_plots$dec$zdeathpop,ncol=2,nrow=3)
-
 #confirmed
-grid.arrange(c_plots$fev$zconfpop,c_plots$mar$zconfpop,c_plots$abr$zconfpop,c_plots$may$zconfpop,c_plots$jun$zconfpop,c_plots$dec$zconfpop,mylegend,ncol=3,nrow=3)
+grid.arrange(c_plots$jan$zconfpop,c_plots$fev$zconfpop,c_plots$mar$zconfpop,c_plots$abr$zconfpop,c_plots$may$zconfpop,c_plots$jun$zconfpop,mylegend1,ncol=3,nrow=3)
+#confirmed2
+grid.arrange(c_plots$jul$zconfpop,c_plots$aug$zconfpop,c_plots$sep$zconfpop,c_plots$oc$zconfpop,c_plots$nov$zconfpop,c_plots$dec$zconfpop,mylegend1,ncol=3,nrow=3)
 
 #recovered
-grid.arrange(c_plots$fev$zrecovpop,c_plots$mar$zrecovpop,c_plots$abr$zrecovpop,c_plots$may$zrecovpop,c_plots$jun$zrecovpop,c_plots$jul$zrecovpop,top="Recuperados por quantidade populacional",ncol=2,nrow=3)
+grid.arrange(c_plots$jan$zrecovpop,c_plots$fev$zrecovpop,c_plots$mar$zrecovpop,c_plots$abr$zrecovpop,c_plots$may$zrecovpop,c_plots$jun$zrecovpop,mylegend3,ncol=3,nrow=3)
+#recovered2
+grid.arrange(c_plots$jul$zrecovpop,c_plots$aug$zrecovpop,c_plots$sep$zrecovpop,c_plots$oc$zrecovpop,c_plots$nov$zrecovpop,c_plots$dec$zrecovpop,mylegend3,ncol=3,nrow=3)
 
 #tests
-grid.arrange(c_plots$fev$ztestpop,c_plots$mar$ztestpop,c_plots$abr$ztestpop,c_plots$may$ztestpop,c_plots$jun$ztestpop,c_plots$jul$ztestpop,top="Testes por quantidade populacional",ncol=2,nrow=3)
+grid.arrange(c_plots$jan$ztestpop,c_plots$fev$ztestpop,c_plots$mar$ztestpop,c_plots$abr$ztestpop,c_plots$may$ztestpop,c_plots$jun$ztestpop,mylegend2,ncol=3,nrow=3)
+#tests
+grid.arrange(c_plots$jul$ztestpop,c_plots$aug$ztestpop,c_plots$sep$ztestpop,c_plots$oc$ztestpop,c_plots$nov$ztestpop,c_plots$dec$ztestpop,mylegend2,ncol=3,nrow=3)
 
 #recovered
-grid.arrange(c_plots$fev$zrecovcase,c_plots$mar$zrecovcase,c_plots$abr$zrecovcase,c_plots$may$zrecovcase,c_plots$jun$zrecovcase,c_plots$jul$zrecovcase,top="Recuperados por quantidade de casos",ncol=2,nrow=3)
+grid.arrange(c_plots$jan$zrecovcase,c_plots$fev$zrecovcase,c_plots$mar$zrecovcase,c_plots$abr$zrecovcase,c_plots$may$zrecovcase,c_plots$jun$zrecovcase,mylegend5,ncol=3,nrow=3)
+#recovered
+grid.arrange(c_plots$jul$zrecovcase,c_plots$aug$zrecovcase,c_plots$sep$zrecovcase,c_plots$oc$zrecovcase,c_plots$nov$zrecovcase,c_plots$dec$zrecovcase,mylegend5,ncol=3,nrow=3)
 
 #deaths
-grid.arrange(c_plots$fev$zdeathcase,c_plots$mar$zdeathcase,c_plots$abr$zdeathcase,c_plots$may$zdeathcase,c_plots$jun$zdeathcase,c_plots$jul$zdeathcase,top="Mortes por quantidade de casos",ncol=2,nrow=3)
-
-#extract legend
-#https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
-g_legend<-function(a.gplot){
-  tmp <- ggplot_gtable(ggplot_build(a.gplot))
-  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-  legend <- tmp$grobs[[leg]]
-  return(legend)}
-
-mylegend<-g_legend(d_plots$jul$school)
+grid.arrange(c_plots$jan$zdeathcase,c_plots$fev$zdeathcase,c_plots$mar$zdeathcase,c_plots$abr$zdeathcase,c_plots$may$zdeathcase,c_plots$jun$zdeathcase,mylegend4,ncol=3,nrow=3)
+#deaths
+grid.arrange(c_plots$jul$zdeathcase,c_plots$aug$zdeathcase,c_plots$sep$zdeathcase,c_plots$oc$zdeathcase,c_plots$nov$zdeathcase,c_plots$dec$zdeathcase,mylegend4,ncol=3,nrow=3)
