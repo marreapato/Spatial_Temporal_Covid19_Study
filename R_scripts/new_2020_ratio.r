@@ -673,13 +673,37 @@ c_plots$nov$zrecovcase <-ggplot(data = total$totalnov) +
   theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Novembro",fill="Recuperados: ",caption=c("Fonte: Covid19DataHub"))
 
-
 #Dezembro
+#extract legend
+#https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
+g_legend<-function(a.gplot){
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)}
+
+c_plots$dec$zconfpop <-ggplot(data = total$totaldec) +
+  geom_sf(aes(fill = zconfirmedpop_ratio)) +
+  scale_fill_gradientn(colors=vcolor)+theme(legend.position =,legend.title=element_text(size=14),legend.text=element_text(size=15),
+       legend.spacing.x = unit(0.2, 'cm'),
+       axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+       panel.border = element_rect(fill = NA))+labs(title ="Dezembro.",fill="Casos confirmados:",caption=c("Fonte: Covid19DataHub")))
+
 c_plots$dec$zconfpop <-ggplot(data = total$totaldec) +
   geom_sf(aes(fill = zconfirmedpop_ratio)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = c(1.5,0.55),legend.direction = "horizontal",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Dezembro",fill="Casos confirmados: ",caption=c("Fonte: Covid19DataHub"))
+
+
+mylegend<-g_legend(c_plots$dec$zconfpop)
+
+c_plots$dec$zconfpop <-ggplot(data = total$totaldec) +
+  geom_sf(aes(fill = zconfirmedpop_ratio)) +
+  scale_fill_gradientn(colors=vcolor)+
+  theme(legend.position = "none",legend.direction = "horizontal",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(fill = NA))+labs(title ="Até Dezembro",fill="Casos confirmados: ",caption=c("Fonte: Covid19DataHub"))
+
 
 c_plots$dec$zdeathpop <-ggplot(data = total$totaldec) +
   geom_sf(aes(fill = zdeathspop_ratio)) +
@@ -712,7 +736,6 @@ c_plots$dec$zrecovcase <-ggplot(data = total$totaldec) +
         panel.border = element_rect(fill = NA))+labs(title ="Até Dezembro",fill="Recuperados: ",caption=c("Fonte: Covid19DataHub"))
 
 
-
 #deaths
 grid.arrange(c_plots$jan$zdeathpop,c_plots$fev$zdeathpop,c_plots$mar$zdeathpop,c_plots$abr$zdeathpop,c_plots$may$zdeathpop,c_plots$jun$zdeathpop,ncol=2,nrow=3)
 
@@ -720,7 +743,7 @@ grid.arrange(c_plots$jan$zdeathpop,c_plots$fev$zdeathpop,c_plots$mar$zdeathpop,c
 grid.arrange(c_plots$jul$zdeathpop,c_plots$aug$zdeathpop,c_plots$sep$zdeathpop,c_plots$oc$zdeathpop,c_plots$nov$zdeathpop,c_plots$dec$zdeathpop,ncol=2,nrow=3)
 
 #confirmed
-grid.arrange(c_plots$fev$zconfpop,c_plots$mar$zconfpop,c_plots$abr$zconfpop,c_plots$may$zconfpop,c_plots$jun$zconfpop,c_plots$jul$zconfpop,top="Casos confirmados por quantidade populacional",ncol=2,nrow=3)
+grid.arrange(c_plots$fev$zconfpop,c_plots$mar$zconfpop,c_plots$abr$zconfpop,c_plots$may$zconfpop,c_plots$jun$zconfpop,c_plots$dec$zconfpop,mylegend,ncol=3,nrow=3)
 
 #recovered
 grid.arrange(c_plots$fev$zrecovpop,c_plots$mar$zrecovpop,c_plots$abr$zrecovpop,c_plots$may$zrecovpop,c_plots$jun$zrecovpop,c_plots$jul$zrecovpop,top="Recuperados por quantidade populacional",ncol=2,nrow=3)
