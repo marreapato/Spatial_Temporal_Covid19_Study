@@ -449,37 +449,37 @@ c_plots$may$zrecovcase <-ggplot(data = total$totalma) +
 c_plots$jun$zconfpop <-ggplot(data = total$totaljun) +
   geom_sf(aes(fill = zconfirmedpop_ratio)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Junho",fill="Casos confirmados: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$jun$zdeathpop <-ggplot(data = total$totaljun) +
   geom_sf(aes(fill = zdeathspop_ratio)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Junho",fill="Mortes: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$jun$ztestpop <-ggplot(data = total$totaljun) +
   geom_sf(aes(fill = ztestspop_ratio)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(legend.position =c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position ="",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Junho",fill="Testes: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$jun$zrecovpop <-ggplot(data = total$totaljun) +
   geom_sf(aes(fill = zrecoveredpop_ratio)) +
   scale_fill_gradientn(colors=i_vcolor)+
-  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Junho",fill="Recuperados: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$jun$zdeathcase <-ggplot(data = total$totaljun) +
   geom_sf(aes(fill = zdeaths_conf_ratio)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Junho",fill="Mortes: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$jun$zrecovcase <-ggplot(data = total$totaljun) +
   geom_sf(aes(fill = zrecovered_conf_ratio)) +
   scale_fill_gradientn(colors=i_vcolor)+
-  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = "",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Junho",fill="Recuperados: ",caption=c("Fonte: Covid19DataHub"))
 
 
@@ -684,19 +684,12 @@ g_legend<-function(a.gplot){
 
 c_plots$dec$zconfpop <-ggplot(data = total$totaldec) +
   geom_sf(aes(fill = zconfirmedpop_ratio)) +
-  scale_fill_gradientn(colors=vcolor)+theme(legend.position =,legend.title=element_text(size=14),legend.text=element_text(size=15),
-       legend.spacing.x = unit(0.2, 'cm'),
-       axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
-       panel.border = element_rect(fill = NA))+labs(title ="Dezembro.",fill="Casos confirmados:",caption=c("Fonte: Covid19DataHub")))
-
-c_plots$dec$zconfpop <-ggplot(data = total$totaldec) +
-  geom_sf(aes(fill = zconfirmedpop_ratio)) +
   scale_fill_gradientn(colors=vcolor)+
   theme(legend.position = c(1.5,0.55),legend.direction = "horizontal",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Dezembro",fill="Casos confirmados: ",caption=c("Fonte: Covid19DataHub"))
 
 
-mylegend<-g_legend(c_plots$dec$zconfpop)
+mylegend1<-g_legend(c_plots$dec$zconfpop)
 
 c_plots$dec$zconfpop <-ggplot(data = total$totaldec) +
   geom_sf(aes(fill = zconfirmedpop_ratio)) +
@@ -708,36 +701,81 @@ c_plots$dec$zconfpop <-ggplot(data = total$totaldec) +
 c_plots$dec$zdeathpop <-ggplot(data = total$totaldec) +
   geom_sf(aes(fill = zdeathspop_ratio)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = c(1.5,0.55),legend.direction = "horizontal",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(fill = NA))+labs(title ="Até Dezembro",fill="Mortes: ",caption=c("Fonte: Covid19DataHub"))
+
+
+
+mylegend<-g_legend(c_plots$dec$zdeathpop)
+
+c_plots$dec$zdeathpop <-ggplot(data = total$totaldec) +
+  geom_sf(aes(fill = zdeathspop_ratio)) +
+  scale_fill_gradientn(colors=vcolor)+
+  theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Dezembro",fill="Mortes: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$dec$ztestpop <-ggplot(data = total$totaldec) +
   geom_sf(aes(fill = ztestspop_ratio)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = c(1.5,0.55),legend.direction = "horizontal",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(fill = NA))+labs(title ="Até Dezembro",fill="Testes: ",caption=c("Fonte: Covid19DataHub"))
+
+
+mylegend2<-g_legend(c_plots$dec$ztestpop)
+
+c_plots$dec$ztestpop <-ggplot(data = total$totaldec) +
+  geom_sf(aes(fill = ztestspop_ratio)) +
+  scale_fill_gradientn(colors=vcolor)+
+  theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Dezembro",fill="Testes: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$dec$zrecovpop <-ggplot(data = total$totaldec) +
   geom_sf(aes(fill = zrecoveredpop_ratio)) +
   scale_fill_gradientn(colors=i_vcolor)+
-  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = c(1.5,0.55),legend.direction = "horizontal",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(fill = NA))+labs(title ="Até Dezembro",fill="Recuperados: ",caption=c("Fonte: Covid19DataHub"))
+
+mylegend3<-g_legend(c_plots$dec$zrecovpop)
+
+c_plots$dec$zrecovpop <-ggplot(data = total$totaldec) +
+  geom_sf(aes(fill = zrecoveredpop_ratio)) +
+  scale_fill_gradientn(colors=i_vcolor)+
+  theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Dezembro",fill="Recuperados: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$dec$zdeathcase <-ggplot(data = total$totaldec) +
   geom_sf(aes(fill = zdeaths_conf_ratio)) +
   scale_fill_gradientn(colors=vcolor)+
-  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = c(1.5,0.55),legend.direction = "horizontal",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(fill = NA))+labs(title ="Até Dezembro",fill="Mortes: ",caption=c("Fonte: Covid19DataHub"))
+
+mylegend4<-g_legend(c_plots$dec$zdeathcase)
+
+c_plots$dec$zdeathcase <-ggplot(data = total$totaldec) +
+  geom_sf(aes(fill = zdeaths_conf_ratio)) +
+  scale_fill_gradientn(colors=vcolor)+
+  theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Dezembro",fill="Mortes: ",caption=c("Fonte: Covid19DataHub"))
 
 c_plots$dec$zrecovcase <-ggplot(data = total$totaldec) +
   geom_sf(aes(fill = zrecovered_conf_ratio)) +
   scale_fill_gradientn(colors=i_vcolor)+
-  theme(legend.position = c(-0.35,2),axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+  theme(legend.position = c(1.5,0.55),legend.direction = "horizontal",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
         panel.border = element_rect(fill = NA))+labs(title ="Até Dezembro",fill="Recuperados: ",caption=c("Fonte: Covid19DataHub"))
 
 
+mylegend5<-g_legend(c_plots$dec$zrecovcase)
+
+c_plots$dec$zrecovcase <-ggplot(data = total$totaldec) +
+  geom_sf(aes(fill = zrecovered_conf_ratio)) +
+  scale_fill_gradientn(colors=i_vcolor)+
+  theme(legend.position = "none",axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(fill = NA))+labs(title ="Até Dezembro",fill="Recuperados: ",caption=c("Fonte: Covid19DataHub"))
+
 #deaths
-grid.arrange(c_plots$jan$zdeathpop,c_plots$fev$zdeathpop,c_plots$mar$zdeathpop,c_plots$abr$zdeathpop,c_plots$may$zdeathpop,c_plots$jun$zdeathpop,ncol=2,nrow=3)
+grid.arrange(c_plots$jan$zdeathpop,c_plots$fev$zdeathpop,c_plots$mar$zdeathpop,c_plots$abr$zdeathpop,c_plots$may$zdeathpop,c_plots$jun$zdeathpop,mylegend,ncol=3,nrow=3)
+#deaths2
+grid.arrange(c_plots$jul$zdeathpop,c_plots$aug$zdeathpop,c_plots$sep$zdeathpop,c_plots$oc$zdeathpop,c_plots$nov$zdeathpop,c_plots$dec$zdeathpop,mylegend,ncol=3,nrow=3)
 
 #deaths
 grid.arrange(c_plots$jul$zdeathpop,c_plots$aug$zdeathpop,c_plots$sep$zdeathpop,c_plots$oc$zdeathpop,c_plots$nov$zdeathpop,c_plots$dec$zdeathpop,ncol=2,nrow=3)
