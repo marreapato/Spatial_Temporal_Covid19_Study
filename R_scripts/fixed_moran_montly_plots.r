@@ -1967,9 +1967,9 @@ library("ggplotify")
   worldsf <- ne_countries(scale='medium',returnclass = 'sf')
   
   july2 <- july
-  july2$cancel_events<- gsub(0, "Não Significante", july2$cancel_events)
+  july2$cancel_events<- gsub(0, "<0.01", july2$cancel_events)
   july2$cancel_events <- gsub(1, "<0.05", july2$cancel_events)
-  july2$cancel_events <- gsub(2, "<0.01", july2$cancel_events)
+  july2$cancel_events <- gsub(2, "Não Significante", july2$cancel_events)
   
   names(july2)[names(july2) == "administrative_area_level_1"] <- "subunit"
     julf<-merge(worldsf,july2,by="subunit")
