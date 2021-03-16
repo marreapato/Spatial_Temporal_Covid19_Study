@@ -1967,22 +1967,22 @@ library("ggplotify")
   worldsf <- ne_countries(scale='medium',returnclass = 'sf')
   
   july2 <- july
-  july2$cancel_events<- gsub(0, "<0.01", july2$cancel_events)
+  july2$cancel_events<- gsub(0, "Não Significante", july2$cancel_events)
   july2$cancel_events <- gsub(1, "<0.05", july2$cancel_events)
-  july2$cancel_events <- gsub(2, "Não Significante", july2$cancel_events)
+  july2$cancel_events <- gsub(2, "<0.01", july2$cancel_events)
   
   names(july2)[names(july2) == "administrative_area_level_1"] <- "subunit"
-    julf<-merge(worldsf,july2,by="subunit")
-    julf$subunit<-factor(julf$subunit)
-    julf <- julf[order(julf$confirmed),] # order the data [very important!]
-    
- 
+  julf<-merge(worldsf,july2,by="subunit")
+  julf$subunit<-factor(julf$subunit)
+  julf <- julf[order(julf$confirmed),] # order the data [very important!]
+  
+  
   (julho_leg <- ggplot(data = julf) +
       geom_sf(aes(fill = cancel_events)) +
-      scale_fill_manual(values=c("White","orange","orangered")) +theme(legend.position =c(1.5,0.55),legend.title=element_text(size=14),legend.text=element_text(size=15),legend.direction = "horizontal",
-                                                                        legend.spacing.x = unit(0.2, 'cm'),
-                                                                        axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
-                                                                        panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
+      scale_fill_manual(values=c("orangered","orange","white")) +theme(legend.position =c(1.5,0.55),legend.title=element_text(size=14),legend.text=element_text(size=15),legend.direction = "horizontal",
+                                                                       legend.spacing.x = unit(0.2, 'cm'),
+                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+                                                                       panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="Política:",caption=c("Fonte: Covid19DataHub")))
   
   mylegend<-g_legend(julho_leg)
   
@@ -1998,4 +1998,5 @@ library("ggplotify")
   novdec=grid.arrange(novplot,decplot,widths=c(0.3,0.3))
   
   ocnov_case=grid.arrange(ocplot_case,novplot_case,decplot_case,widths=c(0.3,0.3))
+  
   
