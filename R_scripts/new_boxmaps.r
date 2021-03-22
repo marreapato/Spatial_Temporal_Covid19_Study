@@ -271,26 +271,7 @@ for(i in 1:length(total)){
   
   #require("RColorBrewer")
   
-  #require("sp")
-  
-  (kc1=spplot(total$totala, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Abril",colorkey=FALSE))
-  ?spplot
-  spplot(total$totala,"quad",at=summary(total$totala$quad),col.regions=c("#ADD8E6","blue", "#E6550D","red"),main="Abril")
-#  
-  View(total$totala)
-  
-  dataa <- total$totala@data
-  world2 <- ne_countries(scale='medium',returnclass = 'sf')
-  
-  dataa<-merge(world2,dataa,by="subunit")
-  dataa$subunit<-factor(dataa$subunit)
-  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
-  
-  
-  ggplot(data = dataa) +
-    geom_sf(aes(fill = dataa$quad)) +
-    scale_fill_manual(values=c("#ADD8E6","blue", "#E6550D","red"))
-   #boxmap
+  #boxmap
   quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
   
   # centers the variable of interest around its mean
@@ -311,12 +292,19 @@ for(i in 1:length(total)){
   #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
   total$totala$quad <- quadrant
   # plot in r
-  brks <- c(0,1,2,3,4)
-  colors <- c("white","blue",rgb(0,0,1,alpha=0.4),rgb(1,0,0,alpha=0.4),"red")
-  plot(total$totala,border="lightgray",col=colors[findInterval(quadrant,brks,all.inside=FALSE)],main="Abril")
-  box()  
-  legend("bottomleft", legend = c("Nenhum","BB","BA","AB","AA"),
-         fill=colors,bty="n")
+  #april
+  dataa <- total$totala@data
+  world2 <- ne_countries(scale='medium',returnclass = 'sf')
+  
+  dataa<-merge(world2,dataa,by="subunit")
+  dataa$subunit<-factor(dataa$subunit)
+  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+  
+  
+  (ab <- ggplot(data = dataa) +
+    geom_sf(aes(fill = quad)) +
+    scale_fill_manual(values=c("red","pink","blue","#ADD8E6"))+theme(legend.position = "none" ,axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+    labs(title = "Abril"))
   
   
   
@@ -350,12 +338,42 @@ for(i in 1:length(total)){
   total$totalma$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
   
-  #require("RColorBrewer")
+  #boxmap
+  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
   
-  #require("sp")
+  # centers the variable of interest around its mean
+  m.qualification <- total$totalma$m_death_pop_ratio - mean(total$totalma$m_death_pop_ratio)     
   
-  (kc2=spplot(total$totalma, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Maio",colorkey=FALSE))
-  ?spplot
+  # centers the local Moran's around the mean
+  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+  
+  # significance threshold
+  signif <- 0.05 
+  
+  # builds a data quadrant
+  #positions
+  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
+  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
+  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
+  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
+  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+  total$totalma$quad <- quadrant
+  # plot in r
+  #may
+  dataa <- total$totalma@data
+  world2 <- ne_countries(scale='medium',returnclass = 'sf')
+  
+  dataa<-merge(world2,dataa,by="subunit")
+  dataa$subunit<-factor(dataa$subunit)
+  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+  
+  
+ ( may <- ggplot(data = dataa) +
+    geom_sf(aes(fill = quad)) +
+    scale_fill_manual(values=c("red","pink","blue","#ADD8E6"))+theme(legend.position = "none" ,axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+    labs(title = "Maio"))
+  
+  
   
   
   
@@ -390,9 +408,46 @@ for(i in 1:length(total)){
   
   #require("sp")
   
-  (kc3=spplot(total$totaljun, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Junho",colorkey=FALSE))
-  ?spplot
+  #boxmap
+  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
   
+  # centers the variable of interest around its mean
+  m.qualification <- total$totaljun$m_death_pop_ratio - mean(total$totaljun$m_death_pop_ratio)     
+  
+  # centers the local Moran's around the mean
+  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+  
+  # significance threshold
+  signif <- 0.05 
+  
+  # builds a data quadrant
+  #positions
+  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
+  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
+  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
+  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
+  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+  total$totaljun$quad <- quadrant
+  # plot in r
+  #may
+  dataa <- total$totaljun@data
+  world2 <- ne_countries(scale='medium',returnclass = 'sf')
+  
+  dataa<-merge(world2,dataa,by="subunit")
+  dataa$subunit<-factor(dataa$subunit)
+  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+  
+  
+ ( jun <- ggplot(data = dataa) +
+    geom_sf(aes(fill = quad)) +
+    scale_fill_manual(values=c("red","pink","blue","#ADD8E6"))+theme(legend.position = "none" ,axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+    labs(title = "Junho"))
+  
+  
+  
+  
+  
+  ########################3
   #July
   coor <- coordinates(total$totaljul)
   cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
@@ -421,9 +476,43 @@ for(i in 1:length(total)){
   
   #require("sp")
   
-  (kc4=spplot(total$totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Julho",colorkey=FALSE))
-  ?spplot
+  #boxmap
+  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
   
+  # centers the variable of interest around its mean
+  m.qualification <- total$totaljul$m_death_pop_ratio - mean(total$totaljul$m_death_pop_ratio)     
+  
+  # centers the local Moran's around the mean
+  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+  
+  # significance threshold
+  signif <- 0.05 
+  
+  # builds a data quadrant
+  #positions
+  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
+  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
+  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
+  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
+  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+  total$totaljul$quad <- quadrant
+  # plot in r
+  #may
+  dataa <- total$totaljul@data
+  world2 <- ne_countries(scale='medium',returnclass = 'sf')
+  
+  dataa<-merge(world2,dataa,by="subunit")
+  dataa$subunit<-factor(dataa$subunit)
+  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+  
+  
+  ( jul <- ggplot(data = dataa) +
+      geom_sf(aes(fill = quad)) +
+      scale_fill_manual(values=c("red","pink","blue","#ADD8E6"))+theme(legend.position = "none" ,axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+      labs(title = "Julho"))
+  
+  
+  ##########################################
   ###################
   #nearest neighbours
   #august
@@ -454,7 +543,54 @@ for(i in 1:length(total)){
   
   
   
-  (kc5=spplot(total$totalaug, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Agosto",colorkey=FALSE))
+  
+  #boxmap
+  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+  
+  # centers the variable of interest around its mean
+  m.qualification <- total$totalaug$m_death_pop_ratio - mean(total$totalaug$m_death_pop_ratio)     
+  
+  # centers the local Moran's around the mean
+  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+  
+  # significance threshold
+  signif <- 0.05 
+  
+  # builds a data quadrant
+  #positions
+  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
+  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
+  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
+  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
+  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+  total$totalaug$quad <- quadrant
+  # plot in r
+  #may
+  dataa <- total$totalaug@data
+  world2 <- ne_countries(scale='medium',returnclass = 'sf')
+  
+  dataa<-merge(world2,dataa,by="subunit")
+  dataa$subunit<-factor(dataa$subunit)
+  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+  
+  g_legend<-function(a.gplot){
+    tmp <- ggplot_gtable(ggplot_build(a.gplot))
+    leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+    legend <- tmp$grobs[[leg]]
+    return(legend)}
+  
+  ( aug <- ggplot(data = dataa) +
+      geom_sf(aes(fill = quad)) +
+      scale_fill_manual(values=c("red","pink","#ADD8E6","blue"))+theme(legend.position =c(1.5,0.55),legend.direction = "horizontal",
+                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+      labs(title = "Agosto",fill="Grupos"))
+  
+  mylegend<-g_legend(aug)
+  ( aug <- ggplot(data = dataa) +
+      geom_sf(aes(fill = quad)) +
+      scale_fill_manual(values=c("red","pink","#ADD8E6","blue"))+theme(legend.position ='none',legend.direction = "horizontal",
+                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+      labs(title = "Agosto",fill="Grupos"))
   
   ###################
   #nearest neighbours
@@ -493,7 +629,42 @@ for(i in 1:length(total)){
   
   
   
-  (kc6=spplot(total$totalsep, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Setembro",colorkey=FALSE))
+  
+  #boxmap
+  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+  
+  # centers the variable of interest around its mean
+  m.qualification <- total$totalsep$m_death_pop_ratio - mean(total$totalsep$m_death_pop_ratio)     
+  
+  # centers the local Moran's around the mean
+  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+  
+  # significance threshold
+  signif <- 0.05 
+  
+  # builds a data quadrant
+  #positions
+  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
+  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
+  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
+  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
+  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+  total$totalsep$quad <- quadrant
+  # plot in r
+  #may
+  dataa <- total$totalsep@data
+  world2 <- ne_countries(scale='medium',returnclass = 'sf')
+  
+  dataa<-merge(world2,dataa,by="subunit")
+  dataa$subunit<-factor(dataa$subunit)
+  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+  
+  
+  ( sep <- ggplot(data = dataa) +
+      geom_sf(aes(fill = quad)) +
+      scale_fill_manual(values=c("red","pink","#ADD8E6","blue"))+theme(legend.position ="none",
+                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+      labs(title = "Setembro"))
   
   #nearest neighbours
   #october
@@ -524,7 +695,44 @@ for(i in 1:length(total)){
                                              ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
   
   
-  (case_oct=spplot(total$totaloct, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Outubro",colorkey=F))
+  
+  
+  #boxmap
+  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+  
+  # centers the variable of interest around its mean
+  m.qualification <- total$totaloct$m_case_pop_ratio - mean(total$totaloct$m_case_pop_ratio)     
+  
+  # centers the local Moran's around the mean
+  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+  
+  # significance threshold
+  signif <- 0.05 
+  
+  # builds a data quadrant
+  #positions
+  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
+  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
+  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
+  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
+  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+  total$totaloct$quad <- quadrant
+  # plot in r
+  #may
+  dataa <- total$totaloct@data
+  world2 <- ne_countries(scale='medium',returnclass = 'sf')
+  
+  dataa<-merge(world2,dataa,by="subunit")
+  dataa$subunit<-factor(dataa$subunit)
+  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+  
+  
+  (case_oct<- ggplot(data = dataa) +
+      geom_sf(aes(fill = quad)) +
+      scale_fill_manual(values=c("red","pink","blue"))+theme(legend.position ="none",
+                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+      labs(title = "Outubro"))
+  
   
   
   
@@ -546,7 +754,43 @@ for(i in 1:length(total)){
                                              ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
   
   
-  (kc7=spplot(total$totaloct, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Outubro",colorkey=FALSE))
+  
+  
+  #boxmap
+  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+  
+  # centers the variable of interest around its mean
+  m.qualification <- total$totaloct$m_death_pop_ratio - mean(total$totaloct$m_death_pop_ratio)     
+  
+  # centers the local Moran's around the mean
+  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+  
+  # significance threshold
+  signif <- 0.05 
+  
+  # builds a data quadrant
+  #positions
+  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
+  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
+  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
+  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
+  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+  total$totaloct$quad <- quadrant
+  # plot in r
+  #may
+  dataa <- total$totaloct@data
+  world2 <- ne_countries(scale='medium',returnclass = 'sf')
+  
+  dataa<-merge(world2,dataa,by="subunit")
+  dataa$subunit<-factor(dataa$subunit)
+  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+  
+  
+  (oct<- ggplot(data = dataa) +
+      geom_sf(aes(fill = quad)) +
+      scale_fill_manual(values=c("red","pink","#ADD8E6","blue"))+theme(legend.position ="none",
+                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+      labs(title = "Outubro"))
   
   #november
   coor <- coordinates(total$totalnov)
@@ -575,7 +819,43 @@ for(i in 1:length(total)){
                                              ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
   
   
-  (case_nov=spplot(total$totalnov, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Novembro",colorkey=F))
+  
+  #boxmap
+  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+  
+  # centers the variable of interest around its mean
+  m.qualification <- total$totalnov$m_case_pop_ratio - mean(total$totalnov$m_case_pop_ratio)     
+  
+  # centers the local Moran's around the mean
+  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+  
+  # significance threshold
+  signif <- 0.05 
+  
+  # builds a data quadrant
+  #positions
+  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
+  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
+  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
+  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
+  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+  total$totalnov$quad <- quadrant
+  # plot in r
+  #may
+  dataa <- total$totalnov@data
+  world2 <- ne_countries(scale='medium',returnclass = 'sf')
+  
+  dataa<-merge(world2,dataa,by="subunit")
+  dataa$subunit<-factor(dataa$subunit)
+  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+  
+  
+  (case_nov<- ggplot(data = dataa) +
+      geom_sf(aes(fill = quad)) +
+      scale_fill_manual(values=c("red","pink","blue"))+theme(legend.position ="none",
+                                                             axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+      labs(title = "Novembro"))
+  
   
   
   
@@ -596,7 +876,42 @@ for(i in 1:length(total)){
                                              ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
   
   
-  (kc8=spplot(total$totalnov, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Novembro",colorkey=FALSE))
+  
+  #boxmap
+  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+  
+  # centers the variable of interest around its mean
+  m.qualification <- total$totalnov$m_death_pop_ratio - mean(total$totalnov$m_death_pop_ratio)     
+  
+  # centers the local Moran's around the mean
+  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+  
+  # significance threshold
+  signif <- 0.05 
+  
+  # builds a data quadrant
+  #positions
+  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
+  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
+  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
+  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
+  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+  total$totalnov$quad <- quadrant
+  # plot in r
+  #may
+  dataa <- total$totalnov@data
+  world2 <- ne_countries(scale='medium',returnclass = 'sf')
+  
+  dataa<-merge(world2,dataa,by="subunit")
+  dataa$subunit<-factor(dataa$subunit)
+  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+  
+  
+  (nov<- ggplot(data = dataa) +
+      geom_sf(aes(fill = quad)) +
+      scale_fill_manual(values=c("red","pink","blue","#ADD8E6"))+theme(legend.position ="none",
+                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+      labs(title = "Novembro"))
   
   
   
@@ -627,7 +942,43 @@ for(i in 1:length(total)){
                                              ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
   
   
-  (case_dec=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Dezembro",colorkey=F))
+  
+  #boxmap
+  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+  
+  # centers the variable of interest around its mean
+  m.qualification <- total$totaldec$m_case_pop_ratio - mean(total$totaldec$m_case_pop_ratio)     
+  
+  # centers the local Moran's around the mean
+  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+  
+  # significance threshold
+  signif <- 0.05 
+  
+  # builds a data quadrant
+  #positions
+  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
+  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
+  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
+  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
+  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+  total$totaldec$quad <- quadrant
+  # plot in r
+  #may
+  dataa <- total$totaldec@data
+  world2 <- ne_countries(scale='medium',returnclass = 'sf')
+  
+  dataa<-merge(world2,dataa,by="subunit")
+  dataa$subunit<-factor(dataa$subunit)
+  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+  
+  
+  (case_dec<- ggplot(data = dataa) +
+      geom_sf(aes(fill = quad)) +
+      scale_fill_manual(values=c("red","pink","blue"))+theme(legend.position ="none",
+                                                             axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+      labs(title = "Dezembro"))
+  
   
   
   #death_pop
@@ -648,51 +999,49 @@ for(i in 1:length(total)){
   
   
   
-  (kc9=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Dezembro",colorkey = F))
-  (kc9=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "December",with.legend = "bottom", legend.prop = 0.15))
+  #boxmap
+  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+  
+  # centers the variable of interest around its mean
+  m.qualification <- total$totaldec$m_death_pop_ratio - mean(total$totaldec$m_death_pop_ratio)     
+  
+  # centers the local Moran's around the mean
+  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+  
+  # significance threshold
+  signif <- 0.05 
+  
+  # builds a data quadrant
+  #positions
+  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
+  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
+  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
+  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
+  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+  total$totaldec$quad <- quadrant
+  # plot in r
+  #may
+  dataa <- total$totaldec@data
+  world2 <- ne_countries(scale='medium',returnclass = 'sf')
+  
+  dataa<-merge(world2,dataa,by="subunit")
+  dataa$subunit<-factor(dataa$subunit)
+  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
   
   
-  #extract legend
-  #https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
-  g_legend<-function(a.gplot){
-    tmp <- ggplot_gtable(ggplot_build(a.gplot))
-    leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-    legend <- tmp$grobs[[leg]]
-    return(legend)}
-  #legend
-  worldsf <- ne_countries(scale='medium',returnclass = 'sf')
-  
-  july2 <- july
-  july2$cancel_events<- gsub(0, "Não Significante", july2$cancel_events)
-  july2$cancel_events <- gsub(1, "<0.05", july2$cancel_events)
-  july2$cancel_events <- gsub(2, "<0.01", july2$cancel_events)
-  
-  names(july2)[names(july2) == "administrative_area_level_1"] <- "subunit"
-  julf<-merge(worldsf,july2,by="subunit")
-  julf$subunit<-factor(julf$subunit)
-  julf <- julf[order(julf$confirmed),] # order the data [very important!]
+  (dec<- ggplot(data = dataa) +
+      geom_sf(aes(fill = quad)) +
+      scale_fill_manual(values=c("red","pink","blue","#ADD8E6"))+theme(legend.position ="none",
+                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+      labs(title = "Dezembro"))
   
   
-  (julho_leg <- ggplot(data = julf) +
-      geom_sf(aes(fill = cancel_events)) +
-      scale_fill_manual(values=c("orangered","orange","white")) +theme(legend.position =c(1.5,0.55),legend.title=element_text(size=14),legend.text=element_text(size=15),legend.direction = "horizontal",
-                                                                       legend.spacing.x = unit(0.2, 'cm'),
-                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
-                                                                       panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="P-valor:",caption=c("Fonte: Covid19DataHub")))
+  #mortes monthly
+grid.arrange(ab,may,jun,jul,aug,sep,oct,nov,dec,mylegend,nrow=4,ncol=3)#top="Índice de Moran local sobre o número mensal \n de mortes por habitantes.
+
   
-  mylegend<-g_legend(julho_leg)
   
-  #width=1366&height=678&scale=1
-  tiff("moran_death.tiff", units="in", width=20, height=10, res=400)
-  grid.arrange(kc1,kc2,kc3,kc4,kc5,kc6,kc7,kc8,kc9,mylegend,nrow=4,ncol=3)#top="Índice de Moran local sobre o número mensal \n de mortes por habitantes.
-  dev.off()
   
-  tiff("moran_cases.tiff", units="in", width=12, height=6, res=400)
-  grid.arrange(case_oct,case_nov,case_dec,mylegend,nrow=2,ncol=3)#,top="Índice de Moran local sobre o número mensal \n de casos por habitantes."
-  dev.off()
-  
-  novdec=grid.arrange(novplot,decplot,widths=c(0.3,0.3))
-  
-  ocnov_case=grid.arrange(ocplot_case,novplot_case,decplot_case,widths=c(0.3,0.3))
-  
+grid.arrange(case_oct,case_nov,case_dec,mylegend,nrow=2,ncol=3)#,top="Índice de Moran local sobre o número mensal \n de casos por habitantes."
+
   
