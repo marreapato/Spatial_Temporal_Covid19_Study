@@ -581,7 +581,7 @@ for(i in 1:length(total)){
   
   ( aug <- ggplot(data = dataa) +
       geom_sf(aes(fill = quad)) +
-      scale_fill_manual(values=c("red","pink","#ADD8E6","blue"))+theme(legend.position =c(1.5,0.55),legend.direction = "horizontal",
+      scale_fill_manual(values=c("red","pink","#ADD8E6","blue"))+theme(legend.position =c(1.5,0.55),legend.title=element_text(size=14),legend.text=element_text(size=15),legend.direction = "horizontal",
                                                                        axis.ticks.x=element_blank(), axis.text.x=element_blank())+
       labs(title = "Agosto",fill="Grupos"))
   
