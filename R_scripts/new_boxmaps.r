@@ -239,809 +239,809 @@ for(i in 1:length(total)){
   
 }
 
-  ###########################################################################################
-  
-  
-  #April
-  coor <- coordinates(total$totala)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totala$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totala, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totala), col='red', lwd=2, add=TRUE)#links
-  
-  require("RColorBrewer")
-  
-  #death_pop
-  moran.plot(total$totala$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totala$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totala$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated MORE THAN 0.70
-  
-  #monthly death pop local
-  local.mi.prod<-localmoran(total$totala$m_death_pop_ratio, PPV3.w)
-  
-  total$totala$lmi<-local.mi.prod[,1]
-  
-  total$totala$lmi.p<-local.mi.prod[,5]
-  
-  total$totala$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"p<.001",
-                                           ifelse(local.mi.prod[,5]<.05,"p<.05", ">0.5" )))
-  
-  #require("RColorBrewer")
-  
-  #boxmap
-  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
-  
-  # centers the variable of interest around its mean
-  m.qualification <- total$totala$m_death_pop_ratio - mean(total$totala$m_death_pop_ratio)     
-  
-  # centers the local Moran's around the mean
-  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
-  
-  # significance threshold
-  signif <- 0.05 
-  
-  # builds a data quadrant
-  #positions
-  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
-  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
-  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
-  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
-  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
-  total$totala$quad <- quadrant
-  # plot in r
-  #april
-  dataa <- total$totala@data
-  world2 <- ne_countries(scale='medium',returnclass = 'sf')
-  
-  dataa<-merge(world2,dataa,by="subunit")
-  dataa$subunit<-factor(dataa$subunit)
-  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
-  
-  
-  (ab <- ggplot(data = dataa) +
+###########################################################################################
+
+
+#April
+coor <- coordinates(total$totala)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totala$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totala, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totala), col='red', lwd=2, add=TRUE)#links
+
+require("RColorBrewer")
+
+#death_pop
+moran.plot(total$totala$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totala$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated MORE THAN 0.70
+
+#monthly death pop local
+local.mi.prod<-localmoran(total$totala$m_death_pop_ratio, PPV3.w)
+
+total$totala$lmi<-local.mi.prod[,1]
+
+total$totala$lmi.p<-local.mi.prod[,5]
+
+total$totala$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"p<.001",
+                                         ifelse(local.mi.prod[,5]<.05,"p<.05", ">0.5" )))
+
+#require("RColorBrewer")
+
+#boxmap
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totala$m_death_pop_ratio - mean(total$totala$m_death_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- "HH"#AA  
+quadrant[m.qualification <0 & m.local<0] <- "LL"#BB1      
+quadrant[m.qualification <0 & m.local>0] <- "LH"#BA2
+quadrant[m.qualification >0 & m.local<0] <- "HL"#AB3
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+total$totala$quad <- quadrant
+# plot in r
+#april
+dataa <- total$totala@data
+world2 <- ne_countries(scale='medium',returnclass = 'sf')
+
+dataa<-merge(world2,dataa,by="subunit")
+dataa$subunit<-factor(dataa$subunit)
+#dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+
+
+(ab <- ggplot(data = dataa) +
     geom_sf(aes(fill = quad)) +
     scale_fill_manual(values=c("red","pink","blue","#ADD8E6"))+theme(legend.position = "none" ,axis.ticks.x=element_blank(), axis.text.x=element_blank())+
-    labs(title = "Abril"))
-  
-  
-  
-  
-  ###########################################################################################
-  
-  
-  #May
-  coor <- coordinates(total$totalma)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalma$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totalma, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totalma), col='red', lwd=2, add=TRUE)#links
-  
-  
-  #death_pop
-  moran.plot(total$totalma$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totalma$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totalma$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #monthly death pop local
-  local.mi.prod<-localmoran(total$totalma$m_death_pop_ratio, PPV3.w)
-  
-  total$totalma$lmi<-local.mi.prod[,1]
-  
-  total$totalma$lmi.p<-local.mi.prod[,5]
-  
-  total$totalma$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                            ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  #boxmap
-  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
-  
-  # centers the variable of interest around its mean
-  m.qualification <- total$totalma$m_death_pop_ratio - mean(total$totalma$m_death_pop_ratio)     
-  
-  # centers the local Moran's around the mean
-  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
-  
-  # significance threshold
-  signif <- 0.05 
-  
-  # builds a data quadrant
-  #positions
-  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
-  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
-  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
-  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
-  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
-  total$totalma$quad <- quadrant
-  # plot in r
-  #may
-  dataa <- total$totalma@data
-  world2 <- ne_countries(scale='medium',returnclass = 'sf')
-  
-  dataa<-merge(world2,dataa,by="subunit")
-  dataa$subunit<-factor(dataa$subunit)
-  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
-  
-  
- ( may <- ggplot(data = dataa) +
+    labs(title = "April"))
+
+
+
+
+###########################################################################################
+
+
+#May
+coor <- coordinates(total$totalma)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalma$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totalma, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totalma), col='red', lwd=2, add=TRUE)#links
+
+
+#death_pop
+moran.plot(total$totalma$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalma$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#monthly death pop local
+local.mi.prod<-localmoran(total$totalma$m_death_pop_ratio, PPV3.w)
+
+total$totalma$lmi<-local.mi.prod[,1]
+
+total$totalma$lmi.p<-local.mi.prod[,5]
+
+total$totalma$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                          ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#boxmap
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totalma$m_death_pop_ratio - mean(total$totalma$m_death_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- "HH"#AA  
+quadrant[m.qualification <0 & m.local<0] <- "LL"#BB1      
+quadrant[m.qualification <0 & m.local>0] <- "LH"#BA2
+quadrant[m.qualification >0 & m.local<0] <- "HL"#AB3
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+total$totalma$quad <- quadrant
+# plot in r
+#may
+dataa <- total$totalma@data
+world2 <- ne_countries(scale='medium',returnclass = 'sf')
+
+dataa<-merge(world2,dataa,by="subunit")
+dataa$subunit<-factor(dataa$subunit)
+#dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+
+
+( may <- ggplot(data = dataa) +
     geom_sf(aes(fill = quad)) +
     scale_fill_manual(values=c("red","pink","blue","#ADD8E6"))+theme(legend.position = "none" ,axis.ticks.x=element_blank(), axis.text.x=element_blank())+
-    labs(title = "Maio"))
-  
-  
-  
-  
-  
-  ###########################################################################################
-  
-  #June
-  coor <- coordinates(total$totaljun)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaljun$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totaljun, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totaljun), col='red', lwd=2, add=TRUE)#links
-  
-  #death_pop
-  moran.plot(total$totaljun$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totaljun$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totaljun$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #monthly death pop local
-  local.mi.prod<-localmoran(total$totaljun$m_death_pop_ratio, PPV3.w)
-  
-  total$totaljun$lmi<-local.mi.prod[,1]
-  
-  total$totaljun$lmi.p<-local.mi.prod[,5]
-  
-  total$totaljun$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  #require("RColorBrewer")
-  
-  #require("sp")
-  
-  #boxmap
-  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
-  
-  # centers the variable of interest around its mean
-  m.qualification <- total$totaljun$m_death_pop_ratio - mean(total$totaljun$m_death_pop_ratio)     
-  
-  # centers the local Moran's around the mean
-  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
-  
-  # significance threshold
-  signif <- 0.05 
-  
-  # builds a data quadrant
-  #positions
-  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
-  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
-  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
-  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
-  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
-  total$totaljun$quad <- quadrant
-  # plot in r
-  #may
-  dataa <- total$totaljun@data
-  world2 <- ne_countries(scale='medium',returnclass = 'sf')
-  
-  dataa<-merge(world2,dataa,by="subunit")
-  dataa$subunit<-factor(dataa$subunit)
-  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
-  
-  
- ( jun <- ggplot(data = dataa) +
+    labs(title = "May"))
+
+
+
+
+
+###########################################################################################
+
+#June
+coor <- coordinates(total$totaljun)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaljun$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totaljun, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totaljun), col='red', lwd=2, add=TRUE)#links
+
+#death_pop
+moran.plot(total$totaljun$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljun$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#monthly death pop local
+local.mi.prod<-localmoran(total$totaljun$m_death_pop_ratio, PPV3.w)
+
+total$totaljun$lmi<-local.mi.prod[,1]
+
+total$totaljun$lmi.p<-local.mi.prod[,5]
+
+total$totaljun$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+#boxmap
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totaljun$m_death_pop_ratio - mean(total$totaljun$m_death_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- "HH"#AA  
+quadrant[m.qualification <0 & m.local<0] <- "LL"#BB1      
+quadrant[m.qualification <0 & m.local>0] <- "LH"#BA2
+quadrant[m.qualification >0 & m.local<0] <- "HL"#AB3
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+total$totaljun$quad <- quadrant
+# plot in r
+#may
+dataa <- total$totaljun@data
+world2 <- ne_countries(scale='medium',returnclass = 'sf')
+
+dataa<-merge(world2,dataa,by="subunit")
+dataa$subunit<-factor(dataa$subunit)
+#dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+
+
+( jun <- ggplot(data = dataa) +
     geom_sf(aes(fill = quad)) +
     scale_fill_manual(values=c("red","pink","blue","#ADD8E6"))+theme(legend.position = "none" ,axis.ticks.x=element_blank(), axis.text.x=element_blank())+
-    labs(title = "Junho"))
-  
-  
-  
-  
-  
-  ########################3
-  #July
-  coor <- coordinates(total$totaljul)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaljul$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totaljul, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totaljul), col='red', lwd=2, add=TRUE)#links
-  
-  #death_pop
-  moran.plot(total$totaljul$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totaljul$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totaljul$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  #monthly death pop local
-  local.mi.prod<-localmoran(total$totaljul$m_death_pop_ratio, PPV3.w)
-  
-  total$totaljul$lmi<-local.mi.prod[,1]
-  
-  total$totaljul$lmi.p<-local.mi.prod[,5]
-  
-  total$totaljul$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  #require("RColorBrewer")
-  
-  #require("sp")
-  
-  #boxmap
-  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
-  
-  # centers the variable of interest around its mean
-  m.qualification <- total$totaljul$m_death_pop_ratio - mean(total$totaljul$m_death_pop_ratio)     
-  
-  # centers the local Moran's around the mean
-  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
-  
-  # significance threshold
-  signif <- 0.05 
-  
-  # builds a data quadrant
-  #positions
-  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
-  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
-  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
-  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
-  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
-  total$totaljul$quad <- quadrant
-  # plot in r
-  #may
-  dataa <- total$totaljul@data
-  world2 <- ne_countries(scale='medium',returnclass = 'sf')
-  
-  dataa<-merge(world2,dataa,by="subunit")
-  dataa$subunit<-factor(dataa$subunit)
-  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
-  
-  
-  ( jul <- ggplot(data = dataa) +
-      geom_sf(aes(fill = quad)) +
-      scale_fill_manual(values=c("red","pink","blue","#ADD8E6"))+theme(legend.position = "none" ,axis.ticks.x=element_blank(), axis.text.x=element_blank())+
-      labs(title = "Julho"))
-  
-  
-  ##########################################
-  ###################
-  #nearest neighbours
-  #august
-  coor <- coordinates(total$totalaug)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalaug$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totalaug, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totalaug), col='red', lwd=2, add=TRUE)#links
-  #lots of variables missing
-  
-  #death_pop
-  moran.plot(total$totalaug$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totalaug$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totalaug$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #death pop local
-  local.mi.prod<-localmoran(total$totalaug$m_death_pop_ratio, PPV3.w)
-  
-  total$totalaug$lmi<-local.mi.prod[,1]
-  
-  total$totalaug$lmi.p<-local.mi.prod[,5]
-  
-  total$totalaug$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  
-  
-  #boxmap
-  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
-  
-  # centers the variable of interest around its mean
-  m.qualification <- total$totalaug$m_death_pop_ratio - mean(total$totalaug$m_death_pop_ratio)     
-  
-  # centers the local Moran's around the mean
-  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
-  
-  # significance threshold
-  signif <- 0.05 
-  
-  # builds a data quadrant
-  #positions
-  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
-  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
-  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
-  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
-  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
-  total$totalaug$quad <- quadrant
-  # plot in r
-  #may
-  dataa <- total$totalaug@data
-  world2 <- ne_countries(scale='medium',returnclass = 'sf')
-  
-  dataa<-merge(world2,dataa,by="subunit")
-  dataa$subunit<-factor(dataa$subunit)
-  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
-  
-  g_legend<-function(a.gplot){
-    tmp <- ggplot_gtable(ggplot_build(a.gplot))
-    leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-    legend <- tmp$grobs[[leg]]
-    return(legend)}
-  
-  ( aug <- ggplot(data = dataa) +
-      geom_sf(aes(fill = quad)) +
-      scale_fill_manual(values=c("red","pink","#ADD8E6","blue"))+theme(legend.position =c(1.5,0.55),legend.title=element_text(size=14),legend.text=element_text(size=15),legend.direction = "horizontal",
-                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank())+
-      labs(title = "Agosto",fill="Grupos"))
-  
-  mylegend<-g_legend(aug)
-  ( aug <- ggplot(data = dataa) +
-      geom_sf(aes(fill = quad)) +
-      scale_fill_manual(values=c("red","pink","#ADD8E6","blue"))+theme(legend.position ='none',legend.direction = "horizontal",
-                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank())+
-      labs(title = "Agosto",fill="Grupos"))
-  
-  ###################
-  #nearest neighbours
-  #september
-  coor <- coordinates(total$totalsep)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalsep$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totalsep, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totalsep), col='red', lwd=2, add=TRUE)#links
-  #lots of variables missing
-  
-  #monthly
-  #case_pop
-  moran.plot(total$totalsep$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totalsep$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totalsep$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #death_pop
-  moran.plot(total$totalsep$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totalsep$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totalsep$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #death pop local
-  local.mi.prod<-localmoran(total$totalsep$m_death_pop_ratio, PPV3.w)
-  
-  total$totalsep$lmi<-local.mi.prod[,1]
-  
-  total$totalsep$lmi.p<-local.mi.prod[,5]
-  
-  total$totalsep$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  
-  
-  #boxmap
-  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
-  
-  # centers the variable of interest around its mean
-  m.qualification <- total$totalsep$m_death_pop_ratio - mean(total$totalsep$m_death_pop_ratio)     
-  
-  # centers the local Moran's around the mean
-  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
-  
-  # significance threshold
-  signif <- 0.05 
-  
-  # builds a data quadrant
-  #positions
-  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
-  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
-  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
-  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
-  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
-  total$totalsep$quad <- quadrant
-  # plot in r
-  #may
-  dataa <- total$totalsep@data
-  world2 <- ne_countries(scale='medium',returnclass = 'sf')
-  
-  dataa<-merge(world2,dataa,by="subunit")
-  dataa$subunit<-factor(dataa$subunit)
-  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
-  
-  
-  ( sep <- ggplot(data = dataa) +
-      geom_sf(aes(fill = quad)) +
-      scale_fill_manual(values=c("red","pink","#ADD8E6","blue"))+theme(legend.position ="none",
-                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank())+
-      labs(title = "Setembro"))
-  
-  #nearest neighbours
-  #october
-  coor <- coordinates(total$totaloct)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaloct$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totaloct, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totaloct), col='red', lwd=2, add=TRUE)#links
-  #lots of variables missing
-  
-  #monthly
-  #case_pop
-  moran.plot(total$totaloct$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totaloct$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totaloct$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #case pop local
-  local.mi.prod<-localmoran(total$totaloct$m_case_pop_ratio, PPV3.w)
-  
-  total$totaloct$lmi<-local.mi.prod[,1]
-  
-  total$totaloct$lmi.p<-local.mi.prod[,5]
-  
-  total$totaloct$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  
-  
-  #boxmap
-  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
-  
-  # centers the variable of interest around its mean
-  m.qualification <- total$totaloct$m_case_pop_ratio - mean(total$totaloct$m_case_pop_ratio)     
-  
-  # centers the local Moran's around the mean
-  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
-  
-  # significance threshold
-  signif <- 0.05 
-  
-  # builds a data quadrant
-  #positions
-  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
-  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
-  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
-  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
-  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
-  total$totaloct$quad <- quadrant
-  # plot in r
-  #may
-  dataa <- total$totaloct@data
-  world2 <- ne_countries(scale='medium',returnclass = 'sf')
-  
-  dataa<-merge(world2,dataa,by="subunit")
-  dataa$subunit<-factor(dataa$subunit)
-  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
-  
-  
-  (case_oct<- ggplot(data = dataa) +
-      geom_sf(aes(fill = quad)) +
-      scale_fill_manual(values=c("red","pink","blue"))+theme(legend.position ="none",
-                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank())+
-      labs(title = "Outubro"))
-  
-  
-  
-  
-  
-  #death_pop
-  moran.plot(total$totaloct$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totaloct$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totaloct$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #death pop local
-  local.mi.prod<-localmoran(total$totaloct$m_death_pop_ratio, PPV3.w)
-  
-  total$totaloct$lmi<-local.mi.prod[,1]
-  
-  total$totaloct$lmi.p<-local.mi.prod[,5]
-  
-  total$totaloct$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  
-  
-  #boxmap
-  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
-  
-  # centers the variable of interest around its mean
-  m.qualification <- total$totaloct$m_death_pop_ratio - mean(total$totaloct$m_death_pop_ratio)     
-  
-  # centers the local Moran's around the mean
-  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
-  
-  # significance threshold
-  signif <- 0.05 
-  
-  # builds a data quadrant
-  #positions
-  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
-  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
-  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
-  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
-  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
-  total$totaloct$quad <- quadrant
-  # plot in r
-  #may
-  dataa <- total$totaloct@data
-  world2 <- ne_countries(scale='medium',returnclass = 'sf')
-  
-  dataa<-merge(world2,dataa,by="subunit")
-  dataa$subunit<-factor(dataa$subunit)
-  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
-  
-  
-  (oct<- ggplot(data = dataa) +
-      geom_sf(aes(fill = quad)) +
-      scale_fill_manual(values=c("red","pink","#ADD8E6","blue"))+theme(legend.position ="none",
-                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank())+
-      labs(title = "Outubro"))
-  
-  #november
-  coor <- coordinates(total$totalnov)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalnov$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totalnov, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totalnov), col='red', lwd=2, add=TRUE)#links
-  #lots of variables missing
-  
-  #monthly
-  #case_pop
-  moran.plot(total$totalnov$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totalnov$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totalnov$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  
-  #case pop local
-  local.mi.prod<-localmoran(total$totalnov$m_case_pop_ratio, PPV3.w)
-  
-  total$totalnov$lmi<-local.mi.prod[,1]
-  
-  total$totalnov$lmi.p<-local.mi.prod[,5]
-  
-  total$totalnov$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  
-  #boxmap
-  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
-  
-  # centers the variable of interest around its mean
-  m.qualification <- total$totalnov$m_case_pop_ratio - mean(total$totalnov$m_case_pop_ratio)     
-  
-  # centers the local Moran's around the mean
-  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
-  
-  # significance threshold
-  signif <- 0.05 
-  
-  # builds a data quadrant
-  #positions
-  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
-  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
-  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
-  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
-  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
-  total$totalnov$quad <- quadrant
-  # plot in r
-  #may
-  dataa <- total$totalnov@data
-  world2 <- ne_countries(scale='medium',returnclass = 'sf')
-  
-  dataa<-merge(world2,dataa,by="subunit")
-  dataa$subunit<-factor(dataa$subunit)
-  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
-  
-  
-  (case_nov<- ggplot(data = dataa) +
-      geom_sf(aes(fill = quad)) +
-      scale_fill_manual(values=c("red","pink","blue"))+theme(legend.position ="none",
-                                                             axis.ticks.x=element_blank(), axis.text.x=element_blank())+
-      labs(title = "Novembro"))
-  
-  
-  
-  
-  #death_pop
-  moran.plot(total$totalnov$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totalnov$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totalnov$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #death pop local
-  local.mi.prod<-localmoran(total$totalnov$m_death_pop_ratio, PPV3.w)
-  
-  total$totalnov$lmi<-local.mi.prod[,1]
-  
-  total$totalnov$lmi.p<-local.mi.prod[,5]
-  
-  total$totalnov$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  
-  #boxmap
-  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
-  
-  # centers the variable of interest around its mean
-  m.qualification <- total$totalnov$m_death_pop_ratio - mean(total$totalnov$m_death_pop_ratio)     
-  
-  # centers the local Moran's around the mean
-  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
-  
-  # significance threshold
-  signif <- 0.05 
-  
-  # builds a data quadrant
-  #positions
-  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
-  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
-  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
-  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
-  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
-  total$totalnov$quad <- quadrant
-  # plot in r
-  #may
-  dataa <- total$totalnov@data
-  world2 <- ne_countries(scale='medium',returnclass = 'sf')
-  
-  dataa<-merge(world2,dataa,by="subunit")
-  dataa$subunit<-factor(dataa$subunit)
-  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
-  
-  
-  (nov<- ggplot(data = dataa) +
-      geom_sf(aes(fill = quad)) +
-      scale_fill_manual(values=c("red","pink","blue","#ADD8E6"))+theme(legend.position ="none",
-                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank())+
-      labs(title = "Novembro"))
-  
-  
-  
-  #december
-  coor <- coordinates(total$totaldec)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaldec$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totaldec, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totaldec), col='red', lwd=2, add=TRUE)#links
-  #lots of variables missing
-  
-  #monthly
-  #case_pop
-  moran.plot(total$totaldec$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totaldec$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totaldec$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  
-  #case pop local
-  local.mi.prod<-localmoran(total$totaldec$m_case_pop_ratio, PPV3.w)
-  
-  total$totaldec$lmi<-local.mi.prod[,1]
-  
-  total$totaldec$lmi.p<-local.mi.prod[,5]
-  
-  total$totaldec$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  
-  #boxmap
-  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
-  
-  # centers the variable of interest around its mean
-  m.qualification <- total$totaldec$m_case_pop_ratio - mean(total$totaldec$m_case_pop_ratio)     
-  
-  # centers the local Moran's around the mean
-  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
-  
-  # significance threshold
-  signif <- 0.05 
-  
-  # builds a data quadrant
-  #positions
-  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
-  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
-  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
-  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
-  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
-  total$totaldec$quad <- quadrant
-  # plot in r
-  #may
-  dataa <- total$totaldec@data
-  world2 <- ne_countries(scale='medium',returnclass = 'sf')
-  
-  dataa<-merge(world2,dataa,by="subunit")
-  dataa$subunit<-factor(dataa$subunit)
-  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
-  
-  
-  (case_dec<- ggplot(data = dataa) +
-      geom_sf(aes(fill = quad)) +
-      scale_fill_manual(values=c("red","pink","blue"))+theme(legend.position ="none",
-                                                             axis.ticks.x=element_blank(), axis.text.x=element_blank())+
-      labs(title = "Dezembro"))
-  
-  
-  
-  #death_pop
-  moran.plot(total$totaldec$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totaldec$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totaldec$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #death pop local
-  local.mi.prod<-localmoran(total$totaldec$m_death_pop_ratio, PPV3.w)
-  
-  total$totaldec$lmi<-local.mi.prod[,1]
-  
-  total$totaldec$lmi.p<-local.mi.prod[,5]
-  
-  total$totaldec$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  
-  #boxmap
-  quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
-  
-  # centers the variable of interest around its mean
-  m.qualification <- total$totaldec$m_death_pop_ratio - mean(total$totaldec$m_death_pop_ratio)     
-  
-  # centers the local Moran's around the mean
-  m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
-  
-  # significance threshold
-  signif <- 0.05 
-  
-  # builds a data quadrant
-  #positions
-  quadrant[m.qualification >0 & m.local>0] <- "AA"#AA  
-  quadrant[m.qualification <0 & m.local<0] <- "BB"#BB1      
-  quadrant[m.qualification <0 & m.local>0] <- "BA"#BA2
-  quadrant[m.qualification >0 & m.local<0] <- "AB"#AB3
-  #quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
-  total$totaldec$quad <- quadrant
-  # plot in r
-  #may
-  dataa <- total$totaldec@data
-  world2 <- ne_countries(scale='medium',returnclass = 'sf')
-  
-  dataa<-merge(world2,dataa,by="subunit")
-  dataa$subunit<-factor(dataa$subunit)
-  #dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
-  
-  
-  (dec<- ggplot(data = dataa) +
-      geom_sf(aes(fill = quad)) +
-      scale_fill_manual(values=c("red","pink","blue","#ADD8E6"))+theme(legend.position ="none",
-                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank())+
-      labs(title = "Dezembro"))
-  
-  
-  #mortes monthly
+    labs(title = "June"))
+
+
+
+
+
+########################3
+#July
+coor <- coordinates(total$totaljul)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaljul$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totaljul, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totaljul), col='red', lwd=2, add=TRUE)#links
+
+#death_pop
+moran.plot(total$totaljul$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+#monthly death pop local
+local.mi.prod<-localmoran(total$totaljul$m_death_pop_ratio, PPV3.w)
+
+total$totaljul$lmi<-local.mi.prod[,1]
+
+total$totaljul$lmi.p<-local.mi.prod[,5]
+
+total$totaljul$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+#boxmap
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totaljul$m_death_pop_ratio - mean(total$totaljul$m_death_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- "HH"#AA  
+quadrant[m.qualification <0 & m.local<0] <- "LL"#BB1      
+quadrant[m.qualification <0 & m.local>0] <- "LH"#BA2
+quadrant[m.qualification >0 & m.local<0] <- "HL"#AB3
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+total$totaljul$quad <- quadrant
+# plot in r
+#may
+dataa <- total$totaljul@data
+world2 <- ne_countries(scale='medium',returnclass = 'sf')
+
+dataa<-merge(world2,dataa,by="subunit")
+dataa$subunit<-factor(dataa$subunit)
+#dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+
+
+( jul <- ggplot(data = dataa) +
+    geom_sf(aes(fill = quad)) +
+    scale_fill_manual(values=c("red","pink","blue","#ADD8E6"))+theme(legend.position = "none" ,axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+    labs(title = "July"))
+
+
+##########################################
+###################
+#nearest neighbours
+#august
+coor <- coordinates(total$totalaug)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalaug$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totalaug, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totalaug), col='red', lwd=2, add=TRUE)#links
+#lots of variables missing
+
+#death_pop
+moran.plot(total$totalaug$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalaug$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalaug$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death pop local
+local.mi.prod<-localmoran(total$totalaug$m_death_pop_ratio, PPV3.w)
+
+total$totalaug$lmi<-local.mi.prod[,1]
+
+total$totalaug$lmi.p<-local.mi.prod[,5]
+
+total$totalaug$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+
+
+#boxmap
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totalaug$m_death_pop_ratio - mean(total$totalaug$m_death_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- "HH"#AA  
+quadrant[m.qualification <0 & m.local<0] <- "LL"#BB1      
+quadrant[m.qualification <0 & m.local>0] <- "LH"#BA2
+quadrant[m.qualification >0 & m.local<0] <- "HL"#AB3
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+total$totalaug$quad <- quadrant
+# plot in r
+#may
+dataa <- total$totalaug@data
+world2 <- ne_countries(scale='medium',returnclass = 'sf')
+
+dataa<-merge(world2,dataa,by="subunit")
+dataa$subunit<-factor(dataa$subunit)
+#dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+
+g_legend<-function(a.gplot){
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)}
+
+( aug <- ggplot(data = dataa) +
+    geom_sf(aes(fill = quad)) +
+    scale_fill_manual(values=c("red","pink","#ADD8E6","blue"))+theme(legend.position =c(1.5,0.55),legend.title=element_text(size=14),legend.text=element_text(size=15),legend.direction = "horizontal",
+                                                                     axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+    labs(title = "Agosto",fill="Cluster"))
+
+mylegend<-g_legend(aug)
+( aug <- ggplot(data = dataa) +
+    geom_sf(aes(fill = quad)) +
+    scale_fill_manual(values=c("red","pink","#ADD8E6","blue"))+theme(legend.position ='none',legend.direction = "horizontal",
+                                                                     axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+    labs(title = "August",fill="Grupos"))
+
+###################
+#nearest neighbours
+#september
+coor <- coordinates(total$totalsep)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalsep$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totalsep, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totalsep), col='red', lwd=2, add=TRUE)#links
+#lots of variables missing
+
+#monthly
+#case_pop
+moran.plot(total$totalsep$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalsep$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalsep$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death_pop
+moran.plot(total$totalsep$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalsep$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalsep$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death pop local
+local.mi.prod<-localmoran(total$totalsep$m_death_pop_ratio, PPV3.w)
+
+total$totalsep$lmi<-local.mi.prod[,1]
+
+total$totalsep$lmi.p<-local.mi.prod[,5]
+
+total$totalsep$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+
+
+#boxmap
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totalsep$m_death_pop_ratio - mean(total$totalsep$m_death_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- "HH"#AA  
+quadrant[m.qualification <0 & m.local<0] <- "LL"#BB1      
+quadrant[m.qualification <0 & m.local>0] <- "LH"#BA2
+quadrant[m.qualification >0 & m.local<0] <- "HL"#AB3
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+total$totalsep$quad <- quadrant
+# plot in r
+#may
+dataa <- total$totalsep@data
+world2 <- ne_countries(scale='medium',returnclass = 'sf')
+
+dataa<-merge(world2,dataa,by="subunit")
+dataa$subunit<-factor(dataa$subunit)
+#dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+
+
+( sep <- ggplot(data = dataa) +
+    geom_sf(aes(fill = quad)) +
+    scale_fill_manual(values=c("red","pink","#ADD8E6","blue"))+theme(legend.position ="none",
+                                                                     axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+    labs(title = "September"))
+
+#nearest neighbours
+#october
+coor <- coordinates(total$totaloct)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaloct$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totaloct, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totaloct), col='red', lwd=2, add=TRUE)#links
+#lots of variables missing
+
+#monthly
+#case_pop
+moran.plot(total$totaloct$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaloct$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaloct$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#case pop local
+local.mi.prod<-localmoran(total$totaloct$m_case_pop_ratio, PPV3.w)
+
+total$totaloct$lmi<-local.mi.prod[,1]
+
+total$totaloct$lmi.p<-local.mi.prod[,5]
+
+total$totaloct$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+
+
+#boxmap
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totaloct$m_case_pop_ratio - mean(total$totaloct$m_case_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- "HH"#AA  
+quadrant[m.qualification <0 & m.local<0] <- "LL"#BB1      
+quadrant[m.qualification <0 & m.local>0] <- "LH"#BA2
+quadrant[m.qualification >0 & m.local<0] <- "HL"#AB3
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+total$totaloct$quad <- quadrant
+# plot in r
+#may
+dataa <- total$totaloct@data
+world2 <- ne_countries(scale='medium',returnclass = 'sf')
+
+dataa<-merge(world2,dataa,by="subunit")
+dataa$subunit<-factor(dataa$subunit)
+#dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+
+
+(case_oct<- ggplot(data = dataa) +
+    geom_sf(aes(fill = quad)) +
+    scale_fill_manual(values=c("red","pink","blue"))+theme(legend.position ="none",
+                                                           axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+    labs(title = "October"))
+
+
+
+
+
+#death_pop
+moran.plot(total$totaloct$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaloct$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaloct$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death pop local
+local.mi.prod<-localmoran(total$totaloct$m_death_pop_ratio, PPV3.w)
+
+total$totaloct$lmi<-local.mi.prod[,1]
+
+total$totaloct$lmi.p<-local.mi.prod[,5]
+
+total$totaloct$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+
+
+#boxmap
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totaloct$m_death_pop_ratio - mean(total$totaloct$m_death_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- "HH"#AA  
+quadrant[m.qualification <0 & m.local<0] <- "LL"#BB1      
+quadrant[m.qualification <0 & m.local>0] <- "LH"#BA2
+quadrant[m.qualification >0 & m.local<0] <- "HL"#AB3
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+total$totaloct$quad <- quadrant
+# plot in r
+#may
+dataa <- total$totaloct@data
+world2 <- ne_countries(scale='medium',returnclass = 'sf')
+
+dataa<-merge(world2,dataa,by="subunit")
+dataa$subunit<-factor(dataa$subunit)
+#dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+
+
+(oct<- ggplot(data = dataa) +
+    geom_sf(aes(fill = quad)) +
+    scale_fill_manual(values=c("red","pink","#ADD8E6","blue"))+theme(legend.position ="none",
+                                                                     axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+    labs(title = "October"))
+
+#november
+coor <- coordinates(total$totalnov)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalnov$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totalnov, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totalnov), col='red', lwd=2, add=TRUE)#links
+#lots of variables missing
+
+#monthly
+#case_pop
+moran.plot(total$totalnov$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalnov$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalnov$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#case pop local
+local.mi.prod<-localmoran(total$totalnov$m_case_pop_ratio, PPV3.w)
+
+total$totalnov$lmi<-local.mi.prod[,1]
+
+total$totalnov$lmi.p<-local.mi.prod[,5]
+
+total$totalnov$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+
+#boxmap
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totalnov$m_case_pop_ratio - mean(total$totalnov$m_case_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- "HH"#AA  
+quadrant[m.qualification <0 & m.local<0] <- "LL"#BB1      
+quadrant[m.qualification <0 & m.local>0] <- "LH"#BA2
+quadrant[m.qualification >0 & m.local<0] <- "HL"#AB3
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+total$totalnov$quad <- quadrant
+# plot in r
+#may
+dataa <- total$totalnov@data
+world2 <- ne_countries(scale='medium',returnclass = 'sf')
+
+dataa<-merge(world2,dataa,by="subunit")
+dataa$subunit<-factor(dataa$subunit)
+#dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+
+
+(case_nov<- ggplot(data = dataa) +
+    geom_sf(aes(fill = quad)) +
+    scale_fill_manual(values=c("red","pink","blue"))+theme(legend.position ="none",
+                                                           axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+    labs(title = "November"))
+
+
+
+
+#death_pop
+moran.plot(total$totalnov$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalnov$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalnov$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death pop local
+local.mi.prod<-localmoran(total$totalnov$m_death_pop_ratio, PPV3.w)
+
+total$totalnov$lmi<-local.mi.prod[,1]
+
+total$totalnov$lmi.p<-local.mi.prod[,5]
+
+total$totalnov$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+
+#boxmap
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totalnov$m_death_pop_ratio - mean(total$totalnov$m_death_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- "HH"#AA  
+quadrant[m.qualification <0 & m.local<0] <- "LL"#BB1      
+quadrant[m.qualification <0 & m.local>0] <- "LH"#BA2
+quadrant[m.qualification >0 & m.local<0] <- "HL"#AB3
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+total$totalnov$quad <- quadrant
+# plot in r
+#may
+dataa <- total$totalnov@data
+world2 <- ne_countries(scale='medium',returnclass = 'sf')
+
+dataa<-merge(world2,dataa,by="subunit")
+dataa$subunit<-factor(dataa$subunit)
+#dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+
+
+(nov<- ggplot(data = dataa) +
+    geom_sf(aes(fill = quad)) +
+    scale_fill_manual(values=c("red","pink","blue","#ADD8E6"))+theme(legend.position ="none",
+                                                                     axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+    labs(title = "November"))
+
+
+
+#december
+coor <- coordinates(total$totaldec)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaldec$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totaldec, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totaldec), col='red', lwd=2, add=TRUE)#links
+#lots of variables missing
+
+#monthly
+#case_pop
+moran.plot(total$totaldec$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaldec$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaldec$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#case pop local
+local.mi.prod<-localmoran(total$totaldec$m_case_pop_ratio, PPV3.w)
+
+total$totaldec$lmi<-local.mi.prod[,1]
+
+total$totaldec$lmi.p<-local.mi.prod[,5]
+
+total$totaldec$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+
+#boxmap
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totaldec$m_case_pop_ratio - mean(total$totaldec$m_case_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- "HH"#AA  
+quadrant[m.qualification <0 & m.local<0] <- "LL"#BB1      
+quadrant[m.qualification <0 & m.local>0] <- "LH"#BA2
+quadrant[m.qualification >0 & m.local<0] <- "HL"#AB3
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+total$totaldec$quad <- quadrant
+# plot in r
+#may
+dataa <- total$totaldec@data
+world2 <- ne_countries(scale='medium',returnclass = 'sf')
+
+dataa<-merge(world2,dataa,by="subunit")
+dataa$subunit<-factor(dataa$subunit)
+#dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+
+
+(case_dec<- ggplot(data = dataa) +
+    geom_sf(aes(fill = quad)) +
+    scale_fill_manual(values=c("red","pink","blue"))+theme(legend.position ="none",
+                                                           axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+    labs(title = "December"))
+
+
+
+#death_pop
+moran.plot(total$totaldec$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaldec$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaldec$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death pop local
+local.mi.prod<-localmoran(total$totaldec$m_death_pop_ratio, PPV3.w)
+
+total$totaldec$lmi<-local.mi.prod[,1]
+
+total$totaldec$lmi.p<-local.mi.prod[,5]
+
+total$totaldec$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+
+#boxmap
+quadrant <- vector(mode="numeric",length=nrow(local.mi.prod))
+
+# centers the variable of interest around its mean
+m.qualification <- total$totaldec$m_death_pop_ratio - mean(total$totaldec$m_death_pop_ratio)     
+
+# centers the local Moran's around the mean
+m.local <- local.mi.prod[,1] - mean(local.mi.prod[,1])    
+
+# significance threshold
+signif <- 0.05 
+
+# builds a data quadrant
+#positions
+quadrant[m.qualification >0 & m.local>0] <- "HH"#AA  
+quadrant[m.qualification <0 & m.local<0] <- "LL"#BB1      
+quadrant[m.qualification <0 & m.local>0] <- "LH"#BA2
+quadrant[m.qualification >0 & m.local<0] <- "HL"#AB3
+#quadrant[local.mi.prod[,5]>signif] <- 0#you can choose not to run it
+total$totaldec$quad <- quadrant
+# plot in r
+#may
+dataa <- total$totaldec@data
+world2 <- ne_countries(scale='medium',returnclass = 'sf')
+
+dataa<-merge(world2,dataa,by="subunit")
+dataa$subunit<-factor(dataa$subunit)
+#dataa <- dataa[order(dataa$confirmed),] # order the data [very important!]
+
+
+(dec<- ggplot(data = dataa) +
+    geom_sf(aes(fill = quad)) +
+    scale_fill_manual(values=c("red","pink","blue","#ADD8E6"))+theme(legend.position ="none",
+                                                                     axis.ticks.x=element_blank(), axis.text.x=element_blank())+
+    labs(title = "December"))
+
+
+#mortes monthly
 grid.arrange(ab,may,jun,jul,aug,sep,oct,nov,dec,mylegend,nrow=4,ncol=3)#top="Índice de Moran local sobre o número mensal \n de mortes por habitantes.
 
-  
-  
-  
+
+
+
 grid.arrange(case_oct,case_nov,case_dec,mylegend,nrow=2,ncol=3)#,top="Índice de Moran local sobre o número mensal \n de casos por habitantes."
 
-  
+
