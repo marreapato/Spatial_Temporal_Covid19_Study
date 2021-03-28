@@ -239,417 +239,417 @@ for(i in 1:length(total)){
   
 }
 
-  ###########################################################################################
-  
-  
-  #April
-  coor <- coordinates(total$totala)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totala$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totala, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totala), col='red', lwd=2, add=TRUE)#links
-  
-  require("RColorBrewer")
-  
-  #death_pop
-  moran.plot(total$totala$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totala$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totala$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated MORE THAN 0.70
-  
-  #monthly death pop local
-  local.mi.prod<-localmoran(total$totala$m_death_pop_ratio, PPV3.w)
-  
-  total$totala$lmi<-local.mi.prod[,1]
-  
-  total$totala$lmi.p<-local.mi.prod[,5]
-  
-  total$totala$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"p<.001",
-                                           ifelse(local.mi.prod[,5]<.05,"p<.05", ">0.5" )))
-  
-  #require("RColorBrewer")
-  
-  #require("sp")
-  
-  (kc1=spplot(total$totala, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Abril",colorkey=FALSE))
-  ?spplot
-  
-  
-  
-  ###########################################################################################
-  
-  
-  #May
-  coor <- coordinates(total$totalma)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalma$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totalma, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totalma), col='red', lwd=2, add=TRUE)#links
-  
-  
-  #death_pop
-  moran.plot(total$totalma$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totalma$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totalma$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #monthly death pop local
-  local.mi.prod<-localmoran(total$totalma$m_death_pop_ratio, PPV3.w)
-  
-  total$totalma$lmi<-local.mi.prod[,1]
-  
-  total$totalma$lmi.p<-local.mi.prod[,5]
-  
-  total$totalma$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                            ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  #require("RColorBrewer")
-  
-  #require("sp")
-  
-  (kc2=spplot(total$totalma, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Maio",colorkey=FALSE))
-  ?spplot
-  
-  
-  
-  ###########################################################################################
-  
-  #June
-  coor <- coordinates(total$totaljun)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaljun$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totaljun, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totaljun), col='red', lwd=2, add=TRUE)#links
-  
-  #death_pop
-  moran.plot(total$totaljun$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totaljun$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totaljun$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #monthly death pop local
-  local.mi.prod<-localmoran(total$totaljun$m_death_pop_ratio, PPV3.w)
-  
-  total$totaljun$lmi<-local.mi.prod[,1]
-  
-  total$totaljun$lmi.p<-local.mi.prod[,5]
-  
-  total$totaljun$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  #require("RColorBrewer")
-  
-  #require("sp")
-  
-  (kc3=spplot(total$totaljun, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Junho",colorkey=FALSE))
-  ?spplot
-  
-  #July
-  coor <- coordinates(total$totaljul)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaljul$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totaljul, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totaljul), col='red', lwd=2, add=TRUE)#links
-  
-  #death_pop
-  moran.plot(total$totaljul$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totaljul$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totaljul$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  #monthly death pop local
-  local.mi.prod<-localmoran(total$totaljul$m_death_pop_ratio, PPV3.w)
-  
-  total$totaljul$lmi<-local.mi.prod[,1]
-  
-  total$totaljul$lmi.p<-local.mi.prod[,5]
-  
-  total$totaljul$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  #require("RColorBrewer")
-  
-  #require("sp")
-  
-  (kc4=spplot(total$totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Julho",colorkey=FALSE))
-  ?spplot
-  
-  ###################
-  #nearest neighbours
-  #august
-  coor <- coordinates(total$totalaug)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalaug$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totalaug, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totalaug), col='red', lwd=2, add=TRUE)#links
-  #lots of variables missing
-  
-  #death_pop
-  moran.plot(total$totalaug$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totalaug$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totalaug$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #death pop local
-  local.mi.prod<-localmoran(total$totalaug$m_death_pop_ratio, PPV3.w)
-  
-  total$totalaug$lmi<-local.mi.prod[,1]
-  
-  total$totalaug$lmi.p<-local.mi.prod[,5]
-  
-  total$totalaug$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  
-  (kc5=spplot(total$totalaug, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Agosto",colorkey=FALSE))
-  
-  ###################
-  #nearest neighbours
-  #september
-  coor <- coordinates(total$totalsep)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalsep$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totalsep, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totalsep), col='red', lwd=2, add=TRUE)#links
-  #lots of variables missing
-  
-  #monthly
-  #case_pop
-  moran.plot(total$totalsep$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totalsep$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totalsep$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #death_pop
-  moran.plot(total$totalsep$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totalsep$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totalsep$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #death pop local
-  local.mi.prod<-localmoran(total$totalsep$m_death_pop_ratio, PPV3.w)
-  
-  total$totalsep$lmi<-local.mi.prod[,1]
-  
-  total$totalsep$lmi.p<-local.mi.prod[,5]
-  
-  total$totalsep$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  
-  (kc6=spplot(total$totalsep, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Setembro",colorkey=FALSE))
-  
-  #nearest neighbours
-  #october
-  coor <- coordinates(total$totaloct)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaloct$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totaloct, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totaloct), col='red', lwd=2, add=TRUE)#links
-  #lots of variables missing
-  
-  #monthly
-  #case_pop
-  moran.plot(total$totaloct$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totaloct$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totaloct$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #case pop local
-  local.mi.prod<-localmoran(total$totaloct$m_case_pop_ratio, PPV3.w)
-  
-  total$totaloct$lmi<-local.mi.prod[,1]
-  
-  total$totaloct$lmi.p<-local.mi.prod[,5]
-  
-  total$totaloct$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  (case_oct=spplot(total$totaloct, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Outubro",colorkey=F))
-  
-  
-  
-  
-  #death_pop
-  moran.plot(total$totaloct$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totaloct$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totaloct$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #death pop local
-  local.mi.prod<-localmoran(total$totaloct$m_death_pop_ratio, PPV3.w)
-  
-  total$totaloct$lmi<-local.mi.prod[,1]
-  
-  total$totaloct$lmi.p<-local.mi.prod[,5]
-  
-  total$totaloct$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  (kc7=spplot(total$totaloct, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Outubro",colorkey=FALSE))
-  
-  #november
-  coor <- coordinates(total$totalnov)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalnov$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totalnov, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totalnov), col='red', lwd=2, add=TRUE)#links
-  #lots of variables missing
-  
-  #monthly
-  #case_pop
-  moran.plot(total$totalnov$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totalnov$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totalnov$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  
-  #case pop local
-  local.mi.prod<-localmoran(total$totalnov$m_case_pop_ratio, PPV3.w)
-  
-  total$totalnov$lmi<-local.mi.prod[,1]
-  
-  total$totalnov$lmi.p<-local.mi.prod[,5]
-  
-  total$totalnov$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  (case_nov=spplot(total$totalnov, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Novembro",colorkey=F))
-  
-  
-  
-  #death_pop
-  moran.plot(total$totalnov$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totalnov$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totalnov$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #death pop local
-  local.mi.prod<-localmoran(total$totalnov$m_death_pop_ratio, PPV3.w)
-  
-  total$totalnov$lmi<-local.mi.prod[,1]
-  
-  total$totalnov$lmi.p<-local.mi.prod[,5]
-  
-  total$totalnov$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  (kc8=spplot(total$totalnov, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Novembro",colorkey=FALSE))
-  
-  
-  
-  #december
-  coor <- coordinates(total$totaldec)
-  cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
-  cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaldec$name)
-  PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
-  
-  plot(total$totaldec, col='gray', border='blue', lwd=2,main= "Vizinhos")
-  plot(PPV3.w, coordinates(total$totaldec), col='red', lwd=2, add=TRUE)#links
-  #lots of variables missing
-  
-  #monthly
-  #case_pop
-  moran.plot(total$totaldec$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totaldec$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totaldec$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  
-  #case pop local
-  local.mi.prod<-localmoran(total$totaldec$m_case_pop_ratio, PPV3.w)
-  
-  total$totaldec$lmi<-local.mi.prod[,1]
-  
-  total$totaldec$lmi.p<-local.mi.prod[,5]
-  
-  total$totaldec$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  (case_dec=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Dezembro",colorkey=F))
-  
-  
-  #death_pop
-  moran.plot(total$totaldec$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
-  moran.test(total$totaldec$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  moran.mc(nsim=10000,total$totaldec$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
-  #validated
-  
-  #death pop local
-  local.mi.prod<-localmoran(total$totaldec$m_death_pop_ratio, PPV3.w)
-  
-  total$totaldec$lmi<-local.mi.prod[,1]
-  
-  total$totaldec$lmi.p<-local.mi.prod[,5]
-  
-  total$totaldec$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
-                                             ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
-  
-  
-  
-  (kc9=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "Dezembro",colorkey = F))
-  (kc9=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "December",with.legend = "bottom", legend.prop = 0.15))
-  
-  
-  #extract legend
-  #https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
-  g_legend<-function(a.gplot){
-    tmp <- ggplot_gtable(ggplot_build(a.gplot))
-    leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-    legend <- tmp$grobs[[leg]]
-    return(legend)}
-  #legend
-  worldsf <- ne_countries(scale='medium',returnclass = 'sf')
-  
-  july2 <- july
-  july2$cancel_events<- gsub(0, "Não Significante", july2$cancel_events)
-  july2$cancel_events <- gsub(1, "<0.05", july2$cancel_events)
-  july2$cancel_events <- gsub(2, "<0.01", july2$cancel_events)
-  
-  names(july2)[names(july2) == "administrative_area_level_1"] <- "subunit"
-  julf<-merge(worldsf,july2,by="subunit")
-  julf$subunit<-factor(julf$subunit)
-  julf <- julf[order(julf$confirmed),] # order the data [very important!]
-  
-  
-  (julho_leg <- ggplot(data = julf) +
-      geom_sf(aes(fill = cancel_events)) +
-      scale_fill_manual(values=c("orangered","orange","white")) +theme(legend.position =c(1.5,0.55),legend.title=element_text(size=14),legend.text=element_text(size=15),legend.direction = "horizontal",
-                                                                       legend.spacing.x = unit(0.2, 'cm'),
-                                                                       axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
-                                                                       panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="P-valor:",caption=c("Fonte: Covid19DataHub")))
-  
-  mylegend<-g_legend(julho_leg)
-  
-  #width=1366&height=678&scale=1
-  tiff("moran_death.tiff", units="in", width=20, height=10, res=400)
-  grid.arrange(kc1,kc2,kc3,kc4,kc5,kc6,kc7,kc8,kc9,mylegend,nrow=4,ncol=3)#top="Índice de Moran local sobre o número mensal \n de mortes por habitantes.
-  dev.off()
-  
-  tiff("moran_cases.tiff", units="in", width=12, height=6, res=400)
-  grid.arrange(case_oct,case_nov,case_dec,mylegend,nrow=2,ncol=3)#,top="Índice de Moran local sobre o número mensal \n de casos por habitantes."
-  dev.off()
-  
-  novdec=grid.arrange(novplot,decplot,widths=c(0.3,0.3))
-  
-  ocnov_case=grid.arrange(ocplot_case,novplot_case,decplot_case,widths=c(0.3,0.3))
-  
-  
+###########################################################################################
+
+
+#April
+coor <- coordinates(total$totala)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totala$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totala, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totala), col='red', lwd=2, add=TRUE)#links
+
+require("RColorBrewer")
+
+#death_pop
+moran.plot(total$totala$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totala$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totala$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated MORE THAN 0.70
+
+#monthly death pop local
+local.mi.prod<-localmoran(total$totala$m_death_pop_ratio, PPV3.w)
+
+total$totala$lmi<-local.mi.prod[,1]
+
+total$totala$lmi.p<-local.mi.prod[,5]
+
+total$totala$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"p<.001",
+                                         ifelse(local.mi.prod[,5]<.05,"p<.05", ">0.5" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+(kc1=spplot(total$totala, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "April",colorkey=FALSE))
+?spplot
+
+
+
+###########################################################################################
+
+
+#May
+coor <- coordinates(total$totalma)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalma$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totalma, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totalma), col='red', lwd=2, add=TRUE)#links
+
+
+#death_pop
+moran.plot(total$totalma$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalma$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalma$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#monthly death pop local
+local.mi.prod<-localmoran(total$totalma$m_death_pop_ratio, PPV3.w)
+
+total$totalma$lmi<-local.mi.prod[,1]
+
+total$totalma$lmi.p<-local.mi.prod[,5]
+
+total$totalma$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                          ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+(kc2=spplot(total$totalma, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "May",colorkey=FALSE))
+?spplot
+
+
+
+###########################################################################################
+
+#June
+coor <- coordinates(total$totaljun)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaljun$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totaljun, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totaljun), col='red', lwd=2, add=TRUE)#links
+
+#death_pop
+moran.plot(total$totaljun$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljun$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljun$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#monthly death pop local
+local.mi.prod<-localmoran(total$totaljun$m_death_pop_ratio, PPV3.w)
+
+total$totaljun$lmi<-local.mi.prod[,1]
+
+total$totaljun$lmi.p<-local.mi.prod[,5]
+
+total$totaljun$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+(kc3=spplot(total$totaljun, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "June",colorkey=FALSE))
+?spplot
+
+#July
+coor <- coordinates(total$totaljul)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaljul$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totaljul, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totaljul), col='red', lwd=2, add=TRUE)#links
+
+#death_pop
+moran.plot(total$totaljul$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaljul$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaljul$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+#monthly death pop local
+local.mi.prod<-localmoran(total$totaljul$m_death_pop_ratio, PPV3.w)
+
+total$totaljul$lmi<-local.mi.prod[,1]
+
+total$totaljul$lmi.p<-local.mi.prod[,5]
+
+total$totaljul$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+#require("RColorBrewer")
+
+#require("sp")
+
+(kc4=spplot(total$totaljul, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "July",colorkey=FALSE))
+?spplot
+
+###################
+#nearest neighbours
+#august
+coor <- coordinates(total$totalaug)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalaug$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totalaug, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totalaug), col='red', lwd=2, add=TRUE)#links
+#lots of variables missing
+
+#death_pop
+moran.plot(total$totalaug$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalaug$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalaug$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death pop local
+local.mi.prod<-localmoran(total$totalaug$m_death_pop_ratio, PPV3.w)
+
+total$totalaug$lmi<-local.mi.prod[,1]
+
+total$totalaug$lmi.p<-local.mi.prod[,5]
+
+total$totalaug$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+
+(kc5=spplot(total$totalaug, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "August",colorkey=FALSE))
+
+###################
+#nearest neighbours
+#september
+coor <- coordinates(total$totalsep)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalsep$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totalsep, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totalsep), col='red', lwd=2, add=TRUE)#links
+#lots of variables missing
+
+#monthly
+#case_pop
+moran.plot(total$totalsep$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalsep$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalsep$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death_pop
+moran.plot(total$totalsep$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalsep$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalsep$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death pop local
+local.mi.prod<-localmoran(total$totalsep$m_death_pop_ratio, PPV3.w)
+
+total$totalsep$lmi<-local.mi.prod[,1]
+
+total$totalsep$lmi.p<-local.mi.prod[,5]
+
+total$totalsep$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+
+(kc6=spplot(total$totalsep, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "September",colorkey=FALSE))
+
+#nearest neighbours
+#october
+coor <- coordinates(total$totaloct)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaloct$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totaloct, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totaloct), col='red', lwd=2, add=TRUE)#links
+#lots of variables missing
+
+#monthly
+#case_pop
+moran.plot(total$totaloct$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaloct$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaloct$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#case pop local
+local.mi.prod<-localmoran(total$totaloct$m_case_pop_ratio, PPV3.w)
+
+total$totaloct$lmi<-local.mi.prod[,1]
+
+total$totaloct$lmi.p<-local.mi.prod[,5]
+
+total$totaloct$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+(case_oct=spplot(total$totaloct, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "October",colorkey=F))
+
+
+
+
+#death_pop
+moran.plot(total$totaloct$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaloct$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaloct$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death pop local
+local.mi.prod<-localmoran(total$totaloct$m_death_pop_ratio, PPV3.w)
+
+total$totaloct$lmi<-local.mi.prod[,1]
+
+total$totaloct$lmi.p<-local.mi.prod[,5]
+
+total$totaloct$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+(kc7=spplot(total$totaloct, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "October",colorkey=FALSE))
+
+#november
+coor <- coordinates(total$totalnov)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totalnov$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totalnov, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totalnov), col='red', lwd=2, add=TRUE)#links
+#lots of variables missing
+
+#monthly
+#case_pop
+moran.plot(total$totalnov$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalnov$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalnov$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#case pop local
+local.mi.prod<-localmoran(total$totalnov$m_case_pop_ratio, PPV3.w)
+
+total$totalnov$lmi<-local.mi.prod[,1]
+
+total$totalnov$lmi.p<-local.mi.prod[,5]
+
+total$totalnov$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+(case_nov=spplot(total$totalnov, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "November",colorkey=F))
+
+
+
+#death_pop
+moran.plot(total$totalnov$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totalnov$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totalnov$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death pop local
+local.mi.prod<-localmoran(total$totalnov$m_death_pop_ratio, PPV3.w)
+
+total$totalnov$lmi<-local.mi.prod[,1]
+
+total$totalnov$lmi.p<-local.mi.prod[,5]
+
+total$totalnov$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+(kc8=spplot(total$totalnov, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "November",colorkey=FALSE))
+
+
+
+#december
+coor <- coordinates(total$totaldec)
+cartePPV3.knn <- knearneigh(coor, k=2) #2 neighbours
+cartePPV3.nb <- knn2nb(cartePPV3.knn,row.names = total$totaldec$name)
+PPV3.w <- nb2listw(cartePPV3.nb, style = "W", zero.policy = TRUE)#norm by row
+
+plot(total$totaldec, col='gray', border='blue', lwd=2,main= "Vizinhos")
+plot(PPV3.w, coordinates(total$totaldec), col='red', lwd=2, add=TRUE)#links
+#lots of variables missing
+
+#monthly
+#case_pop
+moran.plot(total$totaldec$m_case_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaldec$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaldec$m_case_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+
+#case pop local
+local.mi.prod<-localmoran(total$totaldec$m_case_pop_ratio, PPV3.w)
+
+total$totaldec$lmi<-local.mi.prod[,1]
+
+total$totaldec$lmi.p<-local.mi.prod[,5]
+
+total$totaldec$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+(case_dec=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "December",colorkey=F))
+
+
+#death_pop
+moran.plot(total$totaldec$m_death_pop_ratio, PPV3.w, zero.policy=TRUE)
+moran.test(total$totaldec$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+moran.mc(nsim=10000,total$totaldec$m_death_pop_ratio,PPV3.w,zero.policy = TRUE,na.action = na.omit)
+#validated
+
+#death pop local
+local.mi.prod<-localmoran(total$totaldec$m_death_pop_ratio, PPV3.w)
+
+total$totaldec$lmi<-local.mi.prod[,1]
+
+total$totaldec$lmi.p<-local.mi.prod[,5]
+
+total$totaldec$lmi.p.sig<-as.factor(ifelse(local.mi.prod[,5]<.001,"Sig p<.001",
+                                           ifelse(local.mi.prod[,5]<.05,"Sig p<.05", "NS" )))
+
+
+
+(kc9=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "December",colorkey = F))
+(kc9=spplot(total$totaldec, "lmi.p.sig", col.regions=c("white", "#E6550D","#FDAE6B"), main = "December",with.legend = "bottom", legend.prop = 0.15))
+
+
+#extract legend
+#https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
+g_legend<-function(a.gplot){
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)}
+#legend
+worldsf <- ne_countries(scale='medium',returnclass = 'sf')
+
+july2 <- july
+july2$cancel_events<- gsub(0, "Non Significant", july2$cancel_events)
+july2$cancel_events <- gsub(1, "<0.05", july2$cancel_events)
+july2$cancel_events <- gsub(2, "<0.01", july2$cancel_events)
+
+names(july2)[names(july2) == "administrative_area_level_1"] <- "subunit"
+julf<-merge(worldsf,july2,by="subunit")
+julf$subunit<-factor(julf$subunit)
+julf <- julf[order(julf$confirmed),] # order the data [very important!]
+
+
+(julho_leg <- ggplot(data = julf) +
+    geom_sf(aes(fill = cancel_events)) +
+    scale_fill_manual(values=c("orangered","orange","white")) +theme(legend.position =c(1.5,0.55),legend.title=element_text(size=14),legend.text=element_text(size=15),legend.direction = "horizontal",
+                                                                     legend.spacing.x = unit(0.2, 'cm'),
+                                                                     axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
+                                                                     panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="P-valor:",caption=c("Fonte: Covid19DataHub")))
+
+mylegend<-g_legend(julho_leg)
+
+#width=1366&height=678&scale=1
+tiff("moran_death.tiff", units="in", width=20, height=10, res=400)
+grid.arrange(kc1,kc2,kc3,kc4,kc5,kc6,kc7,kc8,kc9,mylegend,nrow=4,ncol=3)#top="Índice de Moran local sobre o número mensal \n de mortes por habitantes.
+dev.off()
+
+tiff("moran_cases.tiff", units="in", width=12, height=6, res=400)
+grid.arrange(case_oct,case_nov,case_dec,mylegend,nrow=2,ncol=3)#,top="Índice de Moran local sobre o número mensal \n de casos por habitantes."
+dev.off()
+
+novdec=grid.arrange(novplot,decplot,widths=c(0.3,0.3))
+
+ocnov_case=grid.arrange(ocplot_case,novplot_case,decplot_case,widths=c(0.3,0.3))
+
+
