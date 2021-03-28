@@ -635,7 +635,7 @@ julf <- julf[order(julf$confirmed),] # order the data [very important!]
     scale_fill_manual(values=c("orangered","orange","white")) +theme(legend.position =c(1.5,0.55),legend.title=element_text(size=14),legend.text=element_text(size=15),legend.direction = "horizontal",
                                                                      legend.spacing.x = unit(0.2, 'cm'),
                                                                      axis.ticks.x=element_blank(), axis.text.x=element_blank(),panel.background = element_rect(fill = "white"),
-                                                                     panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="P-valor:",caption=c("Fonte: Covid19DataHub")))
+                                                                     panel.border = element_rect(fill = NA))+labs(title ="Julho.",fill="P-value:",caption=c("Fonte: Covid19DataHub")))
 
 mylegend<-g_legend(julho_leg)
 
