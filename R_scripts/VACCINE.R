@@ -1,13 +1,12 @@
-install.packages("COVID19")
-install.packages("tidyverse")
-install.packages("ggthemes")
-install.packages("gridExtra")
+#install.packages("COVID19")
+#install.packages("tidyverse")
+#install.packages("ggthemes")
+#install.packages("gridExtra")
 library(gridExtra)
 library(COVID19)
 library(tidyverse)
 library(ggthemes)
-library(ggarrange)
-covid <- covid19(raw=F)
+covid <- covid19(end="2021-04-03",raw=F)
 #27218 <- one
 #recomendou fechar (1) e n fechou (0) serao 0
 #categorias = https://covid19datahub.io/articles/doc/data.html
@@ -32,22 +31,22 @@ deaths_daily=NULL
 vaccines_daily=NULL
 
 for(i in 1:nrow(covid)){
-   if(covid$date[i]!="2020-01-01"){
-  case_daily[i] <- covid$confirmed[i]-covid$confirmed[i-1]
-  deaths_daily[i] <- covid$deaths[i]-covid$deaths[i-1]
-  vaccines_daily[i] <- covid$vaccines[i]-covid$vaccines[i-1]
-     }else if(covid$date[i]=="2020-01-01"){ 
-       
+  if(covid$date[i]!="2020-01-01"){
+    case_daily[i] <- covid$confirmed[i]-covid$confirmed[i-1]
+    deaths_daily[i] <- covid$deaths[i]-covid$deaths[i-1]
+    vaccines_daily[i] <- covid$vaccines[i]-covid$vaccines[i-1]
+  }else if(covid$date[i]=="2020-01-01"){ 
+    
     vaccines_daily[i] <- covid$vaccines[i]   
     case_daily[i] <- covid$confirmed[i]
     deaths_daily[i] <- covid$deaths[i]
-     
-     }
+    
+  }
   
   #if(case_daily[i]<0){
-   # case_daily[i] <- 0
+  # case_daily[i] <- 0
   #}else if(deaths_daily[i]<0){
-   # deaths_daily[i] <- 0
+  # deaths_daily[i] <- 0
   #}
 }
 
@@ -60,12 +59,12 @@ options(scipen=999)
 #Vacina efeito de longo tempo
 cor.test(nacovid$vaccines,nacovid$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
-uk <- ggplot(nacovid, aes(nacovid$Daily_cases, nacovid$vaccines)) + geom_point() +theme_few() +
-  labs(title="United Kingdom \n(cor = -0.6688; CI = (-0.7871,-0.5031); p<0.0001)",x="",y="")
+uk <- ggplot(nacovid) + geom_point(na.rm=T, aes(Daily_cases, vaccines))+
+  labs(title="United Kingdom \n(cor = -0.8373; CI = (-0.8853, -0.7716))",x="Vaccinated people",y="Number of Cases")
 uk
-
 #Paises
-par(mfrow=c(4,2))
+#par(mfrow=c(4,2))
+#dev.off()
 nacovid <- ncovid %>% filter(id=="USA")
 nacovid <- nacovid %>% filter(vaccines>=1)
 
@@ -73,67 +72,63 @@ nacovid <- nacovid %>% filter(vaccines>=1)
 cor.test(nacovid$vaccines,nacovid$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
 
-us <- ggplot(nacovid, aes(nacovid$Daily_cases, nacovid$vaccines)) + geom_point() +theme_few() +
-  labs(title="United States \n(cor = -0.7638; CI = (-0.8557,-0.6253); p<0.0001)",x="",y="")
+us <- ggplot(nacovid) + geom_point(na.rm=T, aes(Daily_cases, vaccines))+
+  labs(title="United States \n(cor = -0.8013; CI = (-0.8607, -0.7203))",x="Vaccinated people",y="Number of Cases")
 us
 #Paises
+grid.arrange(uk,us,ncol=2)
 
-nacovid <- ncovid %>% filter(id=="RUS")
-nacovid <- nacovid %>% filter(vaccines>=1)
+znacovid <- ncovid %>% filter(id=="RUS")
+znacovid <- znacovid %>% filter(vaccines>=1)
 
 #Vacina efeito de longo tempo
-cor.test(nacovid$vaccines,nacovid$Daily_cases)
+cor.test(znacovid$vaccines,znacovid$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
-rus <- ggplot(nacovid, aes(nacovid$Daily_cases, nacovid$vaccines)) + geom_point() +theme_few() +
-  labs(title="Russia \n(cor = -0.8032; CI = (-0.8780,-0.6900); p<0.0001)",x="",y="")
+rus <- ggplot(znacovid) + geom_point(na.rm=T,aes(znacovid$Daily_cases, znacovid$vaccines)) +
+  labs(title="Russia \n(cor = -0.8687; CI = (-0.9082, -0.8138))",x="Vaccinated people",y="Number of Cases")
 rus
+grid.arrange(uk,us,rus,ncol=2)
 
 #Paises
 
-nacovid <- ncovid %>% filter(id=="CAN")
-nacovid <- nacovid %>% filter(vaccines>=1)
+nacovidl <- ncovid %>% filter(id=="ISR")
+nacovidl <- nacovidl %>% filter(vaccines>=1)
 
 #Vacina efeito de longo tempo
-cor.test(nacovid$vaccines,nacovid$Daily_cases)
+cor.test(nacovidl$vaccines,nacovidl$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
-can <- ggplot(nacovid, aes(nacovid$Daily_cases, nacovid$vaccines)) + geom_point() +theme_few() +
-  labs(title="Canada \n(cor = -0.8718; CI = (-0.9360,-0.7517); p<0.0001)",x="",y="")
+can <- ggplot(nacovidl) + geom_point(na.rm=T, aes(nacovidl$Daily_cases, nacovidl$vaccines)) +
+  labs(title="Israel \n(cor = -0.6374; CI = (-0.7384, -0.5085))",x="Vaccinated people",y="Number of Cases")
 can
+grid.arrange(rus,us,can,uk,ncol=2)
 
 #Paises
 
-nacovid <- ncovid %>% filter(id=="IRL")#IRELAND
-nacovid <- nacovid %>% filter(vaccines>=1)
+Fnacovid <- ncovid %>% filter(id=="IRL")#IRELAND
+Fnacovid <- Fnacovid %>% filter(vaccines>=1)
 
 #Vacina efeito de longo tempo
-cor.test(nacovid$vaccines,nacovid$Daily_cases)
+cor.test(Fnacovid$vaccines,Fnacovid$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
-irl <- ggplot(nacovid, aes(nacovid$Daily_cases, nacovid$vaccines)) + geom_point() +theme_few() +
-  labs(title="Ireland \n(cor = -0.7967; CI = (-0.8844,-0.6546); p<0.0001)",x="",y="")
+irl <- ggplot(Fnacovid) + geom_point(na.rm=T,aes(Fnacovid$Daily_cases, Fnacovid$vaccines)) +
+  labs(title="Ireland \n(cor = -0.6479; CI = (-0.7518, -0.5126))",x="Vaccinated people",y="Number of Cases")
 irl
+grid.arrange(uk,us,irl,rus,can,ncol=3,nrow=2)
 
 #Paises
 
-nacovid <- ncovid %>% filter(id=="LTU")
+nacovid <- ncovid %>% filter(id=="ARE")
 nacovid <- nacovid %>% filter(vaccines>=1)
 
 #Vacina efeito de longo tempo
 cor.test(nacovid$vaccines,nacovid$Daily_cases)
 plot(nacovid$Daily_cases~nacovid$vaccines)
-ltu <- ggplot(nacovid, aes(nacovid$Daily_cases, nacovid$vaccines)) + geom_point() +theme_few() +
-  labs(title="Lithuania \n(cor = -0.7626; CI = (-0.8603,-0.6108); p<0.0001)",x="",y="")
+ltu <- ggplot(nacovid) + geom_point(na.rm=T,aes(nacovid$Daily_cases, nacovid$vaccines)) +
+  labs(title="United Arab Emirates \n(cor = -0.6299; CI = (-0.7409, -0.4853))",x="Vaccinated people",y="Number of Cases")
 ltu
 
-#Paises
+grid.arrange(uk,us,can,rus,irl,ltu,nrow=2,ncol=3)
 
-nacovid <- ncovid %>% filter(id=="IND")
-nacovid <- nacovid %>% filter(vaccines>=1)
-
-#Vacina efeito de longo tempo
-cor.test(nacovid$vaccines,nacovid$Daily_cases)
-plot(nacovid$Daily_cases~nacovid$vaccines)
-
-#grid.arrange(uk,us,can,rus,irl,ltu,top="Correlação entre vacinados e casos diários",nrow=2,ncol=3)
 
 
 #owid data
