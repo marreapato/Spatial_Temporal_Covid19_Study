@@ -3,7 +3,7 @@
 #install.packages("readxl")
 #install.packages("maptools")
 #install.packages("sf")
-#install.packages("plotly")
+#install.packages("plotly",dependencies = TRUE)
 #install.packages("tmap")
 #install.packages("geobr")
 #install.packages("spdep")
@@ -12,12 +12,18 @@
 #install.packages("rgdal")
 #install.packages('spDataLarge',
 #           repos='https://nowosad.github.io/drat/', type='source')
+
+#install.packages('rlang')
+
+#install.packages("leaflet")
+library(leaflet)
 library(spDataLarge)
 library(crul)
 library(sf)
 library(spdep)
 library(geobr)
 library(tmap)
+library(rlang)
 library(plotly)
 library(tidyverse)
 library(ggthemes)
@@ -68,5 +74,15 @@ ggplot() +
   geom_sf(data=mesos_sp,aes(fill=mesos_sp$newCases), size=.15) +
   labs(subtitle="Mapa do Brasil", size=8,fill="Regiões") +
   theme_minimal() +theme(legend.position = "None")
+#you can get base map and tiles from leaflet
+tmap_mode("view")
+tmap_style("natural")
+
+colnames(mesos_sp)[3] <- "Casos"
+
+#interactive plot
+tm_basemap(leaflet::providers$Stamen.TonerLite) +
+  tm_shape(mesos_sp) + tm_polygons("Casos",id="abbrev_state")+
+  tm_tiles('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}')
 
 
