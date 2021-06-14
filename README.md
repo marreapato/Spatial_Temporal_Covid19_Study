@@ -10,3 +10,5 @@ Information about the first part of our work can be found down below:
 [Interactive Map of the number of vaccinated people in the world](https://rpubs.com/marrea/vaccines) - Not updated anymore.
 
 [Interactive Map of the number of deaths caused by Covid-19 in the world](https://rpubs.com/marrea/covideaths) - Not updated anymore.
+
+[Updated number of cases in Brazil](https://lucasufba.shinyapps.io/Mapa_Brasil/) - Updated daily.
