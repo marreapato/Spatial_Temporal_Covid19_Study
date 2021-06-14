@@ -16,73 +16,74 @@
 #install.packages('rlang')
 
 #install.packages("leaflet")
+#install.packages("htmltools")
 library(leaflet)
-library(spDataLarge)
 library(crul)
 library(sf)
 library(spdep)
 library(geobr)
 library(tmap)
-library(rlang)
-library(plotly)
 library(tidyverse)
-library(ggthemes)
 library(readxl)
 library(rgdal)
 library(maptools)
-#geobr https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html
+library(plotly)
 
-#geobr
-datasets <- list_geobr()
+df_br = read.csv("https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-states.csv")
 
-print(datasets, n=21)
-###################################
-#analisarei a crime_rate
-br <- read.csv("https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-states.csv")
-df_br <- br%>%group_by(date,state)%>%
-  summarise_if(is.numeric,sum,na.rm=T)
-
+df_br <- df_br%>%group_by(date,state)%>%
+      summarise_if(is.numeric,sum,na.rm=T)
+    
 df_br <- df_br %>% filter(state!="TOTAL")
-########################################
-
+    ########################################
+    
 df_br <- df_br[,c(1,2,6)]
-
-df_br <- df_br %>% filter(date==Sys.Date())
-
+    
+df_br <- df_br %>% filter(date==Sys.Date()-1)
+    
+    
 #Mesorregioes#geo_br
 mesos <- read_state(year=2017,simplified = T)
-mesos$name_state
-
-ggplot() +
-  geom_sf(data=mesos,aes(fill=mesos$abbrev_state), size=.15) +
-  labs(subtitle="Mapa do Brasil", size=8,fill="Regiões") +
-  theme_minimal() +theme(legend.position = "None")
+    
 
 mesos <- mesos[,c(2,6)]
-
+    
 #estados
-
+    
 df_br <- as_tibble(df_br)
-
-?left_join
-
+    
 mesos_sp <- left_join(mesos,df_br, by = c("abbrev_state" = "state"))
+mesos_sp_sp <- as(mesos_sp,Class = "Spatial")
+centroids.df <- as.data.frame(coordinates(mesos_sp_sp))
 
-mesos_sp$abbrev_state
+(mp <- ggplot() +
+      geom_sf(data=mesos_sp,aes(fill=mesos_sp$newCases), size=.15) +
+      labs(subtitle="Mapa de Novos Casos de COVID-19 no Brasil", size=8,fill="Casos") +
+      theme_minimal()  +
+      geom_text(aes(label = mesos_sp$newCases, x = centroids.df$V1, y = centroids.df$V2))+ scale_fill_viridis_c()+theme(legend.position = "right",axis.title.x=element_blank(),
+                                                                                                                        axis.text.x=element_blank(),
+                                                                                                                        axis.ticks.x=element_blank(),axis.title.y=element_blank(),
+                                                                                                                        axis.text.y=element_blank(),
+                                                                                                                        axis.ticks.y=element_blank()))
 
-ggplot() +
-  geom_sf(data=mesos_sp,aes(fill=mesos_sp$newCases), size=.15) +
-  labs(subtitle="Mapa do Brasil", size=8,fill="Regiões") +
-  theme_minimal() +theme(legend.position = "None")
-#you can get base map and tiles from leaflet
-tmap_mode("view")
-tmap_style("natural")
+
+
+
 
 colnames(mesos_sp)[3] <- "Casos"
 
-#interactive plot
-tm_basemap(leaflet::providers$Stamen.TonerLite) +
-  tm_shape(mesos_sp) + tm_polygons("Casos",id="abbrev_state")+
-  tm_tiles('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}')
+(mp <- ggplot() +
+    geom_sf(data=mesos_sp,aes(fill=Casos), size=.15) +
+    labs(subtitle="Mapa de Novos Casos de COVID-19 no Brasil", size=8,fill="Casos") +
+    theme_minimal()  +theme(legend.position = "right",axis.title.x=element_blank(),
+                                                                                                                      axis.text.x=element_blank(),
+                                                                                                                      axis.ticks.x=element_blank(),axis.title.y=element_blank(),
+                                                                                                                      axis.text.y=element_blank(),
+                                                                                                                      axis.ticks.y=element_blank()))
 
+
+
+
+
+ggplotly(mp)
 
