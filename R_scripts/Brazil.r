@@ -1,4 +1,5 @@
 #install.packages("tidyverse")
+
 #install.packages("ggthemes")
 #install.packages("readxl")
 #install.packages("maptools")
@@ -17,6 +18,8 @@
 
 #install.packages("leaflet")
 #install.packages("htmltools")
+#install.packages("zoo")
+library(zoo) # pacote com função para médias móveis
 library(leaflet)
 library(crul)
 library(sf)
@@ -87,3 +90,30 @@ colnames(mesos_sp)[3] <- "Casos"
 
 ggplotly(mp)
 
+
+
+df_br = read.csv("https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-states.csv")
+
+df_br <- df_br %>% filter(state=="TOTAL")
+########################################
+
+df_as=df_br %>%
+  mutate('roll_mean'=rollapply(df_br$newCases,7,mean,align='right',fill=NA))
+
+#grouping
+df_as=df_as %>%
+  gather(c("newCases","roll_mean"),key="Séries", value="Valor")
+
+df_as <- data.frame('data'=df_as$date,'serie'=df_as$Séries,'val'=df_as$Valor)
+
+df_as$data<- as.Date(df_as$data)
+
+as=ggplot(data = df_as, mapping = aes(x = data, y =val,colour=serie, fill = serie)) +
+  geom_line(size=1.1)+
+  labs(title="Média Móvel Semanal de Casos No Brasil.",x="",y="Daily Cases",colour="Series")+theme(legend.position = "none")+ 
+  scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
+  scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")
+as
+
+ggplotly(as)
+###
