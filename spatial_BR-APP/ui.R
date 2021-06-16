@@ -12,7 +12,7 @@ library(plotly)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
-
+    img(src='https://intercom2020.ufba.br/wp-content/uploads/2020/11/ufbalogo.png', align = "right"),
     # Application title
     titlePanel("Quantidade atualizada de casos de Covid-19 no Brasil, \n dados apresentados são por data de divulgação dos boletins de cada unidade federativa."),
 
@@ -22,6 +22,7 @@ shinyUI(fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
+            h6("Localidades em Cinza ainda não foram divulgadas.", align = "center"),
             plotlyOutput("distPlot"),
             plotlyOutput("distPlot2"),
             plotlyOutput("distPlot3")
