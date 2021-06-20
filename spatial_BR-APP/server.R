@@ -29,6 +29,7 @@ library(readxl)
 library(rgdal)
 library(maptools)
 library(plotly)
+library(bslib)
 
 data <- reactive({
     invalidateLater(4.32e+7/4,NULL)
