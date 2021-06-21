@@ -42,8 +42,9 @@ library(shiny)
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
     
+   
     output$distPlot <-  renderPlotly({
-        
+        if(input$inSelect=="Casos Hoje"){
         ###################################
         #analisarei a crime_rate
         df_br <- data()
@@ -86,11 +87,7 @@ shinyServer(function(input, output) {
         ggplotly(mp)%>% 
             layout(plot_bgcolor='transparent',paper_bgcolor='transparent', 
                    modebar=list(bgcolor='transparent', color='blue', activecolor='green'))
-        
-    })
-    
-    
-    output$distPlot2 <-  renderPlotly({
+        }else if(input$inSelect=="Casos Ontem"){
         
         ###################################
         #analisarei a crime_rate
@@ -134,11 +131,8 @@ shinyServer(function(input, output) {
             layout(plot_bgcolor='transparent',paper_bgcolor='transparent', 
                    modebar=list(bgcolor='transparent', color='blue', activecolor='green'))
         
-    })
-    
-    
-    output$distPlot3 <-  renderPlotly({
-        
+    }else{
+
         ###################################
         #analisarei a crime_rate
         df_br <- data()
@@ -172,6 +166,8 @@ shinyServer(function(input, output) {
             layout(plot_bgcolor='transparent',paper_bgcolor='transparent', 
                    modebar=list(bgcolor='transparent', color='blue', activecolor='green'))
         ###
-    })
+    }
     
+})
+
 })
