@@ -73,17 +73,19 @@ shinyServer(function(input, output) {
         mp <- ggplot() +
                 geom_sf(data=mesos_sp,aes(fill=Casos), size=.15) +
                 labs(title="Mapa de Novos Casos de COVID-19 no Brasil", size=8,fill="Casos") +
-                theme(legend.position = "right",axis.title.x=element_blank(),
+                theme(legend.position = "none",axis.title.x=element_blank(),
                                         axis.text.x=element_blank(),
                                         axis.ticks.x=element_blank(),axis.title.y=element_blank(),
                                         axis.text.y=element_blank(),
-                                        axis.ticks.y=element_blank())
+                                        axis.ticks.y=element_blank(),plot.title = element_text(color = "white"))
         
         
         
         
         
-        ggplotly(mp)
+        ggplotly(mp)%>% 
+            layout(plot_bgcolor='transparent',paper_bgcolor='transparent', 
+                   modebar=list(bgcolor='transparent', color='blue', activecolor='green'))
         
     })
     
@@ -119,17 +121,18 @@ shinyServer(function(input, output) {
         mp <- ggplot() +
             geom_sf(data=mesos_sp,aes(fill=Casos), size=.15) +
             labs(title="Mapa de Casos de COVID-19 no Brasil ontem", size=8,fill="Casos") +
-            theme(legend.position = "right",axis.title.x=element_blank(),
+            theme(legend.position = "none",axis.title.x=element_blank(),
                                     axis.text.x=element_blank(),
                                     axis.ticks.x=element_blank(),axis.title.y=element_blank(),
                                     axis.text.y=element_blank(),
-                                    axis.ticks.y=element_blank())
+                                    axis.ticks.y=element_blank(),plot.title = element_text(color = "white"))
         
         
         
         
-        
-        ggplotly(mp)
+        ggplotly(mp)%>% 
+            layout(plot_bgcolor='transparent',paper_bgcolor='transparent', 
+                   modebar=list(bgcolor='transparent', color='blue', activecolor='green'))
         
     })
     
@@ -157,10 +160,17 @@ shinyServer(function(input, output) {
             geom_line(size=1.1)+
             labs(title="Média Móvel Semanal de Casos No Brasil. (Atualizada)",x="",y="Quantidade",colour="Series")+theme(legend.position = "none")+ 
             scale_color_manual(labels = c("Daily Cases", "Moving Average"),values =c("green","red") )+
-            scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y")
+            scale_x_date(date_breaks = "4 month",date_labels = "%m/%Y") +
+            theme(legend.position = "none",axis.title.x=element_blank(),
+                  axis.text.x=element_text(colour = "white"),
+                  axis.ticks.x=element_line(colour = "white"),axis.title.y=element_blank(),
+                  axis.text.y=element_blank(),
+                  axis.ticks.y=element_blank(),plot.title = element_text(color = "white"))
         
         
-        ggplotly(as)
+        ggplotly(as)%>% 
+            layout(plot_bgcolor='transparent',paper_bgcolor='transparent', 
+                   modebar=list(bgcolor='transparent', color='blue', activecolor='green'))
         ###
     })
     
