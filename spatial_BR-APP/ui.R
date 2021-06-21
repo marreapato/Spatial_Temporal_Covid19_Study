@@ -62,8 +62,12 @@ shinyUI(fluidPage(
 
     # Sidebar with a slider input for number of bins
     sidebarLayout(
-        sidebarPanel("Atualizações de 3 em 3 horas,\n fonte:W. Cota, “Monitoring the number of COVID-19 cases and deaths in brazil at municipal and federative units level”, SciELOPreprints:362 (2020), 10.1590/scielopreprints.362"),
-
+        sidebarPanel("Atualizações de 3 em 3 horas,\n fonte:W. Cota, “Monitoring the number of COVID-19 cases and deaths in brazil at municipal and federative units level”, SciELOPreprints:362 (2020), 10.1590/scielopreprints.362",
+                     selectInput("inSelect", "\nSelecionar Gráfico:",
+                                 c("Casos Hoje", "Casos Ontem", "Média Móvel de Casos"))
+                     
+                     ),
+        
         # Show a plot of the generated distribution
         mainPanel(
             h6("Localidades em Cinza ainda não foram divulgadas.", align = "center"),
