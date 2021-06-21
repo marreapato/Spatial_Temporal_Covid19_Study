@@ -71,9 +71,7 @@ shinyUI(fluidPage(
         # Show a plot of the generated distribution
         mainPanel(
             h6("Localidades em Cinza ainda não foram divulgadas.", align = "center"),
-            plotlyOutput("distPlot"),
-            plotlyOutput("distPlot2"),
-            plotlyOutput("distPlot3")
+            plotlyOutput("distPlot")
         )
     )
 ))
