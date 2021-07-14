@@ -1,2 +1,2 @@
 # to change language of repo from Javascript to Python
-    *.jupyter_notebook linguist-language=Python
+    *.ipynb linguist-language=R
