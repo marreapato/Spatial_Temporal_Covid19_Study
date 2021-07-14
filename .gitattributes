@@ -1,2 +1,2 @@
 # to change language of repo from Javascript to Python
-    *.jupyter linguist-language=Python
+    *.jn linguist-language=Python
