@@ -11,6 +11,6 @@ Information about the first part of our work can be found down below:
 
 [Interactive Map of the number of deaths caused by Covid-19 in the world](https://rpubs.com/marrea/covideaths) - Not updated anymore.
 
-[Hybrid ARIMA-MLP model updated 7-day predictions](https://lucasufba.shinyapps.io/Live_dashboard/) = Updated Daily. 
+[Hybrid ARIMA-MLP model updated 7-day predictions](https://lucasufba.shinyapps.io/Live_dashboard/) - Updated Daily. 
 
 [Updated number of cases in Brazil](https://lucasufba.shinyapps.io/Mapa_Brasil/) - Updated Daily.
