@@ -1,0 +1,537 @@
+---
+title: "Relatório MLP"
+author: "Lucas Rabelo"
+date: "02/05/2021"
+output:
+  html_document:
+    df_print: paged
+  word_document: default
+  pdf_document: default
+---
+
+## Parte Teórica
+
+ 
+ Para um bom resumo sobre redes neurais e redes neurais mlp recomenda-se checaro estudo de Pissarenko (2003) onde a partir do capítulo 2 define-se as redes neurais e as redes MLP. Após explicitar a estrutura da rede com a camada de input, as escondidas e a camada de saída, sobre a importância dos pesos é frisado que ao se alterar os pesos de uma maneira específica, a rede pode “aprender” a mapear os padrões apresentados na camada de entrada para valores-alvo na camada de saída. A descrição do procedimento por meio do qual essa adaptação de peso é realizada é chamada de algoritmo de aprendizado ou treinamento. $\!\!^4$. 
+ 
+ Ainda resumindo um pouco a definição das MLPs em Pissarenko (2003) "Uma rede neural MLP consiste em pelo menos três camadas: camada de entrada, uma ou várias camadas ocultas e camada de saída. Os nós individuais são conectados por links onde cada link tem um certo peso (w1, w2, w3, w4, w5, w6). Cada nó recebe vários valores como entrada, processa-os e produz uma saída, que pode ser “encaminhada” para outros nós. Um neurônio pode ter um número arbitrário de entradas, mas apenas uma saída. Ao alterar os pesos dos links que conectam os nós individuais, a RNA pode ser ajustada para aproximar uma determinada função. $\!\!^4$
+
+ em Murtagh (1991) como complemento temos que: No geral uma rede neural mlp é definida por sua configuração ou arquitetura sendo esta seu número de camadas, número de neurônios por camada, seus métodos de ativação, pela especificação do método de aprendizagem - gradiente descendente usando a regra delta generalizada, gradiente conjugado ou outro método - e a especificação de eventos - se a atualização de peso é realizada em 'tempo real' (ou seja, seguindo cada padrão de treinamento) ou 'off-line' (em cada época, após a apresentação de todos os padrões de treinamento). $\!\!^1$
+
+
+### Porque escolhemos redes neurais para nosso problema de previsão?
+
+
+ Segundo (Zhang, 2003) RNAs são estruturas de computação flexíveis para modelar uma ampla gama de problemas não lineares. Uma vantagem significativa dos modelos de RNA sobre outras classes de modelo não linear é que as **RNAs são aproximadores universais** que podem aproximar uma grande classe de funções com um alto grau de precisão. Seu poder vem do processamento paralelo das informações dos dados. Nenhuma suposição anterior da forma do modelo é necessária no processo de construção do modelo. Em vez disso, o modelo de rede é amplamente determinado pelas características dos dados. *A rede feedforward de camada oculta única é a forma de modelo mais amplamente usada para modelagem e previsão de séries temporais*, **este foi um dos motivos de utilizarmos nossos modelos de rede neural com apenas uma camada, os outros serão esclarecidos a seguir**. $\!\!^3$
+ 
+ Além disso o autor da função ```mlp()``` (mais detalhes em: <https://kourentzes.com/forecasting/wp-content/uploads/2014/04/Kourentzes-et-al-2014-Neural-Network-Ensemble-Operators-for-Time-Series-Forecasting.pdf>), que utilizamos no software r, menciona em seu trabalho Kourentzes, Barrow e Crone (2014) que a forma mais comumente usada de NNs para previsão é a rede neural MLP. **A previsão de um passo à frente é calculada usando entradas que são observações defasadas da série temporal** ou outras variáveis explicativas, inclusive esta é a definição das entradas na função ```mlp()``` que utilizamos.  $\!\!^5$ 
+ 
+ Já uma das preocupações com a definição de nossos modelos de rede neural foi a estrutura do modelo, visto que seriam posteriormente comparados com modelos Arima e utilizados para a geração de um modelo misto, as entradas dos foram construídas com base nas afirmações dadas por Flores (2009) Com relação a escolha dos modelos,  isso se deve a implicações práticas. O número de neurônios na camada de entrada indica o tamanho máximo de ciclo ou sazonalidade que o modelo pode detectar. O modelo de seis neurônios na camada de entrada pode captar uma sazonalidade de período igual ou inferior a seis, enquanto que o modelo com doze neurônios pode captar sazonalidade com período igual ou inferior a doze. A camada oculta é a capacidade de processamento do modelo e foi limitada tanto na sua capacidade inferior[...], neste caso os modelos com sazonalidade similares serão comparados, no ARIMA e no MLP, além disso a ordem das diferenças dos modelos MLP que capturam sazonalidade foram construídas com base no parâmetro D dos modelos SARIMA, o melhor MLP será utilizado para construção do modelo misto. $\!\!^2$ 
+ 
+## Parte Prática
+ 
+ Os erros em cada modelo de rede neural ajustada estão na seguinte tabela: <https://docs.google.com/spreadsheets/d/1c6UAkzZkgJ9N2OXkMBDfk7ps_YbcbtmSE5SmjNshbFc/edit#gid=0>.
+
+```{r, echo=TRUE, message=FALSE, error=FALSE, results='hide',include = FALSE}
+#https://stats.stackexchange.com/questions/344089/arima-ann-hybrid-model-for-timeseries-forecasting
+
+#install.packages("tidyverse")
+#install.packages("forecast")
+#install.packages('Metrics')
+#install.packages('MLmetrics')
+#install.packages("nnfor")
+library(nnfor)
+
+library(Metrics)
+library(MLmetrics)
+library(forecast)
+
+library(tidyverse)
+
+#o modelo 5,1,1 é o melhor, vou usar os modelos do outro neste
+covid <- read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv")
+covid$date <- as.Date(covid$date)
+library(forecast)
+
+covid <- covid %>% filter(covid$date<="2021-04-25")
+#tratamento
+#https://covid19datahub.io/articles/data.html
+
+#df_w <- data_w
+
+#covid <- covid19(start = "2021-01-01",end= Sys.Date(),raw=F)
+
+covid <- covid%>%group_by(date)%>%
+  summarise_if(is.numeric,sum,na.rm=T)
+
+#df
+covid_std <- covid
+#From DF to TS
+world_daily_cases <- aggregate(covid_std["new_cases"], by=covid_std["date"], sum)
+plot(world_daily_cases, type = "l")
+
+daily_data_w <- world_daily_cases
+
+
+#minha serie
+daily_data_w$date <- as.Date(as.character(daily_data_w$date))
+daily_data_less_7 <- daily_data_w[c(1:(nrow(daily_data_w)-7)),]
+daily_data_less_14 <- daily_data_w[c(1:(nrow(daily_data_w)-14)),]
+daily_data_less_21 <- daily_data_w[c(1:(nrow(daily_data_w)-21)),]
+daily_data_less_28 <- daily_data_w[c(1:(nrow(daily_data_w)-28)),]
+
+#Validation
+validation_7d <- daily_data_w[c((nrow(daily_data_w)-6):nrow(daily_data_w)),]
+validation_14d <- daily_data_w[c((nrow(daily_data_less_7)-6):nrow(daily_data_less_7)),]
+validation_21d <- daily_data_w[c((nrow(daily_data_less_14)-6):nrow(daily_data_less_14)),]
+validation_28d <- daily_data_w[c((nrow(daily_data_less_21)-6):nrow(daily_data_less_21)),]
+valid_list <- list(validation_7d,validation_14d,validation_21d,validation_28d)
+
+#modelos arima nao sazional
+#ts_world <- ts(daily_data_w,deltat = 1/365)
+
+##################################################
+ts_less7 <-ts(daily_data_less_7,deltat = 1/365) 
+ts_less14 <-ts(daily_data_less_14,deltat = 1/365) 
+ts_less21 <-ts(daily_data_less_21,deltat = 1/365) 
+ts_less28 <-ts(daily_data_less_28,deltat = 1/365) 
+ts_list <- list(ts_less7,ts_less14,ts_less21,ts_less28)
+
+models=list(NULL)
+##########################################################################################################################
+#https://www.sciencedirect.com/science/article/pii/S1684118220300980
+#número de casos modelo 1 modelo
+?mlp#http://www.endmemo.com/r/nnf_mlp.php
+
+##############################################################################
+```
+
+### Previsão para 7 dias
+
+A rede neural ajustada teve forma (1,5,1), para as previsões que serão comparadas com o modelo Arima sem sazonalidade.
+
+```{r, echo=FALSE, message=FALSE, error=FALSE, results='hide',include = FALSE}
+ts_less7 <-ts(daily_data_less_7,deltat = 1/365) 
+set.seed(123)
+
+(fit <- mlp(ts_less7[,2],hd.auto.type = F,hd=c(5),reps = 20,lags =c(7),difforder=0))
+
+```
+
+
+
+```{r, warning=FALSE,error=FALSE}
+plot(fit)
+fc.c1 <- forecast(fit,h=7)
+plot(fc.c1)
+
+mase(validation_7d$new_cases,fc.c1$mean)
+
+```
+
+
+### Previsão para 14 dias
+
+
+```{r, echo=FALSE, message=FALSE, error=FALSE, results='hide',include = FALSE}
+
+#medio prazo
+
+#minha serie
+daily_data_less_14 <- daily_data_w[c(1:(nrow(daily_data_w)-14)),]
+
+#Validation
+validation_14d <- daily_data_w[c((nrow(daily_data_w)-13):nrow(daily_data_w)),]
+
+##################################################
+ts_less7 <-ts(daily_data_less_14,deltat = 1/365) 
+
+(fit <- mlp(ts_less7[,2],model = fit))
+
+```
+
+
+```{r, warning=FALSE,error=FALSE}
+
+fc.c1 <- forecast(fit,h=14)
+plot(fc.c1)
+mase(validation_14d$new_cases,fc.c1$mean)
+```
+
+
+### Previsão para 28 dias
+
+
+```{r, echo=FALSE, message=FALSE, error=FALSE, results='hide',include = FALSE}
+
+daily_data_less_28 <- daily_data_w[c(1:(nrow(daily_data_w)-28)),]
+
+#Validation
+validation_28d <- daily_data_w[c((nrow(daily_data_w)-27):nrow(daily_data_w)),]
+
+##################################################
+ts_less7 <-ts(daily_data_less_28,deltat = 1/365) 
+```
+
+```{r, warning=FALSE,error=FALSE}
+
+(fit <- mlp(ts_less7[,2],model = fit))
+
+fc.c1 <- forecast(fit,h=28)
+plot(fc.c1)
+mase(validation_28d$new_cases,fc.c1$mean)
+```
+
+## Com Sazionalidade
+
+
+### Semanal
+
+O modelo de sazonalidade semanal para comparação com o modelo Arima de sazonalidade semanal foi de forma (7,5,1).
+
+```{r, echo=FALSE, message=FALSE, error=FALSE, results='hide',include = FALSE}
+#o modelo 5,1,1 é o melhor, vou usar os modelos do outro neste
+covid <- read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv")
+covid$date <- as.Date(covid$date)
+
+covid <- covid %>% filter(covid$date<="2021-04-25")
+#tratamento
+#https://covid19datahub.io/articles/data.html
+
+#df_w <- data_w
+
+#covid <- covid19(start = "2021-01-01",end= Sys.Date(),raw=F)
+
+covid <- covid%>%group_by(date)%>%
+  summarise_if(is.numeric,sum,na.rm=T)
+
+#df
+covid_std <- covid
+#From DF to TS
+world_daily_cases <- aggregate(covid_std["new_cases"], by=covid_std["date"], sum)
+plot(world_daily_cases, type = "l")
+
+daily_data_w <- world_daily_cases
+
+#minha serie
+daily_data_w$date <- as.Date(as.character(daily_data_w$date))
+daily_data_less_7 <- daily_data_w[c(1:(nrow(daily_data_w)-7)),]
+daily_data_less_14 <- daily_data_w[c(1:(nrow(daily_data_w)-14)),]
+daily_data_less_21 <- daily_data_w[c(1:(nrow(daily_data_w)-21)),]
+daily_data_less_28 <- daily_data_w[c(1:(nrow(daily_data_w)-28)),]
+
+#Validation
+validation_7d <- daily_data_w[c((nrow(daily_data_w)-6):nrow(daily_data_w)),]
+validation_14d <- daily_data_w[c((nrow(daily_data_less_7)-6):nrow(daily_data_less_7)),]
+validation_21d <- daily_data_w[c((nrow(daily_data_less_14)-6):nrow(daily_data_less_14)),]
+validation_28d <- daily_data_w[c((nrow(daily_data_less_21)-6):nrow(daily_data_less_21)),]
+valid_list <- list(validation_7d,validation_14d,validation_21d,validation_28d)
+
+#modelos arima nao sazional
+#ts_world <- ts(daily_data_w,deltat = 1/365)
+
+##################################################
+ts_less7 <-ts(daily_data_less_7,frequency=365.25/52) 
+ts_less14 <-ts(daily_data_less_14,frequency=365.25/52) 
+ts_less21 <-ts(daily_data_less_21,frequency=365.25/52) 
+ts_less28 <-ts(daily_data_less_28,frequency=365.25/52) 
+ts_list <- list(ts_less7,ts_less14,ts_less21,ts_less28)
+
+models=list(NULL)
+##########################################################################################################################
+
+#prevs
+#Curto prazo
+
+covid <- read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv")
+covid$date <- as.Date(covid$date)
+
+covid <- covid %>% filter(covid$date<="2021-04-25")
+#tratamento
+#https://covid19datahub.io/articles/data.html
+
+#df_w <- data_w
+
+#covid <- covid19(start = "2021-01-01",end= Sys.Date(),raw=F)
+
+covid <- covid%>%group_by(date)%>%
+  summarise_if(is.numeric,sum,na.rm=T)
+
+#df
+covid_std <- covid
+#From DF to TS
+world_daily_cases <- aggregate(covid_std["new_cases"], by=covid_std["date"], sum)
+
+daily_data_w <- world_daily_cases
+
+
+#minha serie
+daily_data_w$date <- as.Date(as.character(daily_data_w$date))
+daily_data_less_7 <- daily_data_w[c(1:(nrow(daily_data_w)-7)),]
+
+#Validation
+validation_7d <- daily_data_w[c((nrow(daily_data_w)-6):nrow(daily_data_w)),]
+
+
+```
+
+
+
+
+### Curto Prazo
+
+```{r, echo=FALSE, message=FALSE, error=FALSE, results='hide',include = FALSE}
+##################################################
+ts_less7 <-ts(daily_data_less_7,frequency = 365.25/52) 
+set.seed(12)
+(fit <- mlp(ts_less7[,2],hd.auto.type = F,hd=c(5),reps = 20,lags = c(14,16,17,21,28,31),difforder = 1))
+
+```
+
+```{r, warning=FALSE,error=FALSE}
+
+plot(fit)
+fc.c1 <- forecast(fit,h=7)
+
+plot(fc.c1)
+mase(validation_7d$new_cases,fc.c1$mean)
+```
+
+### Medio Prazo
+
+
+```{r, echo=FALSE, message=FALSE, error=FALSE, results='hide',include = FALSE}
+#medio prazo
+
+#minha serie
+daily_data_less_14 <- daily_data_w[c(1:(nrow(daily_data_w)-14)),]
+
+#Validation
+validation_14d <- daily_data_w[c((nrow(daily_data_w)-13):nrow(daily_data_w)),]
+
+##################################################
+ts_less7 <-ts(daily_data_less_14,frequency = 365.25/52) 
+
+fit <- mlp(ts_less7[,2],model=fit)
+
+#longo prazo
+
+```
+
+
+```{r, warning=FALSE,error=FALSE}
+
+
+fc.c1 <- forecast(fit,h=14)
+
+plot(fc.c1)
+
+mase(validation_14d$new_cases,fc.c1$mean)
+```
+
+### Longo Prazo
+Para 28 dias tivemos:
+```{r, echo=FALSE, message=FALSE, error=FALSE, results='hide',include = FALSE}
+
+#minha serie
+daily_data_less_28 <- daily_data_w[c(1:(nrow(daily_data_w)-28)),]
+
+#Validation
+validation_28d <- daily_data_w[c((nrow(daily_data_w)-27):nrow(daily_data_w)),]
+
+##################################################
+ts_less7 <-ts(daily_data_less_28,frequency = 365.25/52) 
+
+fit <- mlp(ts_less7[,2],model=fit)
+
+
+```
+
+
+```{r, warning=FALSE,error=FALSE}
+
+fc.c1 <- forecast(fit,h=28)
+plot(fc.c1)
+
+mase(validation_28d$new_cases,fc.c1$mean)
+```
+
+### Duas Semanas
+
+
+O modelo de sazonalidade com duas semanas para comparação com o modelo Arima de mesma sazonalidade foi de forma (14,5,1), o modelo captura uma sazonalidade de até 14 dias.
+
+```{r, echo=FALSE, message=FALSE, error=FALSE, results='hide',include = FALSE}
+
+#o modelo 5,1,1 é o melhor, vou usar os modelos do outro neste
+covid <- read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv")
+covid$date <- as.Date(covid$date)
+
+covid <- covid %>% filter(covid$date<="2021-04-25")
+#tratamento
+#https://covid19datahub.io/articles/data.html
+
+#df_w <- data_w
+
+#covid <- covid19(start = "2021-01-01",end= Sys.Date(),raw=F)
+
+covid <- covid%>%group_by(date)%>%
+  summarise_if(is.numeric,sum,na.rm=T)
+
+#df
+covid_std <- covid
+#From DF to TS
+world_daily_cases <- aggregate(covid_std["new_cases"], by=covid_std["date"], sum)
+plot(world_daily_cases, type = "l")
+
+daily_data_w <- world_daily_cases
+
+#minha serie
+daily_data_w$date <- as.Date(as.character(daily_data_w$date))
+daily_data_less_7 <- daily_data_w[c(1:(nrow(daily_data_w)-7)),]
+daily_data_less_14 <- daily_data_w[c(1:(nrow(daily_data_w)-14)),]
+daily_data_less_21 <- daily_data_w[c(1:(nrow(daily_data_w)-21)),]
+daily_data_less_28 <- daily_data_w[c(1:(nrow(daily_data_w)-28)),]
+
+#Validation
+validation_7d <- daily_data_w[c((nrow(daily_data_w)-6):nrow(daily_data_w)),]
+validation_14d <- daily_data_w[c((nrow(daily_data_less_7)-6):nrow(daily_data_less_7)),]
+validation_21d <- daily_data_w[c((nrow(daily_data_less_14)-6):nrow(daily_data_less_14)),]
+validation_28d <- daily_data_w[c((nrow(daily_data_less_21)-6):nrow(daily_data_less_21)),]
+valid_list <- list(validation_7d,validation_14d,validation_21d,validation_28d)
+##################################################
+ts_less7 <-ts(daily_data_less_7,frequency=365.25/26) 
+ts_less14 <-ts(daily_data_less_14,frequency=365.25/26) 
+ts_less21 <-ts(daily_data_less_21,frequency=365.25/26) 
+ts_less28 <-ts(daily_data_less_28,frequency=365.25/26) 
+ts_list <- list(ts_less7,ts_less14,ts_less21,ts_less28)
+
+models=list(NULL)
+##########################################################################################################################
+#https://www.sciencedirect.com/science/article/pii/S1684118220300980
+#install.packages("astsa")
+#####################################################################################3
+
+#prevs
+#Curto prazo
+
+covid <- read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv")
+covid$date <- as.Date(covid$date)
+
+covid <- covid %>% filter(covid$date<="2021-04-25")
+#tratamento
+#https://covid19datahub.io/articles/data.html
+
+#df_w <- data_w
+
+#covid <- covid19(start = "2021-01-01",end= Sys.Date(),raw=F)
+
+covid <- covid%>%group_by(date)%>%
+  summarise_if(is.numeric,sum,na.rm=T)
+
+#df
+covid_std <- covid
+#From DF to TS
+world_daily_cases <- aggregate(covid_std["new_cases"], by=covid_std["date"], sum)
+
+daily_data_w <- world_daily_cases
+
+
+#minha serie
+daily_data_w$date <- as.Date(as.character(daily_data_w$date))
+daily_data_less_7 <- daily_data_w[c(1:(nrow(daily_data_w)-7)),]
+
+#Validation
+validation_7d <- daily_data_w[c((nrow(daily_data_w)-6):nrow(daily_data_w)),]
+
+set.seed(2)
+ts_less7 <-ts(daily_data_less_7,frequency = 365.25/26) 
+(fit <- mlp(ts_less7[,2],hd.auto.type = F,hd=c(5),reps = 20,lags = c(1:21),difforder = 1))
+```
+
+### Curto Prazo
+
+```{r, warning=FALSE,error=FALSE}
+
+
+plot(fit)
+
+fc.c1 <- forecast(fit,h=7)
+
+plot(fc.c1)
+
+mase(validation_7d$new_cases,fc.c1$mean)
+```
+
+### Medio Prazo
+```{r, echo=FALSE, message=FALSE, error=FALSE, results='hide',include = FALSE}
+
+
+#minha serie
+daily_data_less_14 <- daily_data_w[c(1:(nrow(daily_data_w)-14)),]
+
+#Validation
+validation_14d <- daily_data_w[c((nrow(daily_data_w)-13):nrow(daily_data_w)),]
+
+##################################################
+ts_less7 <-ts(daily_data_less_14,frequency = 365.25/26) 
+
+fit <- mlp(ts_less7[,2],model = fit)
+
+
+```
+
+
+
+```{r, warning=FALSE,error=FALSE}
+
+fc.c1 <- forecast(fit,h=14)
+plot(fc.c1)
+
+mase(validation_14d$new_cases,fc.c1$mean)
+```
+
+### Longo Prazo
+
+```{r, echo=FALSE, message=FALSE, error=FALSE, results='hide',include = FALSE}
+
+#minha serie
+daily_data_less_28 <- daily_data_w[c(1:(nrow(daily_data_w)-28)),]
+
+#Validation
+validation_28d <- daily_data_w[c((nrow(daily_data_w)-27):nrow(daily_data_w)),]
+
+##################################################
+ts_less7 <-ts(daily_data_less_28,frequency = 365.25/26) 
+
+fit <- mlp(ts_less7[,2],model = fit)
+
+```
+
+
+```{r, warning=FALSE,error=FALSE}
+fc.c1 <- forecast(fit,h=28)
+plot(fc.c1)
+
+mase(validation_28d$new_cases,fc.c1$mean)
+```
+
+
+## Conclusões sobre a parte prática
+
+
+ As mudanças no banco de dados podem gerar mudanças nas medidas de erro (Há correções feitas para informações anteriores ao dia 25 de Abril, isso alterou algumas medidas de erro, algumas para menos e outras para mais, no entanto as mudanças não foram muito significativas para os primeiros dois modelos, havendo mudanças significativas apenas nas medidas R2 e MASE no último modelo, o MLP(14,5,1)), o que pode revelar um grau instabilidade maior neste modelo, a mudança nas medidas de erro estão na tabela, mesmo que haja um leve grau em todos por estarmos lidando com dados atualizados em tempo real, a medida MASE e o R2 foram as que mais sofreram com instabilidade nas mudanças no banco de dados, apesar do MASE ter sofrido mais apenas na janela de previão de 28 dias, já no SMAPE houveram poucas alterações, o modelo MLP(7,5,1) continuou como sendo o melhor dentre os modelos ajustados, este problema também pode estar presente nos modelos ARIMA, no entanto os modelos ARIMA e MLP mantiveram suas estruturas.
+
+ - nota: The forecasting accuracy is assessed using the Mean Absolute Scaled Error (MASE). <- no estudo do kourentzes, a escolha do MASE foi feita devida suas propriedades estatísticas, **(ver depois)**
+
+## Referências
+
+[1] - Murtagh, F. (1991). Multilayer perceptrons for classification and regression. Neurocomputing, 2(5-6), 183–197. doi:10.1016/0925-2312(91)90023-5 
+
+[2] - Flores, JHF. (2009). Comparação de modelos MLP/RNA e modelos Box-Jenkins em séries temporais não lineares. UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL, ESCOLA DE ENGENHARIA. http://hdl.handle.net/10183/17150
+
+[3] - Zhang, G. P. (2003). Time series forecasting using a hybrid ARIMA and neural network model. Neurocomputing, 50, 159–175. doi:10.1016/s0925-2312(01)00702-0
+
+[4] - Pissarenko, Dimitri. “Neural Networks For Financial Time Series Prediction: Overview Over Recent Research.” (2002).
+
+[5] - Nikolaos Kourentzes, Devon K. Barrow, Sven F. Crone."Neural network ensemble operators for time series forecasting." (2014)
