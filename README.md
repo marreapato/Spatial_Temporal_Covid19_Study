@@ -14,3 +14,5 @@ Information about the first part of our work can be found down below:
 [Hybrid ARIMA-MLP model updated 7-day predictions](https://lucasufba.shinyapps.io/Live_dashboard/) - Updated Daily. 
 
 [Updated number of cases in Brazil](https://lucasufba.shinyapps.io/Mapa_Brasil/) - Updated Daily.
+
+![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)
